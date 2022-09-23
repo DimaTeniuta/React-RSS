@@ -8,7 +8,7 @@ export default class Header extends Component {
       <header className="header">
         <div className="header__wrap-btn">
           <Link className="header__nav-link" to="/">
-            About
+            About Us
           </Link>
           <Link className="header__nav-link" to="/main">
             Main
