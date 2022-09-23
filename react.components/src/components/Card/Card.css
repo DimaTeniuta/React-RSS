@@ -1,0 +1,53 @@
+@import '../../styles/variables.css';
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  row-gap: 15px;
+  max-width: 430px;
+  padding: 10px;
+  backdrop-filter: var(--filter);
+  background-color: var(--color-background-box);
+  border: 2px solid var(--color-grey);
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+.card__image {
+  width: 400px;
+  height: 280px;
+  border-radius: 5px;
+}
+
+.card__wrap-description {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card__title {
+  color: var(--color-white);
+  font-size: 18px;
+}
+
+.card__likes {
+  position: absolute;
+  right: 40px;
+  bottom: 30px;
+  color: var(--color-white);
+}
+
+.card__likes__icon {
+  position: absolute;
+  right: 15px;
+  bottom: 30px;
+  width: 20px;
+  height: 20px;
+  background-image: url(../../../public/assets/likes.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
