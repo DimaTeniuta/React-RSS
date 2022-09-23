@@ -47,7 +47,7 @@
   bottom: 30px;
   width: 20px;
   height: 20px;
-  background-image: url(../../../public/assets/likes.svg);
+  background-image: url(../../../public/assets/svg/likes.svg);
   background-repeat: no-repeat;
   background-size: cover;
 }
