@@ -1,0 +1,279 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Card Card snapshot 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="card"
+        data-testid="test-card"
+      >
+        <img
+          alt="card-image"
+          class="card__image"
+          src="https://images.unsplash.com/photo-1416339306562-f3d12fefd36f?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&s=263af33585f9d32af39d165b000845eb"
+        />
+        <p
+          class="card__title"
+        >
+          Test
+        </p>
+        <span
+          class="card__likes"
+        >
+          286
+        </span>
+        <div
+          class="card__likes__icon"
+        />
+        <form
+          action="https://hd.unsplash.com/photo-1416339306562-f3d12fefd36f"
+          target="_blank"
+        >
+          <button
+            class="btn"
+          >
+            Full size
+          </button>
+        </form>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="card"
+      data-testid="test-card"
+    >
+      <img
+        alt="card-image"
+        class="card__image"
+        src="https://images.unsplash.com/photo-1416339306562-f3d12fefd36f?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&s=263af33585f9d32af39d165b000845eb"
+      />
+      <p
+        class="card__title"
+      >
+        Test
+      </p>
+      <span
+        class="card__likes"
+      >
+        286
+      </span>
+      <div
+        class="card__likes__icon"
+      />
+      <form
+        action="https://hd.unsplash.com/photo-1416339306562-f3d12fefd36f"
+        target="_blank"
+      >
+        <button
+          class="btn"
+        >
+          Full size
+        </button>
+      </form>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
+
+exports[`Card Cards snapshot 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="main__container"
+      >
+        <div
+          class="main__wrap-input"
+        >
+          <div>
+            <input
+              class="my-input"
+              placeholder="Search"
+              type="text"
+              value=""
+            />
+            <span
+              class="main__input-icon-close"
+            />
+          </div>
+          <button
+            class="btn"
+            data-testid="test-search-btn"
+          >
+            Search
+          </button>
+        </div>
+        <div
+          class="main__wrap-cards"
+        >
+          <div
+            class="error__wrap"
+          >
+            <h1
+              class="error__title"
+            >
+              Not Found
+            </h1>
+            <p
+              class="error__message"
+            >
+              Try entering another query
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="main__container"
+    >
+      <div
+        class="main__wrap-input"
+      >
+        <div>
+          <input
+            class="my-input"
+            placeholder="Search"
+            type="text"
+            value=""
+          />
+          <span
+            class="main__input-icon-close"
+          />
+        </div>
+        <button
+          class="btn"
+          data-testid="test-search-btn"
+        >
+          Search
+        </button>
+      </div>
+      <div
+        class="main__wrap-cards"
+      >
+        <div
+          class="error__wrap"
+        >
+          <h1
+            class="error__title"
+          >
+            Not Found
+          </h1>
+          <p
+            class="error__message"
+          >
+            Try entering another query
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
