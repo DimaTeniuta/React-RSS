@@ -77,7 +77,7 @@ export default class Main extends Component<PropsMain, StateMain> {
 
   render() {
     return (
-      <div className="main__container">
+      <div className="main__container" data-testid="main-page">
         <div className="main__wrap-input">
           <MyInput
             getValue={this.getInputValue}

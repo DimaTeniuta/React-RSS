@@ -8,7 +8,7 @@ interface Error404Props {
 
 const Error404: FC<Error404Props> = ({ children, ...props }) => {
   return (
-    <div className="error__wrap">
+    <div className="error__wrap" data-testid="error-page">
       <h1 className="error__title">{props.title}</h1>
       <p className="error__message">{children}</p>
     </div>

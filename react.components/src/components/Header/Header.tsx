@@ -7,10 +7,10 @@ export default class Header extends Component {
     return (
       <header className="header">
         <div className="header__wrap-btn">
-          <Link className="header__nav-link" to="/">
+          <Link className="header__nav-link" to="/" data-testid="about-link">
             About Us
           </Link>
-          <Link className="header__nav-link" to="/main">
+          <Link className="header__nav-link" to="/main" data-testid="main-link">
             Main
           </Link>
         </div>

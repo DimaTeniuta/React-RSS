@@ -136,6 +136,7 @@ Object {
     <div>
       <div
         class="main__container"
+        data-testid="main-page"
       >
         <div
           class="main__wrap-input"
@@ -163,6 +164,7 @@ Object {
         >
           <div
             class="error__wrap"
+            data-testid="error-page"
           >
             <h1
               class="error__title"
@@ -182,6 +184,7 @@ Object {
   "container": <div>
     <div
       class="main__container"
+      data-testid="main-page"
     >
       <div
         class="main__wrap-input"
@@ -209,6 +212,7 @@ Object {
       >
         <div
           class="error__wrap"
+          data-testid="error-page"
         >
           <h1
             class="error__title"
