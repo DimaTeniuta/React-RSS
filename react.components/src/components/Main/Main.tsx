@@ -37,12 +37,10 @@ export default class Main extends Component<PropsMain, StateMain> {
     const lastRequest: string | null = localStorageModule.getValue('lastRequest');
     if (this.state.value && this.state.isInput) {
       this.getCurrentImages(this.state.value);
-      localStorageModule.setValue('lastRequest', this.state.value);
       return;
     }
     if (lastRequest) {
       this.getCurrentImages(lastRequest);
-      localStorageModule.setValue('lastRequest', this.state.value);
     }
   };
 
@@ -75,11 +73,17 @@ export default class Main extends Component<PropsMain, StateMain> {
     this.getCurrentImages('purple');
   };
 
+  componentWillUnmount = (): void => {
+    localStorageModule.setValue('lastRequest', this.state.value);
+  };
+
   render() {
     return (
       <div className="main__container" data-testid="main-page">
         <div className="main__wrap-input">
           <MyInput
+            isClearBtn={true}
+            onKeyEnter={this.setNewImages}
             getValue={this.getInputValue}
             type="text"
             placeholder="Search"

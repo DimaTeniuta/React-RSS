@@ -48,12 +48,13 @@ describe('Main', () => {
   });
 
   it('get value from localStorage', () => {
-    render(<Main />);
+    const { unmount } = render(<Main />);
     const input = screen.getByPlaceholderText(/search/i);
     const testValue = 'test';
     userEvent.type(input, testValue);
     const btn = screen.getByTestId('test-search-btn');
     userEvent.click(btn);
+    unmount();
     const result = JSON.parse(localStorage.getItem('lastRequest') as string);
     expect(result).toBe(testValue);
   });

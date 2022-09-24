@@ -150,6 +150,7 @@ Object {
             />
             <span
               class="main__input-icon-close"
+              data-testid="clearBtn"
             />
           </div>
           <button
@@ -198,6 +199,7 @@ Object {
           />
           <span
             class="main__input-icon-close"
+            data-testid="clearBtn"
           />
         </div>
         <button

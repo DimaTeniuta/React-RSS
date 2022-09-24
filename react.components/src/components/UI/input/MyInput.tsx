@@ -3,11 +3,13 @@ import localStorageModule from 'utils/localStorage';
 import './MyInput.css';
 
 type InputProps = {
-  className?: string;
   type: string;
+  getValue: (value: string) => void;
+  onKeyEnter: () => void;
+  isClearBtn: boolean;
+  className?: string;
   placeholder?: string;
   autoFocus?: boolean;
-  getValue: (value: string) => void;
 };
 
 type InputState = {
@@ -54,6 +56,12 @@ export default class MyInput extends Component<InputProps, InputState> {
     this.props.getValue(event.target.value);
   };
 
+  handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>): void => {
+    if (event.key === 'Enter') {
+      this.props.onKeyEnter();
+    }
+  };
+
   render() {
     return (
       <div>
@@ -61,11 +69,20 @@ export default class MyInput extends Component<InputProps, InputState> {
           className="my-input"
           type={this.props.type}
           value={this.state.value}
+          onKeyDown={(event) => this.handleKeyDown(event)}
           onChange={(event) => this.handleChange(event)}
           placeholder={this.props.placeholder}
           autoFocus={this.props.autoFocus}
         />
-        <span onClick={this.clear} className="main__input-icon-close"></span>
+        {this.props.isClearBtn ? (
+          <span
+            onClick={this.clear}
+            className="main__input-icon-close"
+            data-testid="clearBtn"
+          ></span>
+        ) : (
+          ''
+        )}
       </div>
     );
   }

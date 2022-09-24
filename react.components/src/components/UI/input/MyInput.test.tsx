@@ -30,8 +30,16 @@ describe('MyInput', () => {
 
   it('save input value in localStorage', () => {
     const getInputValue = jest.fn();
+    const mockOnKeyDown = jest.fn();
     const { unmount } = render(
-      <MyInput getValue={getInputValue} type="text" placeholder="Search" autoFocus={true} />
+      <MyInput
+        isClearBtn={true}
+        onKeyEnter={mockOnKeyDown}
+        getValue={getInputValue}
+        type="text"
+        placeholder="Search"
+        autoFocus={true}
+      />
     );
     const input = screen.getByPlaceholderText(/search/i);
     const testValue = 'test-1';
@@ -42,30 +50,99 @@ describe('MyInput', () => {
 
   it('get value in input from localStorage', () => {
     const getInputValue = jest.fn();
+    const mockOnKeyDown = jest.fn();
     const { unmount } = render(
-      <MyInput getValue={getInputValue} type="text" placeholder="Search" autoFocus={true} />
+      <MyInput
+        isClearBtn={true}
+        onKeyEnter={mockOnKeyDown}
+        getValue={getInputValue}
+        type="text"
+        placeholder="Search"
+        autoFocus={true}
+      />
     );
     const input = screen.getByPlaceholderText(/search/i);
     const testValue = 'test';
     userEvent.type(input, testValue);
     unmount();
-    render(<MyInput getValue={getInputValue} type="text" placeholder="Search" autoFocus={true} />);
+    render(
+      <MyInput
+        isClearBtn={true}
+        onKeyEnter={mockOnKeyDown}
+        getValue={getInputValue}
+        type="text"
+        placeholder="Search"
+        autoFocus={true}
+      />
+    );
     expect(screen.getByDisplayValue('test')).toBeInTheDocument();
   });
 
   it('input focus', () => {
     const getInputValue = jest.fn();
-    render(<MyInput getValue={getInputValue} type="text" placeholder="Search" autoFocus={true} />);
+    const mockOnKeyDown = jest.fn();
+    render(
+      <MyInput
+        isClearBtn={true}
+        onKeyEnter={mockOnKeyDown}
+        getValue={getInputValue}
+        type="text"
+        placeholder="Search"
+        autoFocus={true}
+      />
+    );
     const input = screen.getByPlaceholderText(/search/i);
     expect(input).toHaveFocus();
   });
 
   it('function call', () => {
     const getInputValue = jest.fn();
-    render(<MyInput getValue={getInputValue} type="text" placeholder="Search" autoFocus={true} />);
+    const mockOnKeyDown = jest.fn();
+    render(
+      <MyInput
+        isClearBtn={true}
+        onKeyEnter={mockOnKeyDown}
+        getValue={getInputValue}
+        type="text"
+        placeholder="Search"
+        autoFocus={true}
+      />
+    );
     const input = screen.getByPlaceholderText(/search/i);
     const testValue = 'test';
     userEvent.type(input, testValue);
     expect(getInputValue).toBeCalledTimes(4);
+  });
+
+  it('hide clear btn', () => {
+    const getInputValue = jest.fn();
+    const mockOnKeyDown = jest.fn();
+    render(
+      <MyInput
+        isClearBtn={false}
+        onKeyEnter={mockOnKeyDown}
+        getValue={getInputValue}
+        type="text"
+        placeholder="Search"
+        autoFocus={true}
+      />
+    );
+    expect(screen.queryByTestId('clearBtn')).not.toBeInTheDocument();
+  });
+
+  it('renders clear button', () => {
+    const getInputValue = jest.fn();
+    const mockOnKeyDown = jest.fn();
+    render(
+      <MyInput
+        isClearBtn={true}
+        onKeyEnter={mockOnKeyDown}
+        getValue={getInputValue}
+        type="text"
+        placeholder="Search"
+        autoFocus={true}
+      />
+    );
+    expect(screen.queryByTestId('clearBtn')).toBeInTheDocument();
   });
 });
