@@ -52,4 +52,11 @@ describe('MyInput', () => {
     render(<MyInput getValue={getInputValue} type="text" placeholder="Search" autoFocus={true} />);
     expect(screen.getByDisplayValue('test')).toBeInTheDocument();
   });
+
+  it('input focus', () => {
+    const getInputValue = jest.fn();
+    render(<MyInput getValue={getInputValue} type="text" placeholder="Search" autoFocus={true} />);
+    const input = screen.getByPlaceholderText(/search/i);
+    expect(input).toHaveFocus();
+  });
 });
