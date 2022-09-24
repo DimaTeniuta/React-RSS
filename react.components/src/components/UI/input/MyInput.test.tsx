@@ -59,4 +59,13 @@ describe('MyInput', () => {
     const input = screen.getByPlaceholderText(/search/i);
     expect(input).toHaveFocus();
   });
+
+  it('function call', () => {
+    const getInputValue = jest.fn();
+    render(<MyInput getValue={getInputValue} type="text" placeholder="Search" autoFocus={true} />);
+    const input = screen.getByPlaceholderText(/search/i);
+    const testValue = 'test';
+    userEvent.type(input, testValue);
+    expect(getInputValue).toBeCalledTimes(4);
+  });
 });
