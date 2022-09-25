@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import localStorageModule from 'utils/localStorage';
-import './MyInput.css';
+import classes from './MyInput.module.scss';
 
 type InputProps = {
   type: string;
@@ -66,7 +66,7 @@ export default class MyInput extends Component<InputProps, InputState> {
     return (
       <div>
         <input
-          className="my-input"
+          className={classes.myInput}
           type={this.props.type}
           value={this.state.value}
           onKeyDown={(event) => this.handleKeyDown(event)}
@@ -75,11 +75,7 @@ export default class MyInput extends Component<InputProps, InputState> {
           autoFocus={this.props.autoFocus}
         />
         {this.props.isClearBtn ? (
-          <span
-            onClick={this.clear}
-            className="main__input-icon-close"
-            data-testid="clearBtn"
-          ></span>
+          <span onClick={this.clear} className={classes.clearBtn} data-testid="clearBtn"></span>
         ) : (
           ''
         )}

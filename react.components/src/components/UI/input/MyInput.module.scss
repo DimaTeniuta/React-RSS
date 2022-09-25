@@ -1,4 +1,4 @@
-.my-input {
+.myInput {
   width: 400px;
   height: 40px;
   margin: 10px 0;
@@ -14,11 +14,11 @@
   transition: 0.3s;
 }
 
-.my-input:focus {
+.myInput:focus {
   outline: none;
 }
 
-.main__input-icon-close {
+.clearBtn {
   position: absolute;
   right: 2%;
   top: 12.5%;
@@ -31,12 +31,12 @@
   cursor: pointer;
 }
 
-.main__input-icon-close:hover {
+.clearBtn:hover {
   transition: 0.5s;
   transform: rotate(360deg);
   transition: 0.5s;
 }
 
-.main__input-icon-close:active {
+.clearBtn:active {
   transform: scale(0.9);
 }
