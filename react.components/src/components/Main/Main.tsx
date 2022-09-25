@@ -51,30 +51,26 @@ export default class Main extends Component<PropsMain, StateMain> {
     }));
   };
 
-  componentDidMount = async (): Promise<void> => {
-    const lastRequest: string | null = localStorageModule.getValue('lastRequest');
+  firstDownloadCars = async () => {
     const lastInput: string | null = localStorageModule.getValue('inputValue');
-    if (lastInput === null) {
+    if (!lastInput) {
       this.setState(() => ({
         value: 'purple',
       }));
       this.getCurrentImages('purple');
       return;
     }
-    if (lastInput !== '') {
+    if (lastInput) {
       this.setState(() => ({
         value: lastInput,
       }));
-    }
-    if (lastRequest) {
-      this.getCurrentImages(lastRequest);
+      this.getCurrentImages(lastInput);
       return;
     }
-    this.getCurrentImages('purple');
   };
 
-  componentWillUnmount = (): void => {
-    localStorageModule.setValue('lastRequest', this.state.value);
+  componentDidMount = async (): Promise<void> => {
+    this.firstDownloadCars();
   };
 
   render() {

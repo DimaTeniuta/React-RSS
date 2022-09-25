@@ -38,7 +38,7 @@ describe('Main', () => {
     const btn = screen.getByTestId('test-search-btn');
     userEvent.click(btn);
     unmount();
-    const result = JSON.parse(localStorage.getItem('lastRequest') as string);
+    const result = JSON.parse(localStorage.getItem('inputValue') as string);
     expect(result).toBe(testValue);
   });
 });
