@@ -3,11 +3,11 @@ import Footer from 'components/Footer/Footer';
 import Header from 'components/Header/Header';
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import './App.css';
+import classes from './App.module.scss';
 
 function App() {
   return (
-    <div className="container">
+    <div className={classes.container}>
       <BrowserRouter>
         <Header />
         <AppRouter />

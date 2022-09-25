@@ -1,6 +1,6 @@
 @import '../../styles/variables.css';
 
-.about__wrap {
+.wrap {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -15,13 +15,13 @@
   border-radius: 10px;
   color: var(--color-white);
   font-size: 18px;
-}
 
-.about__title {
-  font-size: 36px;
-}
-
-.about__content {
-  margin: 50px 0;
-  font-size: 40px;
+  .title {
+    font-size: 36px;
+  }
+  
+  .content {
+    margin: 50px 0;
+    font-size: 40px;
+  }
 }

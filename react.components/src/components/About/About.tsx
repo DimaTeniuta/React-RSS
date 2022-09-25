@@ -1,11 +1,11 @@
 import React from 'react';
-import './About.css';
+import classes from './About.module.scss';
 
 export default function About() {
   return (
-    <div className="about__wrap" data-testid="about-page">
-      <h1 className="about__title">Rolling Scopes School</h1>
-      <p className="about__content">React Course</p>
+    <div className={classes.wrap} data-testid="about-page">
+      <h1 className={classes.title}>Rolling Scopes School</h1>
+      <p className={classes.content}>React Course</p>
     </div>
   );
 }
