@@ -4,7 +4,7 @@ import MyButton from 'components/UI/button/MyButton';
 import MyInput from 'components/UI/input/MyInput';
 import React, { Component } from 'react';
 import { ResultsData } from 'types/generalTypes';
-import { fetchCards } from 'utils/httpRequest';
+import { fetchCards } from 'API/httpRequest';
 import localStorageModule from 'utils/localStorage';
 import './Main.css';
 
