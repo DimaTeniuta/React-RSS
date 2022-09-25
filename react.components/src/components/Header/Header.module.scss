@@ -1,0 +1,29 @@
+@import "../../styles/variables.css";
+
+.header {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 80px;
+  background: var(--color-dark);
+  border-bottom: 2px solid var(--color-white);
+  border-radius: 0 0 20px 20px;
+  padding: 10px 0;
+
+  .wrapBtn {
+    display: flex;
+    column-gap: 20px;
+    align-items: center;
+
+    .navLink {
+      color: var(--color-white);
+      font-size: 26px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+    
+    .navLink:hover {
+      color: #e7da6c;
+    }
+  }
+}
