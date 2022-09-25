@@ -1,0 +1,88 @@
+@import '../../styles/variables.css';
+
+.footer {
+  background: #121c1e;
+  margin: 100px 0 0 0;
+  padding: 10px 40px;
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1600px;
+    padding: 0 20px;
+    margin: 0 auto;
+  }
+
+  .gitHub {
+    .gitHubLink {
+      display: block;
+      width: 48px;
+      height: 48px;
+      background-image: url(../../../public/assets/svg/Github\ -\ Negative.svg);
+      background-repeat: no-repeat;
+      cursor: pointer;
+    }
+    
+    .gitHubLink:hover {
+      animation: icons-live 1s ease-in-out;
+    }
+  }
+
+  .year {
+    margin: -5px 0 0 0;
+    color: var(--color-white);
+    font-size: var(--font-regular);
+    font-weight: 400;
+    letter-spacing: 1.9;
+  }
+
+  .rssLink {
+    display: block;
+    width: 80px;
+    height: 40px;
+    background-image: url(../../../public/assets/svg/logo_rss.svg);
+    background-repeat: no-repeat;
+    background-size: 80px 40px;
+    cursor: pointer;
+  }
+  
+  .rssLink:hover {
+    animation: icons-live 1s ease-in-out;
+  }
+}
+
+
+
+@keyframes icons-live {
+  0%,
+  50%,
+  100% {
+    transform: rotate(0deg);
+  }
+  10%,
+  30% {
+    transform: rotate(-10deg);
+  }
+  20%,
+  40% {
+    transform: rotate(10deg);
+  }
+}
+
+@media (max-width: 500px) {
+  .footer {
+    background: #121c1e;
+    height: 155px;
+    padding: 10px 40px;
+    margin: 50px 0 0 0;
+
+    .container {
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      row-gap: 20px;
+    }
+  }
+  
+}
