@@ -1,12 +1,12 @@
+import { fetchCards } from 'API/httpRequest';
 import { Card } from 'components/Card/Card';
 import Error404 from 'components/Error404/Error404';
 import MyButton from 'components/UI/button/MyButton';
 import MyInput from 'components/UI/input/MyInput';
 import React, { Component } from 'react';
 import { ResultsData } from 'types/generalTypes';
-import { fetchCards } from 'API/httpRequest';
 import localStorageModule from 'utils/localStorage';
-import classes from './Main.module.scss';
+import classes from './MainPage.module.scss';
 
 type StateMain = {
   data: ResultsData[];
@@ -15,7 +15,7 @@ type StateMain = {
 
 type PropsMain = object;
 
-export default class Main extends Component<PropsMain, StateMain> {
+export default class MainPage extends Component<PropsMain, StateMain> {
   constructor(props: PropsMain) {
     super(props);
     this.state = {

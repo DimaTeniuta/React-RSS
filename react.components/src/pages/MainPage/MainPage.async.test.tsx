@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import Main from './Main';
 import axios from 'axios';
+import MainPage from './MainPage';
 
 jest.mock('axios');
 
@@ -51,14 +51,14 @@ export const mockCardsData = Promise.resolve({
 describe('Main async', () => {
   it('show not found message', async () => {
     (axios as jest.Mocked<typeof axios>).get.mockReturnValue(wrongResponse);
-    render(<Main />);
+    render(<MainPage />);
     expect(axios.get).toBeCalledTimes(1);
     expect(screen.getByTestId('error-page')).toBeInTheDocument();
   });
 
   it('show 3 cards', async () => {
     (axios as jest.Mocked<typeof axios>).get.mockReturnValue(mockCardsData);
-    render(<Main />);
+    render(<MainPage />);
     const cards = await screen.findAllByTestId('test-card');
     const descriptionTest = await screen.findByText(/test2/i);
     expect(descriptionTest).toBeInTheDocument();

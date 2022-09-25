@@ -1,8 +1,8 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import Main from './Main';
 import userEvent from '@testing-library/user-event';
 import { localStorageMock } from 'data/mockData';
+import MainPage from './MainPage';
 
 Object.defineProperty(window, 'localStorage', { value: localStorageMock });
 
@@ -12,7 +12,7 @@ describe('Main', () => {
   });
 
   it('renders Main', () => {
-    render(<Main />);
+    render(<MainPage />);
     const input = screen.getByPlaceholderText(/search/i);
     expect(screen.getByTestId('main-page')).toBeInTheDocument();
     expect(screen.getByText(/search/i)).toBeInTheDocument();
@@ -20,7 +20,7 @@ describe('Main', () => {
   });
 
   it('should download current data', async () => {
-    render(<Main />);
+    render(<MainPage />);
     const input = screen.getByPlaceholderText(/search/i);
     const testValue = 'test';
     userEvent.type(input, testValue);
@@ -31,7 +31,7 @@ describe('Main', () => {
   });
 
   it('get value from localStorage', () => {
-    const { unmount } = render(<Main />);
+    const { unmount } = render(<MainPage />);
     const input = screen.getByPlaceholderText(/search/i);
     const testValue = 'test';
     userEvent.type(input, testValue);

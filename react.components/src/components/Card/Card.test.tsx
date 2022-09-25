@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
+import MainPage from 'pages/MainPage/MainPage';
 import React from 'react';
 import { Card } from './Card';
-import Main from 'components/Main/Main';
 
 const mockData = {
   id: '1',
@@ -33,13 +33,13 @@ describe('Card', () => {
   });
 
   it('render 30 cards', async () => {
-    render(<Main />);
+    render(<MainPage />);
     const cards = await screen.findAllByTestId('test-card');
     expect(cards.length).toBe(30);
   });
 
   it('Cards snapshot', () => {
-    const cards = render(<Main />);
+    const cards = render(<MainPage />);
     expect(cards).toMatchSnapshot();
   });
 });

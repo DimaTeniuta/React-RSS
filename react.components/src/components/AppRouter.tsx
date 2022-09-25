@@ -1,6 +1,6 @@
 import AboutPage from 'pages/AboutPage';
 import ErrorPage from 'pages/ErrorPage';
-import MainPage from 'pages/MainPage';
+import MainPage from 'pages/MainPage/MainPage';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
