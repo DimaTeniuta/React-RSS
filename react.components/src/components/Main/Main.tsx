@@ -6,7 +6,7 @@ import React, { Component } from 'react';
 import { ResultsData } from 'types/generalTypes';
 import { fetchCards } from 'API/httpRequest';
 import localStorageModule from 'utils/localStorage';
-import './Main.css';
+import classes from './Main.module.scss';
 
 type StateMain = {
   data: ResultsData[];
@@ -79,8 +79,8 @@ export default class Main extends Component<PropsMain, StateMain> {
 
   render() {
     return (
-      <div className="main__container" data-testid="main-page">
-        <div className="main__wrap-input">
+      <div className={classes.container} data-testid="main-page">
+        <div className={classes.wrapInput}>
           <MyInput
             isClearBtn={true}
             onKeyEnter={this.setNewImages}
@@ -93,7 +93,7 @@ export default class Main extends Component<PropsMain, StateMain> {
             Search
           </MyButton>
         </div>
-        <div className="main__wrap-cards">
+        <div className={classes.wrapCards}>
           {this.state.data.length ? (
             this.state.data.map((el) => <Card key={el.id} data={el} />)
           ) : (
