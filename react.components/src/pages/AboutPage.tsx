@@ -1,6 +1,6 @@
-import About from 'components/About/About';
+import ModalWindow from 'components/ModalWindow/ModalWindow';
 import React from 'react';
 
 export default function AboutPage() {
-  return <About />;
+  return <ModalWindow title="Rolling Scopes School">React Course</ModalWindow>;
 }

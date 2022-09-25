@@ -48,12 +48,12 @@ export const mockCardsData = Promise.resolve({
   },
 });
 
-describe('Main async', () => {
+describe('MainPage async', () => {
   it('show not found message', async () => {
     (axios as jest.Mocked<typeof axios>).get.mockReturnValue(wrongResponse);
     render(<MainPage />);
     expect(axios.get).toBeCalledTimes(1);
-    expect(screen.getByTestId('error-page')).toBeInTheDocument();
+    expect(screen.getByTestId('modal-test')).toBeInTheDocument();
   });
 
   it('show 3 cards', async () => {

@@ -165,7 +165,7 @@ Object {
         >
           <div
             class="wrap"
-            data-testid="error-page"
+            data-testid="modal-test"
           >
             <h1
               class="title"
@@ -214,7 +214,7 @@ Object {
       >
         <div
           class="wrap"
-          data-testid="error-page"
+          data-testid="modal-test"
         >
           <h1
             class="title"

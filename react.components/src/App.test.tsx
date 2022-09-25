@@ -14,7 +14,11 @@ describe('App', () => {
     userEvent.click(mainLink);
     expect(screen.getByTestId('main-page')).toBeInTheDocument();
     userEvent.click(aboutLink);
-    expect(screen.getByTestId('about-page')).toBeInTheDocument();
+    expect(screen.getByTestId('modal-test')).toBeInTheDocument();
+    const titleTest2 = 'Rolling Scopes School';
+    const childrenTest2 = 'React Course';
+    expect(screen.getByText(titleTest2)).toBeInTheDocument();
+    expect(screen.getByText(childrenTest2)).toBeInTheDocument();
   });
 
   it('render Error404 page', () => {
@@ -24,6 +28,10 @@ describe('App', () => {
         <AppRouter />
       </MemoryRouter>
     );
-    expect(screen.getByTestId('error-page')).toBeInTheDocument();
+    const titleTest = '404';
+    const childrenTest = 'This is not web page you are looking for';
+    expect(screen.getByText(titleTest)).toBeInTheDocument();
+    expect(screen.getByText(childrenTest)).toBeInTheDocument();
+    expect(screen.getByTestId('modal-test')).toBeInTheDocument();
   });
 });

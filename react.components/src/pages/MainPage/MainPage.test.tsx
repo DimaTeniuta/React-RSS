@@ -11,7 +11,7 @@ describe('Main', () => {
     window.localStorage.clear();
   });
 
-  it('renders Main', () => {
+  it('renders MainPage', () => {
     render(<MainPage />);
     const input = screen.getByPlaceholderText(/search/i);
     expect(screen.getByTestId('main-page')).toBeInTheDocument();

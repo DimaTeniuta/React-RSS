@@ -1,6 +1,6 @@
 import { fetchCards } from 'API/httpRequest';
 import { Card } from 'components/Card/Card';
-import Error404 from 'components/Error404/Error404';
+import ModalWindow from 'components/ModalWindow/ModalWindow';
 import MyButton from 'components/UI/button/MyButton';
 import MyInput from 'components/UI/input/MyInput';
 import React, { Component } from 'react';
@@ -86,7 +86,7 @@ export default class MainPage extends Component<PropsMain, StateMain> {
           {this.state.data.length ? (
             this.state.data.map((el) => <Card key={el.id} data={el} />)
           ) : (
-            <Error404 title="Not Found">Try entering another query</Error404>
+            <ModalWindow title="Not Found">Try entering another query</ModalWindow>
           )}
         </div>
       </div>
