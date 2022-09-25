@@ -11,7 +11,6 @@ import classes from './Main.module.scss';
 type StateMain = {
   data: ResultsData[];
   value: string;
-  isInput: boolean;
 };
 
 type PropsMain = object;
@@ -22,25 +21,19 @@ export default class Main extends Component<PropsMain, StateMain> {
     this.state = {
       data: [],
       value: '',
-      isInput: false,
     };
   }
 
   getInputValue = (value: string): void => {
     this.setState(() => ({
-      isInput: true,
       value: value,
     }));
   };
 
-  setNewImages = () => {
-    const lastRequest: string | null = localStorageModule.getValue('lastRequest');
-    if (this.state.value && this.state.isInput) {
+  setNewImages = (): void => {
+    if (this.state.value) {
       this.getCurrentImages(this.state.value);
       return;
-    }
-    if (lastRequest) {
-      this.getCurrentImages(lastRequest);
     }
   };
 
@@ -51,7 +44,7 @@ export default class Main extends Component<PropsMain, StateMain> {
     }));
   };
 
-  firstDownloadCars = async () => {
+  firstDownloadCards = () => {
     const lastInput: string | null = localStorageModule.getValue('inputValue');
     if (!lastInput) {
       this.setState(() => ({
@@ -70,7 +63,7 @@ export default class Main extends Component<PropsMain, StateMain> {
   };
 
   componentDidMount = async (): Promise<void> => {
-    this.firstDownloadCars();
+    this.firstDownloadCards();
   };
 
   render() {
