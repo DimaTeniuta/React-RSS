@@ -2,24 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import MyInput from './MyInput';
 import userEvent from '@testing-library/user-event';
-
-const localStorageMock = (function () {
-  let store: { [key: string]: string } = {};
-
-  return {
-    getItem(key: string): string | null {
-      return store[key];
-    },
-
-    setItem(key: string, value: string): void {
-      store[key] = value;
-    },
-
-    clear(): void {
-      store = {};
-    },
-  };
-})();
+import { localStorageMock } from 'data/mockData';
 
 Object.defineProperty(window, 'localStorage', { value: localStorageMock });
 

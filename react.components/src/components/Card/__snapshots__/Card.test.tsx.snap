@@ -11,21 +11,21 @@ Object {
       >
         <img
           alt="card-image"
-          class="card__image"
+          class="images"
           src="https://images.unsplash.com/photo-1416339306562-f3d12fefd36f?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&s=263af33585f9d32af39d165b000845eb"
         />
         <p
-          class="card__title"
+          class="title"
         >
           Test
         </p>
         <span
-          class="card__likes"
+          class="likes"
         >
           286
         </span>
         <div
-          class="card__likes__icon"
+          class="icon"
         />
         <form
           action="https://hd.unsplash.com/photo-1416339306562-f3d12fefd36f"
@@ -47,21 +47,21 @@ Object {
     >
       <img
         alt="card-image"
-        class="card__image"
+        class="images"
         src="https://images.unsplash.com/photo-1416339306562-f3d12fefd36f?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&s=263af33585f9d32af39d165b000845eb"
       />
       <p
-        class="card__title"
+        class="title"
       >
         Test
       </p>
       <span
-        class="card__likes"
+        class="likes"
       >
         286
       </span>
       <div
-        class="card__likes__icon"
+        class="icon"
       />
       <form
         action="https://hd.unsplash.com/photo-1416339306562-f3d12fefd36f"
@@ -135,21 +135,21 @@ Object {
   "baseElement": <body>
     <div>
       <div
-        class="main__container"
+        class="container"
         data-testid="main-page"
       >
         <div
-          class="main__wrap-input"
+          class="wrapInput"
         >
           <div>
             <input
-              class="my-input"
+              class="myInput"
               placeholder="Search"
               type="text"
               value=""
             />
             <span
-              class="main__input-icon-close"
+              class="clearBtn"
               data-testid="clearBtn"
             />
           </div>
@@ -161,19 +161,19 @@ Object {
           </button>
         </div>
         <div
-          class="main__wrap-cards"
+          class="wrapCards"
         >
           <div
-            class="error__wrap"
+            class="wrap"
             data-testid="error-page"
           >
             <h1
-              class="error__title"
+              class="title"
             >
               Not Found
             </h1>
             <p
-              class="error__message"
+              class="message"
             >
               Try entering another query
             </p>
@@ -184,21 +184,21 @@ Object {
   </body>,
   "container": <div>
     <div
-      class="main__container"
+      class="container"
       data-testid="main-page"
     >
       <div
-        class="main__wrap-input"
+        class="wrapInput"
       >
         <div>
           <input
-            class="my-input"
+            class="myInput"
             placeholder="Search"
             type="text"
             value=""
           />
           <span
-            class="main__input-icon-close"
+            class="clearBtn"
             data-testid="clearBtn"
           />
         </div>
@@ -210,19 +210,19 @@ Object {
         </button>
       </div>
       <div
-        class="main__wrap-cards"
+        class="wrapCards"
       >
         <div
-          class="error__wrap"
+          class="wrap"
           data-testid="error-page"
         >
           <h1
-            class="error__title"
+            class="title"
           >
             Not Found
           </h1>
           <p
-            class="error__message"
+            class="message"
           >
             Try entering another query
           </p>

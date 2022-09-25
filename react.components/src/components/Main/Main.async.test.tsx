@@ -5,13 +5,13 @@ import axios from 'axios';
 
 jest.mock('axios');
 
-const response = Promise.resolve({
+export const wrongResponse = Promise.resolve({
   data: {
     results: [],
   },
 });
 
-const mockData = Promise.resolve({
+export const mockCardsData = Promise.resolve({
   data: {
     results: [
       {
@@ -50,14 +50,14 @@ const mockData = Promise.resolve({
 
 describe('Main async', () => {
   it('show not found message', async () => {
-    (axios as jest.Mocked<typeof axios>).get.mockReturnValue(response);
+    (axios as jest.Mocked<typeof axios>).get.mockReturnValue(wrongResponse);
     render(<Main />);
     expect(axios.get).toBeCalledTimes(1);
     expect(screen.getByTestId('error-page')).toBeInTheDocument();
   });
 
   it('show 3 cards', async () => {
-    (axios as jest.Mocked<typeof axios>).get.mockReturnValue(mockData);
+    (axios as jest.Mocked<typeof axios>).get.mockReturnValue(mockCardsData);
     render(<Main />);
     const cards = await screen.findAllByTestId('test-card');
     const descriptionTest = await screen.findByText(/test2/i);
