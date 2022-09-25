@@ -1,7 +1,7 @@
 import MyButton from 'components/UI/button/MyButton';
 import React from 'react';
 import { ResultsData } from 'types/generalTypes';
-import './Card.css';
+import classes from './Card.module.scss';
 
 type DataCard = {
   data: ResultsData;
@@ -10,11 +10,11 @@ type DataCard = {
 export const Card: React.FC<DataCard> = (props) => {
   const data = props.data;
   return (
-    <div data-testid="test-card" className="card">
-      <img className="card__image" src={data.urls?.small} alt="card-image" />
-      <p className="card__title">{data.description ? data.description : 'Unknown'}</p>
-      <span className="card__likes">{data.likes}</span>
-      <div className="card__likes__icon"></div>
+    <div className={classes.card} data-testid="test-card">
+      <img className={classes.images} src={data.urls?.small} alt="card-image" />
+      <p className={classes.title}>{data.description ? data.description : 'Unknown'}</p>
+      <span className={classes.likes}>{data.likes}</span>
+      <div className={classes.icon}></div>
       <form action={data.urls?.full} target="_blank">
         <MyButton>Full size</MyButton>
       </form>
