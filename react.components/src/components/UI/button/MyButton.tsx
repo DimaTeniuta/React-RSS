@@ -1,14 +1,15 @@
-import React, { FC, ReactNode } from 'react';
-import './MyButton.css';
+import React, { FC } from 'react';
+import classes from './MyButton.module.scss';
 
 interface ButtonProps {
-  children: ReactNode;
+  children: string;
   onClick?: () => void;
+  className?: string;
 }
 
 const MyButton: FC<ButtonProps> = ({ children, ...props }) => {
   return (
-    <button {...props} className="btn">
+    <button {...props} className={classes.btn}>
       {children}
     </button>
   );
