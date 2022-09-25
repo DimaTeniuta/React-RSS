@@ -2,7 +2,7 @@ import React, { FC, ReactNode } from 'react';
 import classes from './ModalWindow.module.scss';
 
 interface ModalProps {
-  children: ReactNode;
+  children: string;
   title: string;
 }
 

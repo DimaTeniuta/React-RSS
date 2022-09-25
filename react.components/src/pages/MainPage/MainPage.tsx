@@ -11,6 +11,7 @@ import classes from './MainPage.module.scss';
 type StateMain = {
   data: ResultsData[];
   value: string;
+  isClick: boolean;
 };
 
 type PropsMain = object;
@@ -21,6 +22,7 @@ export default class MainPage extends Component<PropsMain, StateMain> {
     this.state = {
       data: [],
       value: '',
+      isClick: false,
     };
   }
 
@@ -33,7 +35,6 @@ export default class MainPage extends Component<PropsMain, StateMain> {
   setNewImages = (): void => {
     if (this.state.value) {
       this.getCurrentImages(this.state.value);
-      return;
     }
   };
 
@@ -66,19 +67,34 @@ export default class MainPage extends Component<PropsMain, StateMain> {
     this.firstDownloadCards();
   };
 
+  handleClick = () => {
+    this.setState(() => ({
+      isClick: true,
+    }));
+  };
+
+  componentDidUpdate = () => {
+    if (this.state.isClick) {
+      this.setState(() => ({
+        isClick: false,
+      }));
+      this.setNewImages();
+    }
+  };
+
   render() {
     return (
       <div className={classes.container} data-testid="main-page">
         <div className={classes.wrapInput}>
           <MyInput
             isClearBtn={true}
-            onKeyEnter={this.setNewImages}
+            onKeyEnter={this.handleClick}
             getValue={this.getInputValue}
             type="text"
             placeholder="Search"
             autoFocus={true}
           />
-          <MyButton data-testid="test-search-btn" onClick={this.setNewImages}>
+          <MyButton data-testid="test-search-btn" onClick={this.handleClick}>
             Search
           </MyButton>
         </div>
