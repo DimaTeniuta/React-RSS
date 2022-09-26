@@ -7,6 +7,7 @@ import React, { Component } from 'react';
 import { ResultsData } from 'types/generalTypes';
 import localStorageModule from 'utils/localStorage';
 import classes from './MainPage.module.scss';
+import btnClasses from '../../components/UI/button/MyButton.module.scss';
 
 type StateMain = {
   data: ResultsData[];
@@ -94,7 +95,11 @@ export default class MainPage extends Component<PropsMain, StateMain> {
             placeholder="Search"
             autoFocus={true}
           />
-          <MyButton data-testid="test-search-btn" onClick={this.handleClick}>
+          <MyButton
+            className={btnClasses.standardBtn}
+            onClick={this.handleClick}
+            data-testid="test-search-btn"
+          >
             Search
           </MyButton>
         </div>

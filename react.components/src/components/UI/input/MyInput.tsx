@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import localStorageModule from 'utils/localStorage';
+import MyButton from '../button/MyButton';
 import classes from './MyInput.module.scss';
+import btnClasses from '../button/MyButton.module.scss';
 
 type InputProps = {
   type: string;
@@ -75,7 +77,11 @@ export default class MyInput extends Component<InputProps, InputState> {
           autoFocus={this.props.autoFocus}
         />
         {this.props.isClearBtn ? (
-          <span onClick={this.clear} className={classes.clearBtn} data-testid="clearBtn"></span>
+          <MyButton
+            className={btnClasses.clearBtn}
+            onClick={this.clear}
+            data-testid="clear-btn"
+          ></MyButton>
         ) : (
           ''
         )}

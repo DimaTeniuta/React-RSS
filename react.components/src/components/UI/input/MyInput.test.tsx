@@ -110,7 +110,7 @@ describe('MyInput', () => {
         autoFocus={true}
       />
     );
-    expect(screen.queryByTestId('clearBtn')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('clear-btn')).not.toBeInTheDocument();
   });
 
   it('renders clear button', () => {
@@ -126,6 +126,6 @@ describe('MyInput', () => {
         autoFocus={true}
       />
     );
-    expect(screen.queryByTestId('clearBtn')).toBeInTheDocument();
+    expect(screen.queryByTestId('clear-btn')).toBeInTheDocument();
   });
 });

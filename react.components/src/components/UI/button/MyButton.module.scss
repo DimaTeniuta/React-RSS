@@ -1,6 +1,15 @@
 @import '../../../styles/variables.scss';
 
 .btn {
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.standardBtn {
   width: 150px;
   height: 40px;
   margin: 10px auto;
@@ -17,7 +26,32 @@
   transition: 0.3s;
 }
 
-.btn:hover {
+.standardBtn:hover {
   cursor: pointer;
   color: #e7da6c;
+}
+
+.clearBtn {
+  position: absolute;
+  right: 2%;
+  top: 12.5%;
+  width: 30px;
+  height: 30px;
+  border: none;
+  background-color: inherit;
+  background-image: url(../../../../public/assets/svg/close.svg);
+  background-repeat: no-repeat;
+  filter: invert(100%) sepia(0%) saturate(1%) hue-rotate(316deg) brightness(120%) contrast(101%);
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.clearBtn:hover {
+  transition: 0.5s;
+  transform: rotate(360deg);
+  transition: 0.5s;
+}
+
+.clearBtn:active {
+  transform: scale(0.9);
 }
