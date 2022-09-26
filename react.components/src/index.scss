@@ -8,3 +8,18 @@ a {
   text-decoration: none;
   color: inherit;
 }
+
+body {
+  background-image: url(../public/assets/images/background.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 100vh;
+}

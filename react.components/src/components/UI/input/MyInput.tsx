@@ -26,7 +26,7 @@ export default class MyInput extends Component<InputProps, InputState> {
     };
   }
 
-  firstDownload = () => {
+  firstDownload = (): void => {
     const result: string | null = localStorageModule.getValue('inputValue');
     if (!result) {
       this.setState(() => ({
@@ -40,7 +40,7 @@ export default class MyInput extends Component<InputProps, InputState> {
     this.props.getValue(result);
   };
 
-  clear = () => {
+  clear = (): void => {
     this.setState(() => ({
       value: '',
     }));

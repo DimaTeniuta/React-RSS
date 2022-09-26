@@ -1,4 +1,4 @@
-import AboutPage from 'pages/AboutPage';
+import AboutPage from 'pages/MainPage/AboutPage/AboutPage';
 import ErrorPage from 'pages/ErrorPage';
 import MainPage from 'pages/MainPage/MainPage';
 import React from 'react';
