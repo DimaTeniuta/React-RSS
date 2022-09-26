@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import localStorageModule from 'utils/localStorage';
 import Button from '../Button/Button';
 import classes from './InputSearch.module.scss';
-import btnClasses from '../button/Button.module.scss';
+import btnClasses from '../Button/Button.module.scss';
 
 type InputProps = {
   type: string;

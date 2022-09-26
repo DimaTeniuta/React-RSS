@@ -2,7 +2,7 @@ import Button from 'components/UI/Button/Button';
 import React from 'react';
 import { ResultsData } from 'types/generalTypes';
 import classes from './Card.module.scss';
-import btnClasses from '../UI/button/Button.module.scss';
+import btnClasses from '../UI/Button/Button.module.scss';
 
 type DataCard = {
   data: ResultsData;
