@@ -39,14 +39,23 @@ export default class MainPage extends Component<PropsMain, StateMain> {
     }
   };
 
-  getCurrentImages = async (value?: string) => {
+  getCurrentImages = async (value?: string): Promise<void> => {
     const data = await fetchCards(value);
     this.setState(() => ({
       data: data,
     }));
   };
 
-  firstDownloadCards = () => {
+  changeCards = (): void => {
+    if (this.state.isClick) {
+      this.setState(() => ({
+        isClick: false,
+      }));
+      this.setNewImages();
+    }
+  };
+
+  firstDownloadCards = (): void => {
     const lastInput: string | null = localStorageModule.getValue('inputValue');
     if (!lastInput) {
       this.setState(() => ({
@@ -64,23 +73,18 @@ export default class MainPage extends Component<PropsMain, StateMain> {
     }
   };
 
-  componentDidMount = async (): Promise<void> => {
-    this.firstDownloadCards();
-  };
-
-  handleClick = () => {
+  handleClick = (): void => {
     this.setState(() => ({
       isClick: true,
     }));
   };
 
-  componentDidUpdate = () => {
-    if (this.state.isClick) {
-      this.setState(() => ({
-        isClick: false,
-      }));
-      this.setNewImages();
-    }
+  componentDidMount = async (): Promise<void> => {
+    this.firstDownloadCards();
+  };
+
+  componentDidUpdate = (): void => {
+    this.changeCards();
   };
 
   render() {

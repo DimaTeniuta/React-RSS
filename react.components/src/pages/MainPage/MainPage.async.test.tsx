@@ -5,13 +5,15 @@ import MainPage from './MainPage';
 
 jest.mock('axios');
 
-export const wrongResponse = Promise.resolve({
+const wrongResponse = Promise.resolve({
   data: {
     results: [],
   },
 });
 
-export const mockCardsData = Promise.resolve({
+const errorResponse = Promise.reject();
+
+const mockCardsData = Promise.resolve({
   data: {
     results: [
       {
@@ -56,6 +58,17 @@ describe('MainPage async', () => {
     expect(screen.getByTestId('modal-test')).toBeInTheDocument();
   });
 
+  it('check catch case', async () => {
+    (axios as jest.Mocked<typeof axios>).get.mockReturnValue(errorResponse);
+    render(<MainPage />);
+    const modalWindow = await screen.findByTestId('modal-test');
+    const title = await screen.findByText(/Not Found/i);
+    const content = await screen.findByText(/Try entering another query/i);
+    expect(title).toBeInTheDocument();
+    expect(content).toBeInTheDocument();
+    expect(modalWindow).toBeInTheDocument();
+  });
+
   it('show 3 cards', async () => {
     (axios as jest.Mocked<typeof axios>).get.mockReturnValue(mockCardsData);
     render(<MainPage />);
@@ -64,7 +77,7 @@ describe('MainPage async', () => {
     expect(descriptionTest).toBeInTheDocument();
     expect(axios.get).toBeCalledTimes(1);
     expect(cards.length).toBe(3);
-    expect(screen.queryByTestId('error-page')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('modal-test')).not.toBeInTheDocument();
     expect(screen.getByText(/23/)).toBeInTheDocument();
   });
 });

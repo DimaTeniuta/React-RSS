@@ -26,7 +26,7 @@ export default class MyInput extends Component<InputProps, InputState> {
     };
   }
 
-  componentDidMount = (): void => {
+  firstDownload = () => {
     const result: string | null = localStorageModule.getValue('inputValue');
     if (!result) {
       this.setState(() => ({
@@ -47,10 +47,6 @@ export default class MyInput extends Component<InputProps, InputState> {
     this.props.getValue('');
   };
 
-  componentWillUnmount = (): void => {
-    localStorageModule.setValue('inputValue', this.state.value);
-  };
-
   handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     this.setState(() => ({
       value: event.target.value,
@@ -62,6 +58,14 @@ export default class MyInput extends Component<InputProps, InputState> {
     if (event.key === 'Enter') {
       this.props.onKeyEnter();
     }
+  };
+
+  componentDidMount = (): void => {
+    this.firstDownload();
+  };
+
+  componentWillUnmount = (): void => {
+    localStorageModule.setValue('inputValue', this.state.value);
   };
 
   render() {
@@ -77,11 +81,7 @@ export default class MyInput extends Component<InputProps, InputState> {
           autoFocus={this.props.autoFocus}
         />
         {this.props.isClearBtn ? (
-          <MyButton
-            className={btnClasses.clearBtn}
-            onClick={this.clear}
-            data-testid="clear-btn"
-          ></MyButton>
+          <MyButton className={btnClasses.clearBtn} onClick={this.clear} data-testid="clear-btn" />
         ) : (
           ''
         )}
