@@ -1,12 +1,12 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import MyInput from './MyInput';
+import InputSearch from './InputSearch';
 import userEvent from '@testing-library/user-event';
 import { localStorageMock } from 'data/mockData';
 
 Object.defineProperty(window, 'localStorage', { value: localStorageMock });
 
-describe('MyInput', () => {
+describe('InputSearch', () => {
   beforeEach(() => {
     window.localStorage.clear();
   });
@@ -15,7 +15,7 @@ describe('MyInput', () => {
     const getInputValue = jest.fn();
     const mockOnKeyDown = jest.fn();
     const { unmount } = render(
-      <MyInput
+      <InputSearch
         isClearBtn={true}
         onKeyEnter={mockOnKeyDown}
         getValue={getInputValue}
@@ -35,7 +35,7 @@ describe('MyInput', () => {
     const getInputValue = jest.fn();
     const mockOnKeyDown = jest.fn();
     const { unmount } = render(
-      <MyInput
+      <InputSearch
         isClearBtn={true}
         onKeyEnter={mockOnKeyDown}
         getValue={getInputValue}
@@ -49,7 +49,7 @@ describe('MyInput', () => {
     userEvent.type(input, testValue);
     unmount();
     render(
-      <MyInput
+      <InputSearch
         isClearBtn={true}
         onKeyEnter={mockOnKeyDown}
         getValue={getInputValue}
@@ -65,7 +65,7 @@ describe('MyInput', () => {
     const getInputValue = jest.fn();
     const mockOnKeyDown = jest.fn();
     render(
-      <MyInput
+      <InputSearch
         isClearBtn={true}
         onKeyEnter={mockOnKeyDown}
         getValue={getInputValue}
@@ -82,7 +82,7 @@ describe('MyInput', () => {
     const getInputValue = jest.fn();
     const mockOnKeyDown = jest.fn();
     render(
-      <MyInput
+      <InputSearch
         isClearBtn={true}
         onKeyEnter={mockOnKeyDown}
         getValue={getInputValue}
@@ -101,7 +101,7 @@ describe('MyInput', () => {
     const getInputValue = jest.fn();
     const mockOnKeyDown = jest.fn();
     render(
-      <MyInput
+      <InputSearch
         isClearBtn={false}
         onKeyEnter={mockOnKeyDown}
         getValue={getInputValue}
@@ -117,7 +117,7 @@ describe('MyInput', () => {
     const getInputValue = jest.fn();
     const mockOnKeyDown = jest.fn();
     render(
-      <MyInput
+      <InputSearch
         isClearBtn={true}
         onKeyEnter={mockOnKeyDown}
         getValue={getInputValue}

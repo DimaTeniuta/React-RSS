@@ -1,8 +1,8 @@
-import MyButton from 'components/UI/button/MyButton';
+import Button from 'components/UI/Button/Button';
 import React from 'react';
 import { ResultsData } from 'types/generalTypes';
 import classes from './Card.module.scss';
-import btnClasses from '../UI/button/MyButton.module.scss';
+import btnClasses from '../UI/button/Button.module.scss';
 
 type DataCard = {
   data: ResultsData;
@@ -17,7 +17,7 @@ export const Card: React.FC<DataCard> = (props) => {
       <span className={classes.likes}>{data.likes}</span>
       <div className={classes.icon}></div>
       <form action={data.urls?.full} target="_blank">
-        <MyButton className={btnClasses.standardBtn}>Full size</MyButton>
+        <Button className={btnClasses.standardBtn}>Full size</Button>
       </form>
     </div>
   );

@@ -1,13 +1,13 @@
 import { fetchCards } from 'API/httpRequest';
 import { Card } from 'components/Card/Card';
 import ModalWindow from 'components/ModalWindow/ModalWindow';
-import MyButton from 'components/UI/button/MyButton';
-import MyInput from 'components/UI/input/MyInput';
+import Button from 'components/UI/Button/Button';
+import InputSearch from 'components/UI/InputSearch/InputSearch';
 import React, { Component } from 'react';
 import { ResultsData } from 'types/generalTypes';
 import localStorageModule from 'utils/localStorage';
 import classes from './MainPage.module.scss';
-import btnClasses from '../../components/UI/button/MyButton.module.scss';
+import btnClasses from '../../components/UI/button/Button.module.scss';
 
 type StateMain = {
   data: ResultsData[];
@@ -91,7 +91,7 @@ export default class MainPage extends Component<PropsMain, StateMain> {
     return (
       <div className={classes.container} data-testid="main-page">
         <div className={classes.wrapInput}>
-          <MyInput
+          <InputSearch
             isClearBtn={true}
             onKeyEnter={this.handleClick}
             getValue={this.getInputValue}
@@ -99,13 +99,13 @@ export default class MainPage extends Component<PropsMain, StateMain> {
             placeholder="Search"
             autoFocus={true}
           />
-          <MyButton
+          <Button
             className={btnClasses.standardBtn}
             onClick={this.handleClick}
             data-testid="test-search-btn"
           >
             Search
-          </MyButton>
+          </Button>
         </div>
         <div className={classes.wrapCards}>
           {this.state.data.length ? (

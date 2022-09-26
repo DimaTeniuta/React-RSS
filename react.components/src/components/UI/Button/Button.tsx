@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import classes from './MyButton.module.scss';
+import classes from './Button.module.scss';
 
 interface ButtonProps {
   children?: string;
@@ -7,7 +7,7 @@ interface ButtonProps {
   className?: string;
 }
 
-const MyButton: FC<ButtonProps> = ({ children, ...props }) => {
+const Button: FC<ButtonProps> = ({ children, ...props }) => {
   return (
     <button {...props} className={(classes.btn, props.className)}>
       {children}
@@ -15,4 +15,4 @@ const MyButton: FC<ButtonProps> = ({ children, ...props }) => {
   );
 };
 
-export default MyButton;
+export default Button;

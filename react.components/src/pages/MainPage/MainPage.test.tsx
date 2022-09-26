@@ -6,7 +6,7 @@ import MainPage from './MainPage';
 
 Object.defineProperty(window, 'localStorage', { value: localStorageMock });
 
-describe('Main', () => {
+describe('MainPage', () => {
   beforeEach(() => {
     window.localStorage.clear();
   });

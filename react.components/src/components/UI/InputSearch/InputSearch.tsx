@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import localStorageModule from 'utils/localStorage';
-import MyButton from '../button/MyButton';
-import classes from './MyInput.module.scss';
-import btnClasses from '../button/MyButton.module.scss';
+import Button from '../Button/Button';
+import classes from './InputSearch.module.scss';
+import btnClasses from '../button/Button.module.scss';
 
 type InputProps = {
   type: string;
@@ -18,7 +18,7 @@ type InputState = {
   value: string;
 };
 
-export default class MyInput extends Component<InputProps, InputState> {
+export default class InputSearch extends Component<InputProps, InputState> {
   constructor(props: InputProps) {
     super(props);
     this.state = {
@@ -81,7 +81,7 @@ export default class MyInput extends Component<InputProps, InputState> {
           autoFocus={this.props.autoFocus}
         />
         {this.props.isClearBtn ? (
-          <MyButton className={btnClasses.clearBtn} onClick={this.clear} data-testid="clear-btn" />
+          <Button className={btnClasses.clearBtn} onClick={this.clear} data-testid="clear-btn" />
         ) : (
           ''
         )}
