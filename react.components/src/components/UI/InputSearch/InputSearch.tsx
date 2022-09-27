@@ -80,10 +80,8 @@ export default class InputSearch extends Component<InputProps, InputState> {
           placeholder={this.props.placeholder}
           autoFocus={this.props.autoFocus}
         />
-        {this.props.isClearBtn ? (
+        {this.props.isClearBtn && (
           <Button className={btnClasses.clearBtn} onClick={this.clear} data-testid="clear-btn" />
-        ) : (
-          ''
         )}
       </div>
     );
