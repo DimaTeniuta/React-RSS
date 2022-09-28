@@ -7,7 +7,7 @@ import React, { Component } from 'react';
 import { ResultsData } from 'types/generalTypes';
 import localStorageModule from 'utils/localStorage';
 import classes from './MainPage.module.scss';
-import btnClasses from '../../components/UI/Button/Button.module.scss';
+import btnClasses from '../../UI/Button/Button.module.scss';
 
 type StateMain = {
   data: ResultsData[];

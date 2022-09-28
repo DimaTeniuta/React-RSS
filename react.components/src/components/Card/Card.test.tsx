@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import MainPage from 'pages/MainPage/MainPage';
+import MainPage from 'components/pages/MainPage/MainPage';
 import React from 'react';
 import { Card } from './Card';
 

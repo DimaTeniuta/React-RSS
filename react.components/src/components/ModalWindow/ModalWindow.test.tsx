@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import AboutPage from 'pages/AboutPage/AboutPage';
-import ErrorPage from 'pages/ErrorPage';
+import AboutPage from 'components/pages/AboutPage/AboutPage';
+import ErrorPage from 'components/pages/ErrorPage';
 
 describe('ModalWindow', () => {
   it('renders AboutPage', () => {
