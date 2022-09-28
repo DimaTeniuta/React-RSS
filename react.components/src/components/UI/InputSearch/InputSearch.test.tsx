@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import InputSearch from './InputSearch';
 import userEvent from '@testing-library/user-event';
 import { localStorageMock } from 'data/mockData';
+import MainPage from 'components/pages/MainPage/MainPage';
 
 Object.defineProperty(window, 'localStorage', { value: localStorageMock });
 
@@ -111,6 +112,14 @@ describe('InputSearch', () => {
       />
     );
     expect(screen.queryByTestId('clear-btn')).not.toBeInTheDocument();
+  });
+
+  it('clear value', async () => {
+    render(<MainPage />);
+    const btn = await screen.findByTestId('clear-btn');
+    userEvent.click(btn);
+    const input = await screen.findByPlaceholderText(/search/i);
+    expect(input).toHaveValue('');
   });
 
   it('renders clear button', () => {
