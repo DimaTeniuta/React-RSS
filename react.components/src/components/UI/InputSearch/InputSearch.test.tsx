@@ -122,6 +122,23 @@ describe('InputSearch', () => {
     expect(input).toHaveValue('');
   });
 
+  it('check onKeyDown', async () => {
+    const getInputValue = jest.fn();
+    const mockOnKeyDown = jest.fn();
+    render(
+      <InputSearch
+        isClearBtn={false}
+        onKeyEnter={mockOnKeyDown}
+        getValue={getInputValue}
+        type="text"
+        placeholder="Search"
+        autoFocus={true}
+      />
+    );
+    userEvent.keyboard('[Enter]');
+    expect(mockOnKeyDown).toBeCalledTimes(1);
+  });
+
   it('renders clear button', () => {
     const getInputValue = jest.fn();
     const mockOnKeyDown = jest.fn();
