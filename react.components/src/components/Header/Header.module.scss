@@ -20,10 +20,10 @@
       font-size: 26px;
       font-weight: 500;
       transition: 0.3s;
-    }
-    
-    .navLink:hover {
-      color: #e7da6c;
+
+      &:hover {
+        color: #e7da6c;
+      }
     }
   }
 }

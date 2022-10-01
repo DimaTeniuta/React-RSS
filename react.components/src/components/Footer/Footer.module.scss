@@ -22,10 +22,10 @@
       background-image: url(../../../public/assets/svg/Github.svg);
       background-repeat: no-repeat;
       cursor: pointer;
-    }
-    
-    .gitHubLink:hover {
-      animation: icons-live 1s ease-in-out;
+
+      &:hover {
+        animation: icons-live 1s ease-in-out;
+      }
     }
   }
 
@@ -45,11 +45,13 @@
     background-repeat: no-repeat;
     background-size: 80px 40px;
     cursor: pointer;
+
+    &:hover {
+      animation: icons-live 1s ease-in-out;
+    }
   }
   
-  .rssLink:hover {
-    animation: icons-live 1s ease-in-out;
-  }
+  
 }
 
 
@@ -84,5 +86,4 @@
       row-gap: 20px;
     }
   }
-  
 }

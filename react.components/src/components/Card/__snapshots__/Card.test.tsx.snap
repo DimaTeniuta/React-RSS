@@ -32,7 +32,7 @@ Object {
           target="_blank"
         >
           <button
-            class="standardBtn"
+            class="btn standardBtn"
           >
             Full size
           </button>
@@ -68,7 +68,7 @@ Object {
         target="_blank"
       >
         <button
-          class="standardBtn"
+          class="btn standardBtn"
         >
           Full size
         </button>
@@ -149,12 +149,12 @@ Object {
               value=""
             />
             <button
-              class="clearBtn"
+              class="btn clearBtn"
               data-testid="clear-btn"
             />
           </div>
           <button
-            class="standardBtn"
+            class="btn standardBtn"
             data-testid="test-search-btn"
           >
             Search
@@ -198,12 +198,12 @@ Object {
             value=""
           />
           <button
-            class="clearBtn"
+            class="btn clearBtn"
             data-testid="clear-btn"
           />
         </div>
         <button
-          class="standardBtn"
+          class="btn standardBtn"
           data-testid="test-search-btn"
         >
           Search

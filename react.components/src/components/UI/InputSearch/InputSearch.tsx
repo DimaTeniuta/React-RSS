@@ -26,30 +26,20 @@ export default class InputSearch extends Component<InputProps, InputState> {
   }
 
   firstDownload = (): void => {
-    const result: string | null = localStorageModule.getValue('inputValue');
-    if (!result) {
-      this.setState(() => ({
-        value: '',
-      }));
-      return;
+    const result: string = localStorageModule.getValue('inputValue') || '';
+    this.setState({ value: result });
+    if (result) {
+      this.props.getValue(result);
     }
-    this.setState(() => ({
-      value: result,
-    }));
-    this.props.getValue(result);
   };
 
   clear = (): void => {
-    this.setState(() => ({
-      value: '',
-    }));
+    this.setState({ value: '' });
     this.props.getValue('');
   };
 
   handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    this.setState(() => ({
-      value: event.target.value,
-    }));
+    this.setState({ value: event.target.value });
     this.props.getValue(event.target.value);
   };
 
