@@ -9,7 +9,7 @@ interface ButtonProps {
 
 const Button: FC<ButtonProps> = ({ children, ...props }) => {
   return (
-    <button {...props} className={props.className ?? classes.btn}>
+    <button {...props} className={`${classes.btn} ${props.className}`}>
       {children}
     </button>
   );

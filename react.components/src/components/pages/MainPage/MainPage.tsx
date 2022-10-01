@@ -7,7 +7,6 @@ import React, { Component } from 'react';
 import { ResultsData } from 'types/generalTypes';
 import localStorageModule from 'utils/localStorage';
 import classes from './MainPage.module.scss';
-import btnClasses from '../../UI/Button/Button.module.scss';
 
 type StateMain = {
   data: ResultsData[];
@@ -28,9 +27,7 @@ export default class MainPage extends Component<PropsMain, StateMain> {
   }
 
   getInputValue = (value: string): void => {
-    this.setState(() => ({
-      value: value,
-    }));
+    this.setState({ value });
   };
 
   setNewImages = (): void => {
@@ -41,42 +38,24 @@ export default class MainPage extends Component<PropsMain, StateMain> {
 
   getCurrentImages = async (value?: string): Promise<void> => {
     const data = await fetchCards(value);
-    this.setState(() => ({
-      data: data,
-    }));
+    this.setState({ data });
   };
 
   changeCards = (): void => {
     if (this.state.isClick) {
-      this.setState(() => ({
-        isClick: false,
-      }));
+      this.setState({ isClick: false });
       this.setNewImages();
     }
   };
 
   firstDownloadCards = (): void => {
-    const lastInput: string | null = localStorageModule.getValue('inputValue');
-    if (!lastInput) {
-      this.setState(() => ({
-        value: 'purple',
-      }));
-      this.getCurrentImages('purple');
-      return;
-    }
-    if (lastInput) {
-      this.setState(() => ({
-        value: lastInput,
-      }));
-      this.getCurrentImages(lastInput);
-      return;
-    }
+    const lastInput: string = localStorageModule.getValue('inputValue') || 'purple';
+    this.setState({ value: lastInput });
+    this.getCurrentImages(lastInput);
   };
 
   handleClick = (): void => {
-    this.setState(() => ({
-      isClick: true,
-    }));
+    this.setState({ isClick: true });
   };
 
   componentDidMount = async (): Promise<void> => {
@@ -100,7 +79,7 @@ export default class MainPage extends Component<PropsMain, StateMain> {
             autoFocus={true}
           />
           <Button
-            className={btnClasses.standardBtn}
+            className={classes.standardBtn}
             onClick={this.handleClick}
             data-testid="test-search-btn"
           >

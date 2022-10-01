@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import localStorageModule from 'utils/localStorage';
 import Button from '../Button/Button';
 import classes from './InputSearch.module.scss';
-import btnClasses from '../Button/Button.module.scss';
 
 type InputProps = {
   type: string;
@@ -81,7 +80,7 @@ export default class InputSearch extends Component<InputProps, InputState> {
           autoFocus={this.props.autoFocus}
         />
         {this.props.isClearBtn && (
-          <Button className={btnClasses.clearBtn} onClick={this.clear} data-testid="clear-btn" />
+          <Button className={classes.clearBtn} onClick={this.clear} data-testid="clear-btn" />
         )}
       </div>
     );
