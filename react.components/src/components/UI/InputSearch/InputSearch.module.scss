@@ -14,10 +14,10 @@
   font-size: var(--font-regular);
   font-weight: 400;
   transition: 0.3s;
-}
 
-.myInput:focus {
-  outline: none;
+  &:focus {
+    outline: none;
+  }
 }
 
 .clearBtn {
@@ -31,14 +31,36 @@
   filter: invert(100%) sepia(0%) saturate(1%) hue-rotate(316deg) brightness(120%) contrast(101%);
   transition: 0.3s;
   cursor: pointer;
+
+  &:hover {
+    transition: 0.5s;
+    transform: rotate(360deg);
+    transition: 0.5s;
+  }
+  
+  &:active {
+    transform: scale(0.9);
+  }
 }
 
-.clearBtn:hover {
-  transition: 0.5s;
-  transform: rotate(360deg);
-  transition: 0.5s;
-}
+.standardBtn {
+  width: 150px;
+  height: 40px;
+  margin: 10px auto;
+  padding: 0 25px;
+  backdrop-filter: var(--filter);
+  background-color: var(--color-background-box);
+  border: 1px solid var(--color-blue);
+  border-radius: 20px;
+  color: var(--color-white);
+  font-family: sans-serif;
+  font-size: var(--font-regular);
+  font-weight: 400;
+  cursor: pointer;
+  transition: 0.3s;
 
-.clearBtn:active {
-  transform: scale(0.9);
+  &:hover {
+    cursor: pointer;
+    color: #e7da6c;
+  }
 }
