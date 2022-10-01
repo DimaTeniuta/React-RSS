@@ -1,5 +1,5 @@
 import { Card } from 'components/Card/Card';
-import ModalWindow from 'components/ModalWindow/ModalWindow';
+import TextWindow from 'components/TextWindow/TextWindow';
 import Search from 'components/Search/Search';
 import React, { Component } from 'react';
 import { ResultsData } from 'types/generalTypes';
@@ -31,7 +31,7 @@ export default class MainPage extends Component<PropsMain, StateMain> {
           {this.state.data.length ? (
             this.state.data.map((el) => <Card key={el.id} data={el} />)
           ) : (
-            <ModalWindow title="Not Found">Try entering another query</ModalWindow>
+            <TextWindow title="Not Found">Try entering another query</TextWindow>
           )}
         </div>
       </div>

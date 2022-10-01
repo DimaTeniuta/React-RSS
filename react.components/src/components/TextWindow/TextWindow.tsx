@@ -1,12 +1,12 @@
 import React, { FC } from 'react';
-import classes from './ModalWindow.module.scss';
+import classes from './TextWindow.module.scss';
 
 interface ModalProps {
   children: string;
   title: string;
 }
 
-const ModalWindow: FC<ModalProps> = ({ children, ...props }) => {
+const TextWindow: FC<ModalProps> = ({ children, ...props }) => {
   return (
     <div className={classes.wrap} data-testid="modal-test">
       <h1 className={classes.title}>{props.title}</h1>
@@ -15,4 +15,4 @@ const ModalWindow: FC<ModalProps> = ({ children, ...props }) => {
   );
 };
 
-export default ModalWindow;
+export default TextWindow;

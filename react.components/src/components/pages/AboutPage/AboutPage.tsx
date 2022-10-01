@@ -1,4 +1,4 @@
-import ModalWindow from 'components/ModalWindow/ModalWindow';
+import ModalWindow from 'components/TextWindow/TextWindow';
 import React from 'react';
 import classes from './AboutPage.module.scss';
 

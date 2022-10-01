@@ -9,11 +9,11 @@
   height: 400px;
   margin: 10vh auto;
   padding: 50px 10px;
-  backdrop-filter: var(--filter);
-  background-color: var(--color-background-box);
-  border: 2px solid var(--color-grey);
+  backdrop-filter: $filter;
+  background-color: $color-background-box;
+  border: 2px solid $color-grey;
   border-radius: 10px;
-  color: var(--color-white);
+  color: $color-white;
   font-size: 18px;
 
   .title {
