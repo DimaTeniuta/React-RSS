@@ -1,77 +1,39 @@
 import React, { Component } from 'react';
-import localStorageModule from 'utils/localStorage';
 import Button from '../Button/Button';
 import classes from './InputSearch.module.scss';
 
-type InputProps = {
+interface InputProps {
   type: string;
-  getValue: (value: string) => void;
-  onKeyEnter: () => void;
-  isClearBtn: boolean;
-  className?: string;
-  placeholder?: string;
-  autoFocus?: boolean;
-};
-
-type InputState = {
+  placeholder: string;
+  autoFocus: boolean;
   value: string;
-};
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onKeyDown: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+  clearInput: () => void;
+}
+
+interface InputState {
+  value: string;
+}
 
 export default class InputSearch extends Component<InputProps, InputState> {
-  constructor(props: InputProps) {
-    super(props);
-    this.state = {
-      value: '',
-    };
-  }
-
-  firstDownload = (): void => {
-    const result: string = localStorageModule.getValue('inputValue') || '';
-    this.setState({ value: result });
-    if (result) {
-      this.props.getValue(result);
-    }
-  };
-
-  clear = (): void => {
-    this.setState({ value: '' });
-    this.props.getValue('');
-  };
-
-  handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    this.setState({ value: event.target.value });
-    this.props.getValue(event.target.value);
-  };
-
-  handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>): void => {
-    if (event.key === 'Enter') {
-      this.props.onKeyEnter();
-    }
-  };
-
-  componentDidMount = (): void => {
-    this.firstDownload();
-  };
-
-  componentWillUnmount = (): void => {
-    localStorageModule.setValue('inputValue', this.state.value);
-  };
-
   render() {
     return (
       <div>
         <input
           className={classes.myInput}
           type={this.props.type}
-          value={this.state.value}
-          onKeyDown={(event) => this.handleKeyDown(event)}
-          onChange={(event) => this.handleChange(event)}
+          value={this.props.value}
+          onChange={this.props.onChange}
+          onKeyDown={this.props.onKeyDown}
           placeholder={this.props.placeholder}
           autoFocus={this.props.autoFocus}
         />
-        {this.props.isClearBtn && (
-          <Button className={classes.clearBtn} onClick={this.clear} data-testid="clear-btn" />
-        )}
+        <Button
+          className={classes.clearBtn}
+          onClick={this.props.clearInput}
+          data-testid="clear-btn"
+        />
       </div>
     );
   }
