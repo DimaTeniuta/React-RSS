@@ -140,6 +140,7 @@ Object {
       >
         <div
           class="wrap"
+          data-testid="search-test"
         >
           <div>
             <input
@@ -189,6 +190,7 @@ Object {
     >
       <div
         class="wrap"
+        data-testid="search-test"
       >
         <div>
           <input

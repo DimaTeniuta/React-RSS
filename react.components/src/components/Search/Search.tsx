@@ -60,7 +60,7 @@ export default class Search extends Component<SearchProps, SearchState> {
 
   render() {
     return (
-      <div className={classes.wrap}>
+      <div className={classes.wrap} data-testid="search-test">
         <InputSearch
           type="text"
           placeholder="Search"
