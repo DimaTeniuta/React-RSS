@@ -1,10 +1,8 @@
 import React from 'react';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import Search from './Search';
 import { localStorageMock } from 'data/mockData';
 import userEvent from '@testing-library/user-event';
-import MainPage from 'components/pages/MainPage/MainPage';
-import InputSearch from 'components/UI/InputSearch/InputSearch';
 
 Object.defineProperty(window, 'localStorage', { value: localStorageMock });
 

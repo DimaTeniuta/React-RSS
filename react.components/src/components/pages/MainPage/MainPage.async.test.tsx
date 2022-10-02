@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import axios from 'axios';
 import MainPage from './MainPage';
 import userEvent from '@testing-library/user-event';
+import Search from 'components/Search/Search';
 
 jest.mock('axios');
 
@@ -90,5 +91,14 @@ describe('MainPage async', () => {
     userEvent.type(input, testValue);
     userEvent.keyboard('[Enter]');
     expect(axios.get).toBeCalledTimes(2);
+  });
+
+  it('onkeydown enter in input', () => {
+    const mockFn = jest.fn();
+    render(<Search getData={mockFn} />);
+    userEvent.keyboard('[Enter]');
+    setTimeout(() => {
+      expect(mockFn).toHaveBeenCalled();
+    }, 1000);
   });
 });
