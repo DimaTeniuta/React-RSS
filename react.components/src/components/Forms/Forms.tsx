@@ -5,21 +5,26 @@ import SELECT_DATA from '../../data/optionsForSelect.json';
 import { SelectData } from 'types/generalTypes';
 import Button from 'components/UI/Button/Button';
 import { Select } from 'components/UI/Select/Select';
+import { InputFile } from 'components/UI/InputFile/InputFile';
 
 interface StateForms {
   selectData: SelectData[];
   isDisabled: boolean;
   isFirstInput: boolean;
   isValid: boolean;
+  isClickAvatar: boolean;
+  isValidAvatar: string;
   nameRef: React.RefObject<HTMLInputElement>;
   surnameRef: React.RefObject<HTMLInputElement>;
   birthdayRef: React.RefObject<HTMLInputElement>;
   countryRef: React.RefObject<HTMLSelectElement>;
+  avatarRef: React.RefObject<HTMLInputElement>;
   personalDataRef: React.RefObject<HTMLInputElement>;
   nameError: string;
   surnameError: string;
   birthdayError: string;
   countryError: string;
+  avatarError: string;
   personaDataError: string;
 }
 
@@ -33,21 +38,32 @@ export default class Forms extends Component<PropsForms, StateForms> {
       isFirstInput: false,
       isDisabled: true,
       isValid: false,
+      isClickAvatar: false,
       nameRef: React.createRef(),
       surnameRef: React.createRef(),
       birthdayRef: React.createRef(),
       countryRef: React.createRef(),
+      avatarRef: React.createRef(),
       personalDataRef: React.createRef(),
+      isValidAvatar: '',
       nameError: '',
       surnameError: '',
       birthdayError: '',
       countryError: '',
+      avatarError: '',
       personaDataError: '',
     };
   }
 
   firstInput = (): void => {
-    if (this.state.nameRef || this.state.surnameRef || this.state.birthdayRef) {
+    if (
+      this.state.nameRef ||
+      this.state.surnameRef ||
+      this.state.birthdayRef ||
+      this.state.countryRef ||
+      this.state.personalDataRef ||
+      this.state.isClickAvatar
+    ) {
       this.setState({ isDisabled: false, isFirstInput: true });
     }
   };
@@ -79,11 +95,11 @@ export default class Forms extends Component<PropsForms, StateForms> {
     if (surname) {
       isPattern = surname.match(/^[a-zA-Z]*$/g);
     }
-    if (!isPattern) {
-      this.setState({ surnameError: 'The name should contain only the letters a-z, A-Z' });
-      return false;
-    } else if (!surname) {
+    if (!surname) {
       this.setState({ surnameError: 'The surname must be longer than 3 characters' });
+      return false;
+    } else if (!isPattern) {
+      this.setState({ surnameError: 'The name should contain only the letters a-z, A-Z' });
       return false;
     } else if (surname.length < 3) {
       this.setState({ surnameError: 'The surname must be longer than 3 characters' });
@@ -142,17 +158,46 @@ export default class Forms extends Component<PropsForms, StateForms> {
     }
   };
 
-  validationAfterWrongPost = (): void => {
-    if (this.state.isValid) {
-      const name = this.validationName();
-      const surname = this.validationSurname();
-      const birthday = this.validationBirthday();
-      const country = this.validationCountry();
-      const personalData = this.validationPersonalData();
+  validationAvatar = (): boolean => {
+    const file = this.state.avatarRef.current?.files;
+    let isPattern;
+    if (file && file.length) {
+      isPattern = file[0].name.match(/.*\.(jpg|JPG|png|PNG)$/);
+    }
 
-      if (name && surname && birthday && country && personalData) {
-        this.setState({ isDisabled: false });
-      }
+    if (file && !file.length) {
+      this.setState({ avatarError: 'Upload an image in JPG or PNG format', isValidAvatar: '' });
+      return false;
+    } else if (!isPattern) {
+      this.setState({
+        avatarError: 'The image must be in JPG or PNG format',
+        isValidAvatar: '',
+      });
+      return false;
+    } else {
+      this.setState({ avatarError: '', isValidAvatar: 'true' });
+      return true;
+    }
+  };
+
+  onClickAvatar = (): void => {
+    this.state.avatarRef.current?.click();
+    this.setState({ isClickAvatar: true });
+    if (!this.state.isFirstInput) {
+      this.firstInput();
+    }
+  };
+
+  validationAfterWrongPost = (): void => {
+    const name = this.validationName();
+    const surname = this.validationSurname();
+    const birthday = this.validationBirthday();
+    const country = this.validationCountry();
+    const personalData = this.validationPersonalData();
+    const avatar = this.validationAvatar();
+
+    if (name && surname && birthday && country && personalData && avatar) {
+      this.setState({ isDisabled: false });
     }
   };
 
@@ -160,29 +205,39 @@ export default class Forms extends Component<PropsForms, StateForms> {
     if (!this.state.isFirstInput) {
       this.firstInput();
     }
-    this.validationAfterWrongPost();
+
+    if (this.state.isValid) {
+      this.validationAfterWrongPost();
+    }
   };
 
   clearForm = (): void => {
-    console.log('success');
-    this.setState({ isFirstInput: false, isDisabled: true, isValid: false });
+    this.setState({ isFirstInput: false, isDisabled: true, isValid: false, isValidAvatar: '' });
     this.state.nameRef.current!.value = '';
     this.state.surnameRef.current!.value = '';
     this.state.birthdayRef.current!.value = '';
     this.state.countryRef.current!.value = 'Country';
+    this.state.avatarRef.current!.value = '';
   };
 
   handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    console.log('submit');
     this.setState({ isDisabled: true, isValid: true });
     const isValidName = this.validationName();
     const isValidSurname = this.validationSurname();
     const isValidBirthday = this.validationBirthday();
     const isValidCountry = this.validationCountry();
     const personalData = this.validationPersonalData();
+    const avatar = this.validationAvatar();
 
-    if (isValidName && isValidSurname && isValidBirthday && isValidCountry && personalData) {
+    if (
+      isValidName &&
+      isValidSurname &&
+      isValidBirthday &&
+      isValidCountry &&
+      personalData &&
+      avatar
+    ) {
       this.clearForm();
     }
   };
@@ -229,6 +284,16 @@ export default class Forms extends Component<PropsForms, StateForms> {
           onChange={this.handleOnChange}
           ref={this.state.countryRef}
           error={this.state.countryError}
+        />
+
+        <InputFile
+          label="Avatar"
+          title="Avatar:"
+          ready={this.state.isValidAvatar}
+          ref={this.state.avatarRef}
+          onClick={this.onClickAvatar}
+          onChange={this.validationAvatar}
+          error={this.state.avatarError}
         />
 
         <Input
