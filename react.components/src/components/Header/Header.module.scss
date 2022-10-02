@@ -10,13 +10,13 @@
   border-radius: 0 0 20px 20px;
   padding: 10px 0;
 
-  .wrapBtn {
+  .nav {
     display: flex;
     column-gap: 20px;
     align-items: center;
 
     .navLink {
-      color: $color-white;;
+      color: $color-white;
       font-size: 26px;
       font-weight: 500;
       transition: 0.3s;
@@ -24,6 +24,13 @@
       &:hover {
         color: $color-yellow;
       }
+    }
+
+    .navLinkActive {
+      color: $color-yellow;
+      font-size: 26px;
+      font-weight: 500;
+      transition: 0.3s;
     }
   }
 }
