@@ -5,6 +5,7 @@ interface ButtonProps {
   children?: string;
   onClick?: () => void;
   className?: string;
+  disabled?: boolean;
 }
 
 const Button: FC<ButtonProps> = ({ children, ...props }) => {
