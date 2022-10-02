@@ -28,6 +28,7 @@ export default class Search extends Component<SearchProps, SearchState> {
       this.props.getData(data);
       return;
     }
+
     const data = await fetchCards(this.state.value);
     this.props.getData(data);
   };

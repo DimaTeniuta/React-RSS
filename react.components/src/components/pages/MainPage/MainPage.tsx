@@ -27,6 +27,7 @@ export default class MainPage extends Component<PropsMain, StateMain> {
     return (
       <div className={classes.container} data-testid="main-page">
         <Search getData={this.getCards} />
+
         <div className={classes.wrapCards}>
           {this.state.data.length ? (
             this.state.data.map((el) => <Card key={el.id} data={el} />)
