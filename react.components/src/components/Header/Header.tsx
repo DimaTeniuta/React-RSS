@@ -16,6 +16,9 @@ export default class Header extends Component {
           <NavLink to="/main" className={this.setActive} data-testid="main-link">
             Main
           </NavLink>
+          <NavLink to="/form" className={this.setActive} data-testid="form-link">
+            Form
+          </NavLink>
         </nav>
       </header>
     );
