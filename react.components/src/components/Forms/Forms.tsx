@@ -78,11 +78,11 @@ export default class Forms extends Component<PropsForms, StateForms> {
     if (name) {
       isPattern = name.match(/^[a-zA-Z]*$/g);
     }
-    if (!isPattern) {
-      this.setState({ nameError: 'The name should contain only the letters a-z, A-Z' });
-      return false;
-    } else if (!name) {
+    if (!name) {
       this.setState({ nameError: 'The name must be longer than 3 characters' });
+      return false;
+    } else if (!isPattern) {
+      this.setState({ nameError: 'The name should contain only the letters a-z, A-Z' });
       return false;
     } else if (name.length < 3) {
       this.setState({ nameError: 'The name must be longer than 3 characters' });
@@ -194,6 +194,9 @@ export default class Forms extends Component<PropsForms, StateForms> {
 
   onClickSwitch = (): void => {
     this.state.switchRef.current?.click();
+    if (!this.state.isFirstInput) {
+      this.firstInput();
+    }
   };
 
   onClickPersonalData = (): void => {
@@ -294,7 +297,6 @@ export default class Forms extends Component<PropsForms, StateForms> {
           label="country"
           title="Country:"
           options={this.state.selectData}
-          className={classes.select}
           onChange={this.handleOnChange}
           ref={this.state.countryRef}
           error={this.state.countryError}
@@ -306,7 +308,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
           ready={this.state.isValidAvatar}
           ref={this.state.avatarRef}
           onClick={this.onClickAvatar}
-          onChange={this.validationAvatar}
+          onChange={this.handleOnChange}
           error={this.state.avatarError}
         />
 
@@ -316,18 +318,6 @@ export default class Forms extends Component<PropsForms, StateForms> {
           onClick={this.onClickSwitch}
           ref={this.state.switchRef}
         />
-
-        {/* <Input
-          type="checkbox"
-          className={classes.inputCheckbox}
-          labelclass={classes.checkboxWrap}
-          label="agree"
-          title="Consent to data processing:"
-          onChange={this.handleOnChange}
-          ref={this.state.personalDataRef}
-          error={this.state.personaDataError}
-          errorclass={classes.checkboxError}
-        /> */}
 
         <InputCheckbox
           label="agree"
