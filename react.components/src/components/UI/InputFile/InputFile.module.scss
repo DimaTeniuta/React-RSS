@@ -3,7 +3,7 @@
 .wrap {
   width: 100%;
   position: relative;
-  margin: 0 0 60px -20px;
+  margin: 0 0 60px -22px;
 
   .input {
     opacity: 0;
@@ -48,16 +48,17 @@
     left: 150px;
     width: 30px;
     height: 30px;
-    color: #0fec0f;
+    color: $color-green;
     background: url(../../../../public/assets/svg/arrow-down.svg);
     background-repeat: no-repeat;
     background-size: 30px 30px;
-    filter: invert(41%) sepia(25%) saturate(5246%) hue-rotate(93deg) brightness(146%) contrast(88%);
+    filter: invert(76%) sepia(11%) saturate(2492%) hue-rotate(68deg) brightness(80%) contrast(86%);
   }
 
   .error {
     position: absolute;
     top: 73px;
+    left: -5px;
     height: 8px;
     color: rgb(251, 40, 3);
     font-size: 14px;

@@ -1,0 +1,54 @@
+@import '../../../styles/variables.scss';
+
+.wrap {
+  position: relative;
+  margin: 0 0 15px -283px;
+  .switch {
+    position: relative;
+
+
+    .input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+  }
+
+  .slider {
+    position: absolute;
+    top: 0;
+    left: -40px;
+    right: 0;
+    bottom: 0;
+    width: 60px;
+    height: 29px;
+    margin: 10px auto;
+    backdrop-filter: $filter;
+    background-color: $color-background-box;
+    border: 1px solid $color-blue;
+    border-radius: 14px;
+    color: $color-white;
+    cursor: pointer;
+    transition: 0.5s;
+
+    &:before {
+      content: '';
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      left: 1px;
+      bottom: 1px;
+      border-radius: 50%;
+      background-color: $color-white;
+      transition: 0.3s;
+    }
+  }
+}
+
+.input:checked + .slider {
+  background-color: rgba(242, 11, 96, 0.3);
+}
+
+.input:checked + .slider:before {
+  transform: translateX(32px);
+}

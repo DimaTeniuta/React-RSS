@@ -6,6 +6,7 @@ import { SelectData } from 'types/generalTypes';
 import Button from 'components/UI/Button/Button';
 import { Select } from 'components/UI/Select/Select';
 import { InputFile } from 'components/UI/InputFile/InputFile';
+import { Switch } from 'components/UI/Switch/Switch';
 
 interface StateForms {
   selectData: SelectData[];
@@ -20,6 +21,7 @@ interface StateForms {
   countryRef: React.RefObject<HTMLSelectElement>;
   avatarRef: React.RefObject<HTMLInputElement>;
   personalDataRef: React.RefObject<HTMLInputElement>;
+  switchRef: React.RefObject<HTMLInputElement>;
   nameError: string;
   surnameError: string;
   birthdayError: string;
@@ -45,6 +47,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
       countryRef: React.createRef(),
       avatarRef: React.createRef(),
       personalDataRef: React.createRef(),
+      switchRef: React.createRef(),
       isValidAvatar: '',
       nameError: '',
       surnameError: '',
@@ -188,6 +191,10 @@ export default class Forms extends Component<PropsForms, StateForms> {
     }
   };
 
+  onClickSwitch = (): void => {
+    this.state.switchRef.current?.click();
+  };
+
   validationAfterWrongPost = (): void => {
     const name = this.validationName();
     const surname = this.validationSurname();
@@ -218,6 +225,8 @@ export default class Forms extends Component<PropsForms, StateForms> {
     this.state.birthdayRef.current!.value = '';
     this.state.countryRef.current!.value = 'Country';
     this.state.avatarRef.current!.value = '';
+    this.state.personalDataRef.current!.checked = false;
+    this.state.switchRef.current!.checked = false;
   };
 
   handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
@@ -294,6 +303,13 @@ export default class Forms extends Component<PropsForms, StateForms> {
           onClick={this.onClickAvatar}
           onChange={this.validationAvatar}
           error={this.state.avatarError}
+        />
+
+        <Switch
+          label="Switch"
+          title="Male/Female:"
+          onClick={this.onClickSwitch}
+          ref={this.state.switchRef}
         />
 
         <Input
