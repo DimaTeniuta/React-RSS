@@ -7,6 +7,7 @@ import Button from 'components/UI/Button/Button';
 import { Select } from 'components/UI/Select/Select';
 import { InputFile } from 'components/UI/InputFile/InputFile';
 import { Switch } from 'components/UI/Switch/Switch';
+import { InputCheckbox } from 'components/UI/InputCheckbox/InputCheckbox';
 
 interface StateForms {
   selectData: SelectData[];
@@ -195,6 +196,10 @@ export default class Forms extends Component<PropsForms, StateForms> {
     this.state.switchRef.current?.click();
   };
 
+  onClickPersonalData = (): void => {
+    this.state.personalDataRef.current?.click();
+  };
+
   validationAfterWrongPost = (): void => {
     const name = this.validationName();
     const surname = this.validationSurname();
@@ -312,7 +317,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
           ref={this.state.switchRef}
         />
 
-        <Input
+        {/* <Input
           type="checkbox"
           className={classes.inputCheckbox}
           labelclass={classes.checkboxWrap}
@@ -322,6 +327,15 @@ export default class Forms extends Component<PropsForms, StateForms> {
           ref={this.state.personalDataRef}
           error={this.state.personaDataError}
           errorclass={classes.checkboxError}
+        /> */}
+
+        <InputCheckbox
+          label="agree"
+          title="Consent to data processing:"
+          onClick={this.onClickPersonalData}
+          onChange={this.handleOnChange}
+          ref={this.state.personalDataRef}
+          error={this.state.personaDataError}
         />
 
         <Button className={classes.standardBtn} disabled={this.state.isDisabled}>

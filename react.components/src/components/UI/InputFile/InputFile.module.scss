@@ -49,10 +49,9 @@
     width: 30px;
     height: 30px;
     color: $color-green;
-    background: url(../../../../public/assets/svg/arrow-down.svg);
+    background-image: url(../../../../public/assets/images/check.png);
     background-repeat: no-repeat;
     background-size: 30px 30px;
-    filter: invert(76%) sepia(11%) saturate(2492%) hue-rotate(68deg) brightness(80%) contrast(86%);
   }
 
   .error {
@@ -60,7 +59,7 @@
     top: 73px;
     left: -5px;
     height: 8px;
-    color: rgb(251, 40, 3);
+    color: $color-red;
     font-size: 14px;
   }
 }

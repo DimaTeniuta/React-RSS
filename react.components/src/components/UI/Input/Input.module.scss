@@ -47,40 +47,7 @@
     position: absolute;
     top: 73px;
     height: 8px;
-    color: rgb(251, 40, 3);
-    font-size: 14px;
-  }
-}
-
-.checkboxWrap {
-  position: relative;
-  margin: 10px 0 0 -170px;
-
-  .inputCheckbox {
-    position: absolute;
-    top: -10px;
-    left: 240px;
-    width: 20px;
-    height: 20px;
-    margin: 10px 0;
-    padding: 0 25px;
-    backdrop-filter: $filter;
-    background-color: $color-background-box;
-    border: 1px solid $color-blue;
-    border-radius: 20px;
-    color: $color-white;
-    transition: 0.3s;
-
-    &:focus {
-      outline: none;
-    }
-  }
-
-  .checkboxError {
-    position: absolute;
-    top: 73px;
-    height: 8px;
-    color: rgb(251, 40, 3);
+    color: $color-red;
     font-size: 14px;
   }
 }

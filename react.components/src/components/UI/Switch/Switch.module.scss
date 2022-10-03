@@ -24,7 +24,7 @@
     height: 29px;
     margin: 10px auto;
     backdrop-filter: $filter;
-    background-color: $color-background-box;
+    background-color: rgba(57, 144, 199, 0.3);
     border: 1px solid $color-blue;
     border-radius: 14px;
     color: $color-white;
@@ -46,7 +46,7 @@
 }
 
 .input:checked + .slider {
-  background-color: rgba(242, 11, 96, 0.3);
+  background-color: rgba(239, 60, 191, 0.3);
 }
 
 .input:checked + .slider:before {
