@@ -10,13 +10,15 @@ import { InputCheckbox } from 'components/UI/InputCheckbox/InputCheckbox';
 import { SelectData } from 'types/formTypes';
 import { FormData } from 'types/formTypes';
 
+const DEFAULT_VALUE_COUNTRY = 'Country';
+
 interface StateForms {
   selectData: SelectData[];
   isDisabled: boolean;
   isFirstInput: boolean;
   isValid: boolean;
   isClickAvatar: boolean;
-  isValidAvatar: string;
+  validAvatar: string;
   nameRef: React.RefObject<HTMLInputElement>;
   surnameRef: React.RefObject<HTMLInputElement>;
   birthdayRef: React.RefObject<HTMLInputElement>;
@@ -52,7 +54,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
       avatarRef: React.createRef(),
       personalDataRef: React.createRef(),
       switchRef: React.createRef(),
-      isValidAvatar: '',
+      validAvatar: '',
       nameError: '',
       surnameError: '',
       birthdayError: '',
@@ -135,12 +137,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
 
   validationCountry = (): boolean => {
     const country = this.state.countryRef.current?.value;
-    let isPattern = false;
-    if (country !== 'Country') {
-      isPattern = true;
-    }
-
-    if (!isPattern) {
+    if (country === DEFAULT_VALUE_COUNTRY) {
       this.setState({ countryError: 'Chose country' });
       return false;
     } else {
@@ -150,13 +147,8 @@ export default class Forms extends Component<PropsForms, StateForms> {
   };
 
   validationPersonalData = (): boolean => {
-    const data = this.state.personalDataRef.current?.checked;
-    let isPattern = false;
-    if (data) {
-      isPattern = true;
-    }
-
-    if (!isPattern) {
+    const value = this.state.personalDataRef.current?.checked;
+    if (!value) {
       this.setState({ personaDataError: 'This field is required' });
       return false;
     } else {
@@ -173,16 +165,16 @@ export default class Forms extends Component<PropsForms, StateForms> {
     }
 
     if (file && !file.length) {
-      this.setState({ avatarError: 'Upload an image in JPG or PNG format', isValidAvatar: '' });
+      this.setState({ avatarError: 'Upload an image in JPG or PNG format', validAvatar: '' });
       return false;
     } else if (!isPattern) {
       this.setState({
         avatarError: 'The image must be in JPG or PNG format',
-        isValidAvatar: '',
+        validAvatar: '',
       });
       return false;
     } else {
-      this.setState({ avatarError: '', isValidAvatar: 'true' });
+      this.setState({ avatarError: '', validAvatar: 'true' });
       return true;
     }
   };
@@ -230,11 +222,11 @@ export default class Forms extends Component<PropsForms, StateForms> {
   };
 
   clearForm = (): void => {
-    this.setState({ isFirstInput: false, isDisabled: true, isValid: false, isValidAvatar: '' });
+    this.setState({ isFirstInput: false, isDisabled: true, isValid: false, validAvatar: '' });
     this.state.nameRef.current!.value = '';
     this.state.surnameRef.current!.value = '';
     this.state.birthdayRef.current!.value = '';
-    this.state.countryRef.current!.value = 'Country';
+    this.state.countryRef.current!.value = DEFAULT_VALUE_COUNTRY;
     this.state.avatarRef.current!.value = '';
     this.state.personalDataRef.current!.checked = false;
     this.state.switchRef.current!.checked = false;
@@ -310,7 +302,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
         />
 
         <Select
-          defaultValue="Country"
+          defaultValue={DEFAULT_VALUE_COUNTRY}
           label="country"
           title="Country:"
           options={this.state.selectData}
@@ -322,7 +314,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
         <InputFile
           label="avatar"
           title="Avatar:"
-          ready={this.state.isValidAvatar}
+          ready={this.state.validAvatar}
           ref={this.state.avatarRef}
           onClick={this.onClickAvatar}
           onChange={this.handleOnChange}
