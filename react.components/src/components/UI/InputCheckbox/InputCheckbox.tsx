@@ -16,7 +16,14 @@ export const InputCheckbox: FC<InputCheckboxProps> = React.forwardRef((props, re
       <label htmlFor={props.label} className={classes.wrap}>
         {props.title}
         <div className={classes.box} onClick={props.onClick}>
-          <input {...props} type="checkbox" {...props} className={classes.input} ref={ref} />
+          <input
+            {...props}
+            type="checkbox"
+            {...props}
+            className={classes.input}
+            ref={ref}
+            data-testid="inputCheckbox"
+          />
           <span className={classes.img}></span>
         </div>
         <p className={classes.error}>{props.error}</p>

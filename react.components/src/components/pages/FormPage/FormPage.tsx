@@ -25,7 +25,7 @@ export default class FormPage extends Component<PropsFormPage, StateFormPage> {
 
   render() {
     return (
-      <div className={classes.container}>
+      <div className={classes.container} data-testid="form-page">
         <Forms getData={this.getData} />
         <div className={classes.wrapCards}>
           {this.state.data && this.state.data.map((el, i) => <FormCard key={i} data={el} />)}

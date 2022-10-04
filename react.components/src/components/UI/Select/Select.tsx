@@ -17,7 +17,12 @@ export const Select: FC<SelectProps> = React.forwardRef((props, ref) => {
   return (
     <label className={classes.wrap} htmlFor={props.label}>
       {props.title}
-      <select {...props} className={props.className ?? classes.select} ref={ref}>
+      <select
+        {...props}
+        className={props.className ?? classes.select}
+        ref={ref}
+        data-testid="select"
+      >
         <option value={props.defaultValue} disabled>
           {props.defaultValue}
         </option>

@@ -9,7 +9,10 @@ type StateFormCard = {
 export const FormCard: FC<StateFormCard> = ({ data }) => {
   return (
     <div className={classes.card}>
-      <span className={classes.image} style={{ backgroundImage: `url(${data.avatar})` }}></span>
+      <span
+        className={classes.image}
+        style={{ backgroundImage: `url(${URL.createObjectURL(data.avatar)})` }}
+      ></span>
       <div className={classes.wrapText}>
         <span className={classes.text}>Name: </span> {data.name}
       </div>

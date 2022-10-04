@@ -3,6 +3,8 @@ import React from 'react';
 import { FormData } from 'types/formTypes';
 import { FormCard } from './FormCard';
 
+const fakeFile = new File(['test'], 'test.png', { type: 'image/png' });
+
 const mockData: FormData = {
   name: 'Test',
   surname: 'Test2',
@@ -10,8 +12,9 @@ const mockData: FormData = {
   country: 'test-country',
   gender: false,
   personalData: true,
-  avatar: '../../../public/assets/images/background.jpg',
+  avatar: fakeFile,
 };
+
 const mockData2: FormData = {
   name: 'Test',
   surname: 'Test2',
@@ -19,7 +22,7 @@ const mockData2: FormData = {
   country: 'test-country',
   gender: true,
   personalData: true,
-  avatar: '../../../public/assets/images/background.jpg',
+  avatar: fakeFile,
 };
 
 describe('FormCard', () => {
@@ -34,7 +37,6 @@ describe('FormCard', () => {
   it('renders current image', () => {
     global.URL.createObjectURL = jest.fn();
     const { unmount } = render(<FormCard data={mockData} />);
-    screen.debug();
     expect(screen.getByTestId('test-male')).toBeInTheDocument();
     unmount();
     render(<FormCard data={mockData2} />);

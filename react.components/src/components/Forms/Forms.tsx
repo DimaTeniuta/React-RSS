@@ -240,7 +240,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
       surname: this.state.surnameRef.current!.value,
       birthday: this.state.birthdayRef.current!.value,
       country: this.state.countryRef.current!.value,
-      avatar: URL.createObjectURL(this.state.avatarRef.current!.files![0]),
+      avatar: this.state.avatarRef.current!.files![0],
       personalData: this.state.personalDataRef.current!.checked,
       gender: this.state.switchRef.current!.checked,
     };
@@ -272,7 +272,12 @@ export default class Forms extends Component<PropsForms, StateForms> {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit} className={classes.container} noValidate>
+      <form
+        onSubmit={this.handleSubmit}
+        className={classes.container}
+        noValidate
+        data-testid="forms"
+      >
         <Input
           type="text"
           label="firstName"
@@ -281,6 +286,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
           onChange={this.handleOnChange}
           ref={this.state.nameRef}
           error={this.state.nameError}
+          dataTestId="inputName"
         />
 
         <Input
@@ -291,6 +297,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
           onChange={this.handleOnChange}
           ref={this.state.surnameRef}
           error={this.state.surnameError}
+          dataTestId="inputSurname"
         />
 
         <Input
@@ -301,6 +308,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
           onChange={this.handleOnChange}
           ref={this.state.birthdayRef}
           error={this.state.birthdayError}
+          dataTestId="inputDate"
         />
 
         <Select

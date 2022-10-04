@@ -16,7 +16,14 @@ export const InputFile: FC<InputFileProps> = React.forwardRef((props, ref) => {
     <>
       <label htmlFor={props.label} className={classes.wrap}>
         {props.title}
-        <input {...props} type="file" {...props} className={classes.input} ref={ref} />
+        <input
+          {...props}
+          type="file"
+          {...props}
+          className={classes.input}
+          ref={ref}
+          data-testid="inputFile"
+        />
         <div className={classes.btn} onClick={props.onClick}>
           Upload File
         </div>
