@@ -3,9 +3,9 @@ import { render, screen, waitFor } from '@testing-library/react';
 import Forms from './Forms';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
+import { fakeFile } from 'data/mockData';
 
 const mockGetData = jest.fn();
-const fakeFile = new File(['test'], 'test.png', { type: 'image/png' });
 const fakeFileWithWrongFormat = new File(['test'], 'test.pdf', { type: 'image/pdf' });
 
 describe('Forms', () => {

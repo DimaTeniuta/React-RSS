@@ -15,3 +15,5 @@ export const localStorageMock = (function () {
     },
   };
 })();
+
+export const fakeFile = new File(['test'], 'test.png', { type: 'image/png' });

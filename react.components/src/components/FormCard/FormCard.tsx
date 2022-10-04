@@ -8,7 +8,7 @@ type StateFormCard = {
 
 export const FormCard: FC<StateFormCard> = ({ data }) => {
   return (
-    <div className={classes.card}>
+    <div className={classes.card} data-testid="formCard">
       <span
         className={classes.image}
         style={{ backgroundImage: `url(${URL.createObjectURL(data.avatar)})` }}
