@@ -22,78 +22,102 @@ describe('Forms disabled button', () => {
   it('disabled btn before change inputs values', () => {
     render(<Forms getData={mockGetData} />);
     const btn = screen.getByText('Post');
+    expect(btn).toBeDisabled();
     userEvent.click(btn);
-    expect(screen.getByText('Post')).toBeDisabled();
+    expect(btn).toBeDisabled();
   });
 
-  it('isDisabled btn after change name value', () => {
+  it('disabled btn after change name value', () => {
     render(<Forms getData={mockGetData} />);
     const nameInput = screen.getByTestId('inputName');
-    userEvent.type(nameInput, 'Test');
     const btn = screen.getByText('Post');
+    expect(btn).toBeDisabled();
     userEvent.click(btn);
-    expect(screen.getByText('Post')).toBeDisabled();
+    expect(btn).toBeDisabled();
+    userEvent.type(nameInput, 'Test');
+    expect(btn).not.toBeDisabled();
+    userEvent.click(btn);
+    expect(btn).toBeDisabled();
   });
 
-  it('isDisabled btn after change surname value', () => {
+  it('disabled btn after change surname value', () => {
     render(<Forms getData={mockGetData} />);
     const surnameInput = screen.getByTestId('inputSurname');
-    userEvent.type(surnameInput, 'Test');
     const btn = screen.getByText('Post');
+    expect(btn).toBeDisabled();
     userEvent.click(btn);
-    expect(screen.getByText('Post')).toBeDisabled();
+    expect(btn).toBeDisabled();
+    userEvent.type(surnameInput, 'Test');
+    expect(btn).not.toBeDisabled();
+    userEvent.click(btn);
+    expect(btn).toBeDisabled();
   });
 
-  it('isDisabled btn after change inputDate value', () => {
+  it('disabled btn after change inputDate value', () => {
     render(<Forms getData={mockGetData} />);
     const inputDate = screen.getByTestId('inputDate');
-    userEvent.type(inputDate, '01.01.2022');
     const btn = screen.getByText('Post');
+    expect(btn).toBeDisabled();
     userEvent.click(btn);
-    expect(screen.getByText('Post')).toBeDisabled();
+    expect(btn).toBeDisabled();
+    userEvent.type(inputDate, '2020-01-01');
+    expect(btn).not.toBeDisabled();
+    userEvent.click(btn);
+    expect(btn).toBeDisabled();
   });
 
-  it('isDisabled btn after change select value', () => {
+  it('disabled btn after change select value', () => {
     render(<Forms getData={mockGetData} />);
     const select = screen.getByTestId('select');
-    userEvent.selectOptions(select, 'Belarus');
     const btn = screen.getByText('Post');
+    expect(btn).toBeDisabled();
     userEvent.click(btn);
-    expect(screen.getByText('Post')).toBeDisabled();
+    expect(btn).toBeDisabled();
+    userEvent.selectOptions(select, 'Belarus');
+    expect(btn).not.toBeDisabled();
+    userEvent.click(btn);
+    expect(btn).toBeDisabled();
   });
 
-  it('isDisabled btn after change inputFile value', async () => {
+  it('disabled btn after change inputFile value', async () => {
     render(<Forms getData={mockGetData} />);
     const inputFile = screen.getByTestId('inputFile');
+    const btn = screen.getByText('Post');
+    expect(btn).toBeDisabled();
+    userEvent.click(btn);
+    expect(btn).toBeDisabled();
     await act(async () => {
       await waitFor(() => {
         userEvent.upload(inputFile, fakeFile);
       });
     });
-    const btn = screen.getByText('Post');
+    expect(btn).not.toBeDisabled();
     userEvent.click(btn);
-    expect(screen.getByText('Post')).toBeDisabled();
+    expect(btn).toBeDisabled();
   });
 
-  it('isDisabled btn after change switches value', () => {
+  it('disabled btn after change switches value', () => {
     render(<Forms getData={mockGetData} />);
     const inputSwitch = screen.getByTestId('switch');
-    expect(screen.getByText('Post')).toBeDisabled();
-    userEvent.click(inputSwitch);
     const btn = screen.getByText('Post');
-    expect(screen.queryByText('Post')).not.toBeDisabled();
+    expect(btn).toBeDisabled();
     userEvent.click(btn);
-    expect(screen.getByText('Post')).toBeDisabled();
+    expect(btn).toBeDisabled();
+    userEvent.click(inputSwitch);
+    expect(btn).not.toBeDisabled();
+    userEvent.click(btn);
+    expect(btn).toBeDisabled();
   });
 
-  it('isDisabled btn after change inputCheckbox value', () => {
+  it('disabled btn after change inputCheckbox value', () => {
     render(<Forms getData={mockGetData} />);
     const checkbox = screen.getByTestId('inputCheckbox');
-    userEvent.click(checkbox);
-    expect(screen.getByText('Post')).not.toBeDisabled();
     const btn = screen.getByText('Post');
+    expect(btn).toBeDisabled();
+    userEvent.click(checkbox);
+    expect(btn).not.toBeDisabled();
     userEvent.click(btn);
-    expect(screen.getByText('Post')).toBeDisabled();
+    expect(btn).toBeDisabled();
   });
 });
 
@@ -202,8 +226,8 @@ describe('Forms validation', () => {
   });
 });
 
-describe('Forms after successful validation', () => {
-  it('isDisable button after successful validation', async () => {
+describe('Forms after success validation', () => {
+  it('isDisable button after success validation', async () => {
     render(<Forms getData={mockGetData} />);
     const nameInput = screen.getByTestId('inputName');
     const surnameInput = screen.getByTestId('inputSurname');

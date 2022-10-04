@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import classes from './Switch.module.scss';
+import classes from './InputSwitch.module.scss';
 
 interface SwitchProps {
   label: string;
@@ -10,20 +10,13 @@ interface SwitchProps {
   onChange?: (event?: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const Switch: FC<SwitchProps> = React.forwardRef((props, ref) => {
+export const InputSwitch: FC<SwitchProps> = React.forwardRef((props, ref) => {
   return (
     <>
       <label htmlFor={props.label} className={classes.wrap}>
         {props.title}
-        <div className={classes.switch} onClick={props.onClick}>
-          <input
-            {...props}
-            type="checkbox"
-            {...props}
-            className={classes.input}
-            ref={ref}
-            data-testid="switch"
-          />
+        <div className={classes.switch} onClick={props.onClick} data-testid="switch">
+          <input {...props} type="checkbox" {...props} className={classes.input} ref={ref} />
           <span className={classes.slider}></span>
         </div>
       </label>
