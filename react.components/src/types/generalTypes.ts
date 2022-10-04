@@ -44,16 +44,3 @@ export interface HttpData {
   total_pages: number;
   results: ResultsData[];
 }
-
-export interface FormCard {
-  name: string;
-  surname: string;
-  birthday: string;
-  country: string;
-  personalData: boolean;
-}
-
-export interface SelectData {
-  value: string;
-  name: string;
-}

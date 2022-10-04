@@ -2,12 +2,13 @@ import { Input } from 'components/UI/Input/Input';
 import React, { Component } from 'react';
 import classes from './Forms.module.scss';
 import SELECT_DATA from '../../data/optionsForSelect.json';
-import { SelectData } from 'types/generalTypes';
 import Button from 'components/UI/Button/Button';
 import { Select } from 'components/UI/Select/Select';
 import { InputFile } from 'components/UI/InputFile/InputFile';
 import { Switch } from 'components/UI/Switch/Switch';
 import { InputCheckbox } from 'components/UI/InputCheckbox/InputCheckbox';
+import { SelectData } from 'types/formTypes';
+import { FormData } from 'types/formTypes';
 
 interface StateForms {
   selectData: SelectData[];
@@ -31,7 +32,9 @@ interface StateForms {
   personaDataError: string;
 }
 
-type PropsForms = object;
+type PropsForms = {
+  getData: (data: FormData) => void;
+};
 
 export default class Forms extends Component<PropsForms, StateForms> {
   constructor(props: PropsForms) {
@@ -237,6 +240,19 @@ export default class Forms extends Component<PropsForms, StateForms> {
     this.state.switchRef.current!.checked = false;
   };
 
+  postData = () => {
+    const cardData: FormData = {
+      name: this.state.nameRef.current!.value,
+      surname: this.state.surnameRef.current!.value,
+      birthday: this.state.birthdayRef.current!.value,
+      country: this.state.countryRef.current!.value,
+      avatar: this.state.avatarRef.current!.files![0],
+      personalData: this.state.personalDataRef.current!.checked,
+      gender: this.state.switchRef.current!.checked,
+    };
+    this.props.getData(cardData);
+  };
+
   handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     this.setState({ isDisabled: true, isValid: true });
@@ -255,6 +271,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
       personalData &&
       avatar
     ) {
+      this.postData();
       this.clearForm();
     }
   };
@@ -303,7 +320,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
         />
 
         <InputFile
-          label="Avatar"
+          label="avatar"
           title="Avatar:"
           ready={this.state.isValidAvatar}
           ref={this.state.avatarRef}
@@ -313,7 +330,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
         />
 
         <Switch
-          label="Switch"
+          label="switch"
           title="Male/Female:"
           onClick={this.onClickSwitch}
           ref={this.state.switchRef}

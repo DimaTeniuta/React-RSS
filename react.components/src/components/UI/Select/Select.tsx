@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { SelectData } from 'types/generalTypes';
+import { SelectData } from 'types/formTypes';
 import classes from './Select.module.scss';
 
 interface SelectProps {

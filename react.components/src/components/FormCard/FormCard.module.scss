@@ -1,0 +1,59 @@
+@import '../../styles/variables.scss';
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  row-gap: 15px;
+  width: 400px;
+  padding: 10px;
+  backdrop-filter: $filter;
+  background-color: $color-background-box;
+  border: 2px solid $color-grey;
+  border-radius: 10px;
+  font-size: 16px;
+
+  .image {
+    width: 250px;
+    height: 200px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;
+  }
+
+  .wrapText {
+    color: $color-white;
+    font-size: 16px;
+
+    .text {
+      color: $color-dark;
+      font-size: 18px;
+    }
+  }
+
+  .male {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    background-image: url(../../../public/assets/images/male.png);
+    background-repeat: no-repeat;
+    background-size: 30px 30px;
+  }
+
+  .female {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    background-image: url(../../../public/assets/images/female.png);
+    background-repeat: no-repeat;
+    background-size: 30px 30px;
+  }
+
+
+}
