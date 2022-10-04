@@ -83,6 +83,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
     if (name) {
       isPattern = name.match(/^[a-zA-Z]*$/g);
     }
+
     if (!name) {
       this.setState({ nameError: 'The name must be longer than 3 characters' });
       return false;
@@ -104,6 +105,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
     if (surname) {
       isPattern = surname.match(/^[a-zA-Z]*$/g);
     }
+
     if (!surname) {
       this.setState({ surnameError: 'The surname must be longer than 3 characters' });
       return false;
@@ -238,7 +240,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
       surname: this.state.surnameRef.current!.value,
       birthday: this.state.birthdayRef.current!.value,
       country: this.state.countryRef.current!.value,
-      avatar: this.state.avatarRef.current!.files![0],
+      avatar: URL.createObjectURL(this.state.avatarRef.current!.files![0]),
       personalData: this.state.personalDataRef.current!.checked,
       gender: this.state.switchRef.current!.checked,
     };

@@ -30,15 +30,4 @@ describe('MainPage', () => {
     const result = JSON.parse(localStorage.getItem('inputValue') as string);
     expect(result).toBe(testValue);
   });
-
-  it('should download current data', async () => {
-    render(<MainPage />);
-    const input = screen.getByPlaceholderText(/search/i);
-    const testValue = 'test';
-    userEvent.type(input, testValue);
-    const btn = screen.getByTestId('test-search-btn');
-    userEvent.click(btn);
-    const card = await screen.findByText(/blank paper and pencil/i);
-    expect(card).toBeInTheDocument();
-  });
 });

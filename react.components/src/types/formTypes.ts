@@ -3,7 +3,7 @@ export interface FormData {
   surname: string;
   birthday: string;
   country: string;
-  avatar: File;
+  avatar: string;
   personalData: boolean;
   gender: boolean;
 }

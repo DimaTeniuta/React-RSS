@@ -9,10 +9,7 @@ type StateFormCard = {
 export const FormCard: FC<StateFormCard> = ({ data }) => {
   return (
     <div className={classes.card}>
-      <span
-        className={classes.image}
-        style={{ backgroundImage: `url(${URL.createObjectURL(data.avatar)})` }}
-      ></span>
+      <span className={classes.image} style={{ backgroundImage: `url(${data.avatar})` }}></span>
       <div className={classes.wrapText}>
         <span className={classes.text}>Name: </span> {data.name}
       </div>
@@ -25,7 +22,11 @@ export const FormCard: FC<StateFormCard> = ({ data }) => {
       <div className={classes.wrapText}>
         <span className={classes.text}>Country: </span> {data.country}
       </div>
-      <span className={data.gender ? classes.female : classes.male}>{data.gender}</span>
+      {data.gender ? (
+        <span className={classes.female} data-testid="test-female"></span>
+      ) : (
+        <span className={classes.male} data-testid="test-male"></span>
+      )}
     </div>
   );
 };
