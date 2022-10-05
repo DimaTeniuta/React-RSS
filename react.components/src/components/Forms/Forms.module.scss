@@ -80,4 +80,23 @@
       outline: none;
     }
   }
+
+  .done {
+    position: absolute;
+    bottom: 38px;
+    left: 320px;
+    font-size: 20px;
+    color: $color-green;
+  }
+
+  .doneImg {
+    position: absolute;
+    top: -8px;
+    left: 50px;
+    width: 30px;
+    height: 30px;
+    background-image: url(../../../public/assets/images/check.png);
+    background-repeat: no-repeat;
+    background-size: 30px 30px;
+  }
 }

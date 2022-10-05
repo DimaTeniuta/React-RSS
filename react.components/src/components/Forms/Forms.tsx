@@ -17,6 +17,7 @@ interface StateForms {
   isDisabled: boolean;
   isFirstInput: boolean;
   isValid: boolean;
+  isDone: boolean;
   nameRef: React.RefObject<HTMLInputElement>;
   surnameRef: React.RefObject<HTMLInputElement>;
   birthdayRef: React.RefObject<HTMLInputElement>;
@@ -45,6 +46,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
       isFirstInput: false,
       isDisabled: true,
       isValid: false,
+      isDone: false,
       nameRef: React.createRef(),
       surnameRef: React.createRef(),
       birthdayRef: React.createRef(),
@@ -73,6 +75,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
       this.state.personalDataRef.current?.checked
     ) {
       this.setState({ isDisabled: false, isFirstInput: true });
+      this.setState({ isDone: false });
     }
   };
 
@@ -263,6 +266,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
       avatar
     ) {
       this.postData();
+      this.setState({ isDone: true });
       this.clearForm();
     }
   };
@@ -348,6 +352,12 @@ export default class Forms extends Component<PropsForms, StateForms> {
         <Button className={classes.standardBtn} disabled={this.state.isDisabled}>
           Post
         </Button>
+        {this.state.isDone && (
+          <div className={classes.done} data-testid="final-text">
+            Done
+            <span className={classes.doneImg} data-testid="final-img"></span>
+          </div>
+        )}
       </form>
     );
   }

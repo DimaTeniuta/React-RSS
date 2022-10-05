@@ -16,6 +16,37 @@ describe('Forms', () => {
     expect(screen.getByTestId('select')).toBeInTheDocument();
     expect(screen.getByTestId('switch')).toBeInTheDocument();
   });
+
+  it('renders final text', async () => {
+    render(<Forms getData={mockGetData} />);
+    const nameInput = screen.getByTestId('inputName');
+    const surnameInput = screen.getByTestId('inputSurname');
+    const dateInput = screen.getByTestId('inputDate');
+    const select = screen.getByTestId('select');
+    const inputFile = screen.getByTestId('inputFile');
+    const checkbox = screen.getByTestId('inputCheckbox');
+    userEvent.type(nameInput, 'Test');
+    const btn = screen.getByText('Post');
+    userEvent.type(surnameInput, 'Test');
+    userEvent.type(dateInput, '2020-01-01');
+    userEvent.selectOptions(select, 'Belarus');
+    await act(async () => {
+      await waitFor(() => {
+        userEvent.upload(inputFile, fakeFile);
+      });
+    });
+    userEvent.click(checkbox);
+    userEvent.click(btn);
+    const finalText = screen.getByTestId('final-text');
+    const finalImg = screen.getByTestId('final-img');
+    expect(finalText).toBeInTheDocument();
+    expect(finalImg).toBeInTheDocument();
+    expect(screen.getByText('Done')).toBeInTheDocument();
+    userEvent.type(nameInput, 'Test');
+    expect(finalText).not.toBeInTheDocument();
+    expect(finalImg).not.toBeInTheDocument();
+    expect(screen.queryByText('Done')).not.toBeInTheDocument();
+  });
 });
 
 describe('Forms disabled button', () => {
