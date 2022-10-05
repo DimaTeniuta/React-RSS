@@ -5,7 +5,7 @@ interface InputProps {
   type: string;
   label: string;
   title: string;
-  dataTestId?: string;
+  testid?: string;
   className: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   ref?: React.ForwardedRef<HTMLInputElement>;
@@ -17,7 +17,7 @@ export const Input: FC<InputProps> = React.forwardRef((props, ref) => {
     <>
       <label className={classes.wrap} htmlFor={props.label}>
         {props.title}
-        <input {...props} ref={ref} data-testid={props.dataTestId} />
+        <input {...props} ref={ref} data-testid={props.testid} />
         <p className={classes.error}>{props.error}</p>
       </label>
     </>

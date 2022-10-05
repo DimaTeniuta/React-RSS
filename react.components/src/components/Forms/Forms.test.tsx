@@ -79,23 +79,6 @@ describe('Forms disabled button', () => {
     expect(btn).toBeDisabled();
   });
 
-  it('disabled btn after change inputFile value', async () => {
-    render(<Forms getData={mockGetData} />);
-    const inputFile = screen.getByTestId('inputFile');
-    const btn = screen.getByText('Post');
-    expect(btn).toBeDisabled();
-    userEvent.click(btn);
-    expect(btn).toBeDisabled();
-    await act(async () => {
-      await waitFor(() => {
-        userEvent.upload(inputFile, fakeFile);
-      });
-    });
-    expect(btn).not.toBeDisabled();
-    userEvent.click(btn);
-    expect(btn).toBeDisabled();
-  });
-
   it('disabled btn after change switches value', () => {
     render(<Forms getData={mockGetData} />);
     const inputSwitch = screen.getByTestId('switch');
@@ -113,6 +96,8 @@ describe('Forms disabled button', () => {
     render(<Forms getData={mockGetData} />);
     const checkbox = screen.getByTestId('inputCheckbox');
     const btn = screen.getByText('Post');
+    expect(btn).toBeDisabled();
+    userEvent.click(btn);
     expect(btn).toBeDisabled();
     userEvent.click(checkbox);
     expect(btn).not.toBeDisabled();

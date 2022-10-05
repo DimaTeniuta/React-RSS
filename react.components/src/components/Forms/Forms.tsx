@@ -17,8 +17,6 @@ interface StateForms {
   isDisabled: boolean;
   isFirstInput: boolean;
   isValid: boolean;
-  isClickAvatar: boolean;
-  isClickSwitch: boolean;
   nameRef: React.RefObject<HTMLInputElement>;
   surnameRef: React.RefObject<HTMLInputElement>;
   birthdayRef: React.RefObject<HTMLInputElement>;
@@ -47,8 +45,6 @@ export default class Forms extends Component<PropsForms, StateForms> {
       isFirstInput: false,
       isDisabled: true,
       isValid: false,
-      isClickAvatar: false,
-      isClickSwitch: false,
       nameRef: React.createRef(),
       surnameRef: React.createRef(),
       birthdayRef: React.createRef(),
@@ -68,13 +64,13 @@ export default class Forms extends Component<PropsForms, StateForms> {
 
   firstInput = (): void => {
     if (
-      this.state.nameRef ||
-      this.state.surnameRef ||
-      this.state.birthdayRef ||
-      this.state.countryRef ||
-      this.state.personalDataRef ||
-      this.state.isClickAvatar ||
-      this.state.isClickSwitch
+      this.state.nameRef.current?.value ||
+      this.state.surnameRef.current?.value ||
+      this.state.birthdayRef.current?.value ||
+      this.state.countryRef.current?.value !== DEFAULT_VALUE_COUNTRY ||
+      this.state.avatarRef.current?.value ||
+      this.state.switchRef.current?.checked ||
+      this.state.personalDataRef.current?.checked
     ) {
       this.setState({ isDisabled: false, isFirstInput: true });
     }
@@ -186,18 +182,10 @@ export default class Forms extends Component<PropsForms, StateForms> {
 
   onClickAvatar = (): void => {
     this.state.avatarRef.current?.click();
-    this.setState({ isClickAvatar: true });
-    if (!this.state.isFirstInput) {
-      this.firstInput();
-    }
   };
 
   onClickSwitch = (): void => {
     this.state.switchRef.current?.click();
-    this.setState({ isClickSwitch: true });
-    if (!this.state.isFirstInput) {
-      this.firstInput();
-    }
   };
 
   onClickPersonalData = (): void => {
@@ -233,8 +221,6 @@ export default class Forms extends Component<PropsForms, StateForms> {
       isDisabled: true,
       isValid: false,
       validAvatar: '',
-      isClickAvatar: false,
-      isClickSwitch: false,
     });
     this.state.nameRef.current!.value = '';
     this.state.surnameRef.current!.value = '';
@@ -297,7 +283,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
           onChange={this.handleOnChange}
           ref={this.state.nameRef}
           error={this.state.nameError}
-          dataTestId="inputName"
+          testid="inputName"
         />
 
         <Input
@@ -308,7 +294,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
           onChange={this.handleOnChange}
           ref={this.state.surnameRef}
           error={this.state.surnameError}
-          dataTestId="inputSurname"
+          testid="inputSurname"
         />
 
         <Input
@@ -319,7 +305,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
           onChange={this.handleOnChange}
           ref={this.state.birthdayRef}
           error={this.state.birthdayError}
-          dataTestId="inputDate"
+          testid="inputDate"
         />
 
         <Select
@@ -346,6 +332,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
           label="switch"
           title="Male/Female:"
           onClick={this.onClickSwitch}
+          onChange={this.handleOnChange}
           ref={this.state.switchRef}
         />
 
