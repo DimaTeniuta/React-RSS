@@ -1,0 +1,46 @@
+@import '../../../styles/variables.scss';
+
+.myInput {
+  width: 400px;
+  height: 40px;
+  margin: 10px 0;
+  padding: 0 25px;
+  backdrop-filter: $filter;
+  background-color: $color-background-box;
+  border: 1px solid $color-blue;
+  border-radius: 20px;
+  color: $color-white;
+  font-family: 'Montserrat-regular', sans-serif;
+  font-size: $font-regular;
+  font-weight: 400;
+  transition: 0.3s;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.clearBtn {
+  position: absolute;
+  right: 2%;
+  top: 12.5%;
+  width: 30px;
+  height: 30px;
+  border: none;
+  background-color: transparent;
+  background-image: url(../../../../public/assets/svg/close.svg);
+  background-repeat: no-repeat;
+  filter: invert(100%) sepia(0%) saturate(1%) hue-rotate(316deg) brightness(120%) contrast(101%);
+  transition: 0.3s;
+  cursor: pointer;
+
+  &:hover {
+    transition: 0.5s;
+    transform: rotate(360deg);
+    transition: 0.5s;
+  }
+  
+  &:active {
+    transform: scale(0.9);
+  }
+}

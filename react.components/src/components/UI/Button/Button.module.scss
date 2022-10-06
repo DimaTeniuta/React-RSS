@@ -1,0 +1,37 @@
+@import '../../../styles/variables.scss';
+
+.btn {
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+  font-family: 'Montserrat-regular', sans-serif;
+}
+
+.standardBtn {
+  width: 150px;
+  height: 40px;
+  margin: 10px auto;
+  padding: 0 25px;
+  backdrop-filter: $filter;
+  background-color: $color-background-box;
+  border: 1px solid $color-blue;
+  border-radius: 20px;
+  color: $color-white;
+  font-family: sans-serif;
+  font-size: $font-regular;
+  font-weight: 400;
+  cursor: pointer;
+  transition: 0.3s;
+
+  &:hover {
+    cursor: pointer;
+    color: $color-yellow;
+  }
+  
+  &:active {
+    transform: scale(0.95);
+  }
+}

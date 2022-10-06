@@ -1,0 +1,46 @@
+@import '../../styles/variables.scss';
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  row-gap: 15px;
+  max-width: 430px;
+  padding: 10px;
+  backdrop-filter: $filter;
+  background-color: $color-background-box;
+  border: 2px solid $color-grey;
+  border-radius: 10px;
+  font-size: 16px;
+
+  .image {
+    width: 400px;
+    height: 280px;
+    border-radius: 5px;
+  }
+  
+  .title {
+    color: $color-white;
+    font-size: 18px;
+  }
+  
+  .likes {
+    position: absolute;
+    right: 40px;
+    bottom: 30px;
+    color: $color-white;
+  }
+  
+  .icon {
+    position: absolute;
+    right: 15px;
+    bottom: 30px;
+    width: 20px;
+    height: 20px;
+    background-image: url(../../../public/assets/svg/likes.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+}

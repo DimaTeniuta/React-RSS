@@ -1,0 +1,50 @@
+@import '../../../styles/variables.scss';
+
+.container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 30px;
+  padding: 30px;
+
+  .wrapInput {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .wrapCards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+}
+
+.standardBtn {
+  width: 150px;
+  height: 40px;
+  margin: 10px auto;
+  padding: 0 25px;
+  backdrop-filter: $filter;
+  background-color: $color-background-box;
+  border: 1px solid $color-blue;
+  border-radius: 20px;
+  color: $color-white;
+  font-family: sans-serif;
+  font-size: $font-regular;
+  font-weight: 400;
+  cursor: pointer;
+  transition: 0.3s;
+
+  &:hover {
+    cursor: pointer;
+    color: $color-yellow;
+  }
+  
+  &:active {
+    transform: scale(0.95);
+  }
+}
