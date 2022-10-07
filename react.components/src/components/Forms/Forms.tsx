@@ -17,12 +17,14 @@ interface StateForms {
   isValid: boolean;
   isDone: boolean;
   validAvatar: string;
-  nameError: string;
-  surnameError: string;
-  birthdayError: string;
-  countryError: string;
-  avatarError: string;
-  personaDataError: string;
+  errors: {
+    nameError: string;
+    surnameError: string;
+    birthdayError: string;
+    countryError: string;
+    avatarError: string;
+    personaDataError: string;
+  };
 }
 
 type PropsForms = {
@@ -45,14 +47,15 @@ export default class Forms extends Component<PropsForms, StateForms> {
       isDisabled: true,
       isValid: false,
       isDone: false,
-
       validAvatar: '',
-      nameError: '',
-      surnameError: '',
-      birthdayError: '',
-      countryError: '',
-      avatarError: '',
-      personaDataError: '',
+      errors: {
+        nameError: '',
+        surnameError: '',
+        birthdayError: '',
+        countryError: '',
+        avatarError: '',
+        personaDataError: '',
+      },
     };
 
     this.nameRef = React.createRef();
@@ -87,16 +90,24 @@ export default class Forms extends Component<PropsForms, StateForms> {
     }
 
     if (!name) {
-      this.setState({ nameError: 'The name must be longer than 3 characters' });
+      const err = this.state.errors;
+      err.nameError = 'The name must be longer than 3 characters';
+      this.setState({ errors: err });
       return false;
     } else if (!isPattern) {
-      this.setState({ nameError: 'The name should contain only the letters a-z, A-Z' });
+      const err = this.state.errors;
+      err.nameError = 'The name should contain only the letters a-z, A-Z';
+      this.setState({ errors: err });
       return false;
     } else if (name.length < 3) {
-      this.setState({ nameError: 'The name must be longer than 3 characters' });
+      const err = this.state.errors;
+      err.nameError = 'The name must be longer than 3 characters';
+      this.setState({ errors: err });
       return false;
     } else {
-      this.setState({ nameError: '' });
+      const err = this.state.errors;
+      err.nameError = '';
+      this.setState({ errors: err });
       return true;
     }
   };
@@ -109,16 +120,24 @@ export default class Forms extends Component<PropsForms, StateForms> {
     }
 
     if (!surname) {
-      this.setState({ surnameError: 'The surname must be longer than 3 characters' });
+      const err = this.state.errors;
+      err.surnameError = 'The name must be longer than 3 characters';
+      this.setState({ errors: err });
       return false;
     } else if (!isPattern) {
-      this.setState({ surnameError: 'The name should contain only the letters a-z, A-Z' });
+      const err = this.state.errors;
+      err.surnameError = 'The name should contain only the letters a-z, A-Z';
+      this.setState({ errors: err });
       return false;
     } else if (surname.length < 3) {
-      this.setState({ surnameError: 'The surname must be longer than 3 characters' });
+      const err = this.state.errors;
+      err.surnameError = 'The surname must be longer than 3 characters';
+      this.setState({ errors: err });
       return false;
     } else {
-      this.setState({ surnameError: '' });
+      const err = this.state.errors;
+      err.surnameError = '';
+      this.setState({ errors: err });
       return true;
     }
   };
@@ -131,10 +150,14 @@ export default class Forms extends Component<PropsForms, StateForms> {
     }
 
     if (!isPattern) {
-      this.setState({ birthdayError: 'The date must be in the format: DD-MM-YYYY' });
+      const err = this.state.errors;
+      err.birthdayError = 'The date must be in the format: DD-MM-YYYY';
+      this.setState({ errors: err });
       return false;
     } else {
-      this.setState({ birthdayError: '' });
+      const err = this.state.errors;
+      err.birthdayError = '';
+      this.setState({ errors: err });
       return true;
     }
   };
@@ -142,10 +165,14 @@ export default class Forms extends Component<PropsForms, StateForms> {
   validationCountry = (): boolean => {
     const country = this.countryRef.current?.value;
     if (country === DEFAULT_VALUE_COUNTRY) {
-      this.setState({ countryError: 'Chose country' });
+      const err = this.state.errors;
+      err.countryError = 'Chose country';
+      this.setState({ errors: err });
       return false;
     } else {
-      this.setState({ countryError: '' });
+      const err = this.state.errors;
+      err.countryError = '';
+      this.setState({ errors: err });
       return true;
     }
   };
@@ -153,10 +180,14 @@ export default class Forms extends Component<PropsForms, StateForms> {
   validationPersonalData = (): boolean => {
     const value = this.personalDataRef.current?.checked;
     if (!value) {
-      this.setState({ personaDataError: 'This field is required' });
+      const err = this.state.errors;
+      err.personaDataError = 'This field is required';
+      this.setState({ errors: err });
       return false;
     } else {
-      this.setState({ personaDataError: '' });
+      const err = this.state.errors;
+      err.personaDataError = '';
+      this.setState({ errors: err });
       return true;
     }
   };
@@ -169,16 +200,19 @@ export default class Forms extends Component<PropsForms, StateForms> {
     }
 
     if (file && !file.length) {
-      this.setState({ avatarError: 'Upload an image in JPG or PNG format', validAvatar: '' });
+      const err = this.state.errors;
+      err.avatarError = 'Upload an image in JPG or PNG format';
+      this.setState({ errors: err, validAvatar: '' });
       return false;
     } else if (!isPattern) {
-      this.setState({
-        avatarError: 'The image must be in JPG or PNG format',
-        validAvatar: '',
-      });
+      const err = this.state.errors;
+      err.avatarError = 'The image must be in JPG or PNG format';
+      this.setState({ errors: err, validAvatar: '' });
       return false;
     } else {
-      this.setState({ avatarError: '', validAvatar: 'true' });
+      const err = this.state.errors;
+      err.avatarError = '';
+      this.setState({ errors: err, validAvatar: 'true' });
       return true;
     }
   };
@@ -286,7 +320,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
           className={classes.inputText}
           onChange={this.handleOnChange}
           ref={this.nameRef}
-          error={this.state.nameError}
+          error={this.state.errors.nameError}
           testid="inputName"
         />
 
@@ -297,7 +331,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
           className={classes.inputText}
           onChange={this.handleOnChange}
           ref={this.surnameRef}
-          error={this.state.surnameError}
+          error={this.state.errors.surnameError}
           testid="inputSurname"
         />
 
@@ -308,7 +342,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
           className={classes.inputData}
           onChange={this.handleOnChange}
           ref={this.birthdayRef}
-          error={this.state.birthdayError}
+          error={this.state.errors.birthdayError}
           testid="inputDate"
         />
 
@@ -319,7 +353,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
           options={SELECTOR_OPTIONS}
           onChange={this.handleOnChange}
           ref={this.countryRef}
-          error={this.state.countryError}
+          error={this.state.errors.countryError}
         />
 
         <InputFile
@@ -329,7 +363,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
           ref={this.avatarRef}
           onClick={this.onClickAvatar}
           onChange={this.handleOnChange}
-          error={this.state.avatarError}
+          error={this.state.errors.avatarError}
         />
 
         <InputSwitch
@@ -346,7 +380,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
           onClick={this.onClickPersonalData}
           onChange={this.handleOnChange}
           ref={this.personalDataRef}
-          error={this.state.personaDataError}
+          error={this.state.errors.personaDataError}
         />
 
         <Button className={classes.standardBtn} disabled={this.state.isDisabled}>
