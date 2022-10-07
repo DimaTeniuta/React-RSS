@@ -8,7 +8,7 @@ interface InputFileProps {
   ready: string;
   error: string;
   onClick: () => void;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const InputFile: FC<InputFileProps> = React.forwardRef((props, ref) => {

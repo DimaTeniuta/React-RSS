@@ -198,8 +198,9 @@ export default class Forms extends Component<PropsForms, StateForms> {
   render() {
     return (
       <form
-        onSubmit={this.handleSubmit}
         className={classes.container}
+        onSubmit={this.handleSubmit}
+        onChange={this.handleOnChange}
         noValidate
         data-testid="forms"
       >
@@ -208,7 +209,6 @@ export default class Forms extends Component<PropsForms, StateForms> {
           label="firstName"
           title="Name:"
           className={classes.inputText}
-          onChange={this.handleOnChange}
           ref={this.nameRef}
           error={this.state.errors.nameError}
           testid="inputName"
@@ -219,7 +219,6 @@ export default class Forms extends Component<PropsForms, StateForms> {
           label="surname"
           title="Surname:"
           className={classes.inputText}
-          onChange={this.handleOnChange}
           ref={this.surnameRef}
           error={this.state.errors.surnameError}
           testid="inputSurname"
@@ -230,7 +229,6 @@ export default class Forms extends Component<PropsForms, StateForms> {
           label="birthday"
           title="Birthday:"
           className={classes.inputData}
-          onChange={this.handleOnChange}
           ref={this.birthdayRef}
           error={this.state.errors.birthdayError}
           testid="inputDate"
@@ -241,7 +239,6 @@ export default class Forms extends Component<PropsForms, StateForms> {
           label="country"
           title="Country:"
           options={SELECTOR_OPTIONS}
-          onChange={this.handleOnChange}
           ref={this.countryRef}
           error={this.state.errors.countryError}
         />
@@ -252,7 +249,6 @@ export default class Forms extends Component<PropsForms, StateForms> {
           ready={this.state.validAvatar}
           ref={this.avatarRef}
           onClick={this.onClickAvatar}
-          onChange={this.handleOnChange}
           error={this.state.errors.avatarError}
         />
 
@@ -260,7 +256,6 @@ export default class Forms extends Component<PropsForms, StateForms> {
           label="switch"
           title="Male/Female:"
           onClick={this.onClickSwitch}
-          onChange={this.handleOnChange}
           ref={this.switchRef}
         />
 
@@ -268,7 +263,6 @@ export default class Forms extends Component<PropsForms, StateForms> {
           label="agree"
           title="Consent to data processing:"
           onClick={this.onClickPersonalData}
-          onChange={this.handleOnChange}
           ref={this.personalDataRef}
           error={this.state.errors.personaDataError}
         />
