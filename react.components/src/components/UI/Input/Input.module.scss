@@ -1,56 +1,41 @@
 @import '../../../styles/variables.scss';
 
-.wrap {
-  position: relative;
+.inputText {
+  width: 400px;
+  height: 40px;
+  margin: 10px 0;
+  padding: 0 25px;
+  backdrop-filter: $filter;
+  background-color: $color-background-box;
+  border: 1px solid $color-blue;
+  border-radius: 20px;
+  color: $color-white;
+  font-family: 'Montserrat-regular', sans-serif;
+  font-size: $font-regular;
+  font-weight: 400;
+  transition: 0.3s;
 
-  .inputText {
-    width: 400px;
-    height: 40px;
-    margin: 10px 0;
-    padding: 0 25px;
-    backdrop-filter: $filter;
-    background-color: $color-background-box;
-    border: 1px solid $color-blue;
-    border-radius: 20px;
-    color: $color-white;
-    font-family: 'Montserrat-regular', sans-serif;
-    font-size: $font-regular;
-    font-weight: 400;
-    transition: 0.3s;
-
-    &:focus {
-      outline: none;
-    }
-  }
-  
-  .inputData {
-    width: 400px;
-    height: 40px;
-    margin: 10px 0;
-    padding: 0 25px;
-    backdrop-filter: $filter;
-    background-color: $color-background-box;
-    border: 1px solid $color-blue;
-    border-radius: 20px;
-    color: $color-white;
-    font-family: 'Montserrat-regular', sans-serif;
-    font-size: $font-regular;
-    font-weight: 400;
-    transition: 0.3s;
-
-    &:focus {
-      outline: none;
-    }
-  }
-
-  .error {
-    position: absolute;
-    top: 73px;
-    height: 8px;
-    color: $color-red;
-    font-size: 14px;
+  &:focus {
+    outline: none;
   }
 }
 
+.inputDate {
+  width: 400px;
+  height: 40px;
+  margin: 10px 0;
+  padding: 0 25px;
+  backdrop-filter: $filter;
+  background-color: $color-background-box;
+  border: 1px solid $color-blue;
+  border-radius: 20px;
+  color: $color-white;
+  font-family: 'Montserrat-regular', sans-serif;
+  font-size: $font-regular;
+  font-weight: 400;
+  transition: 0.3s;
 
-
+  &:focus {
+    outline: none;
+  }
+}

@@ -1,0 +1,19 @@
+@import '../../../styles/variables.scss';
+
+.wrap {
+  position: relative;
+  width: 100%;
+  
+  .title {
+    color: $color-white;
+    font-size: 18px;
+  }
+
+  .error {
+    position: absolute;
+    top: 73px;
+    height: 8px;
+    color: $color-red;
+    font-size: 14px;
+  }
+}

@@ -3,23 +3,21 @@ import classes from './Input.module.scss';
 
 interface InputProps {
   type: string;
-  label: string;
-  title: string;
   testid?: string;
-  className: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   ref?: React.ForwardedRef<HTMLInputElement>;
-  error?: string;
 }
 
 export const Input: FC<InputProps> = React.forwardRef((props, ref) => {
+  const isTypeText = props.type === 'text';
   return (
     <>
-      <label className={classes.wrap} htmlFor={props.label}>
-        {props.title}
-        <input {...props} ref={ref} data-testid={props.testid} />
-        <p className={classes.error}>{props.error}</p>
-      </label>
+      <input
+        {...props}
+        className={isTypeText ? classes.inputText : classes.inputDate}
+        ref={ref}
+        data-testid={props.testid}
+      />
     </>
   );
 });

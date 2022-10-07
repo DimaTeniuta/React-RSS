@@ -36,7 +36,12 @@
   }
 
   &:disabled {
-    color: $color-background-box;
+    color: rgb(192, 117, 117);
+  }
+
+  &:disabled:hover {
+    cursor: not-allowed;
+    color: rgb(192, 117, 117);
   }
 
   &:disabled:active  {

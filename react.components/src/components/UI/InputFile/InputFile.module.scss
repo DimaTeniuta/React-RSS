@@ -3,7 +3,7 @@
 .wrap {
   width: 100%;
   position: relative;
-  margin: 0 0 60px -22px;
+  margin: 0 0 60px 5px;
 
   .input {
     opacity: 0;
@@ -44,7 +44,7 @@
 
   .img {
     position: absolute;
-    top: 36px;
+    top: 12px;
     left: 150px;
     width: 30px;
     height: 30px;
@@ -52,14 +52,5 @@
     background-image: url(../../../../public/assets/images/check.png);
     background-repeat: no-repeat;
     background-size: 30px 30px;
-  }
-
-  .error {
-    position: absolute;
-    top: 73px;
-    left: -5px;
-    height: 8px;
-    color: $color-red;
-    font-size: 14px;
   }
 }

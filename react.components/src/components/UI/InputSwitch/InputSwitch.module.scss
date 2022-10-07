@@ -3,9 +3,10 @@
 .wrap {
   position: relative;
   margin: 0 0 15px -283px;
+  padding:  12px 0 0 0;
+
   .switch {
     position: relative;
-
 
     .input {
       opacity: 0;
@@ -16,8 +17,8 @@
 
   .slider {
     position: absolute;
-    top: 0;
-    left: -40px;
+    top: -8px;
+    left: -45px;
     right: 0;
     bottom: 0;
     width: 60px;

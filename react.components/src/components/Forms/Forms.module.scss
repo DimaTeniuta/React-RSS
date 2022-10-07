@@ -6,7 +6,7 @@
   align-items: center;
   row-gap: 10px;
   width: 450px;
-  padding: 20px 40px;
+  padding: 20px 25px;
   margin: 30px auto;
   backdrop-filter: $filter;
   background-color: $color-background-box;
@@ -14,46 +14,6 @@
   border-radius: 10px;
   color: $color-white;
   font-size: 18px;
-
-  .inputText {
-    width: 400px;
-    height: 40px;
-    margin: 10px 0;
-    padding: 0 25px;
-    backdrop-filter: $filter;
-    background-color: $color-background-box;
-    border: 1px solid $color-blue;
-    border-radius: 20px;
-    color: $color-white;
-    font-family: 'Montserrat-regular', sans-serif;
-    font-size: $font-regular;
-    font-weight: 400;
-    transition: 0.3s;
-  
-    &:focus {
-      outline: none;
-    }
-  }
-  
-  .inputData {
-    width: 400px;
-    height: 40px;
-    margin: 10px 0;
-    padding: 0 25px;
-    backdrop-filter: $filter;
-    background-color: $color-background-box;
-    border: 1px solid $color-blue;
-    border-radius: 20px;
-    color: $color-white;
-    font-family: 'Montserrat-regular', sans-serif;
-    font-size: $font-regular;
-    font-weight: 400;
-    transition: 0.3s;
-  
-    &:focus {
-      outline: none;
-    }
-  }
 
   .done {
     position: absolute;

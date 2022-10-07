@@ -15,6 +15,7 @@ import {
   validateSelectInput,
   validateTextInput,
 } from 'utils/validator';
+import { Label } from 'components/UI/Label/Label';
 
 const DEFAULT_VALUE_COUNTRY = 'Country';
 
@@ -91,7 +92,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
     }
   };
 
-  setError = (errorName: string, errorText: string) => {
+  setError = (errorName: string, errorText: string): void => {
     const err = this.state.errors;
     err[errorName] = errorText;
     this.setState({ errors: err });
@@ -137,7 +138,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
     return false;
   };
 
-  validationAfterWrongPost = (): void => {
+  validateAfterWrongPost = (): void => {
     const isValidForm = this.validateForm();
     if (isValidForm) {
       this.setState({ isDisabled: false });
@@ -150,7 +151,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
     }
 
     if (this.state.isValid) {
-      this.validationAfterWrongPost();
+      this.validateAfterWrongPost();
     }
   };
 
@@ -204,70 +205,48 @@ export default class Forms extends Component<PropsForms, StateForms> {
         noValidate
         data-testid="forms"
       >
-        <Input
-          type="text"
-          label="firstName"
-          title="Name:"
-          className={classes.inputText}
-          ref={this.nameRef}
-          error={this.state.errors.nameError}
-          testid="inputName"
-        />
+        <Label label="firstName" title="Name:" error={this.state.errors.nameError}>
+          <Input type="text" ref={this.nameRef} testid="inputName" />
+        </Label>
 
-        <Input
-          type="text"
-          label="surname"
-          title="Surname:"
-          className={classes.inputText}
-          ref={this.surnameRef}
-          error={this.state.errors.surnameError}
-          testid="inputSurname"
-        />
+        <Label label="surname" title="Surname:" error={this.state.errors.surnameError}>
+          <Input type="text" ref={this.surnameRef} testid="inputSurname" />
+        </Label>
 
-        <Input
-          type="date"
-          label="birthday"
-          title="Birthday:"
-          className={classes.inputData}
-          ref={this.birthdayRef}
-          error={this.state.errors.birthdayError}
-          testid="inputDate"
-        />
+        <Label label="birthday" title="Birthday:" error={this.state.errors.birthdayError}>
+          <Input type="date" ref={this.birthdayRef} testid="inputSurname" />
+        </Label>
 
-        <Select
-          defaultValue={DEFAULT_VALUE_COUNTRY}
-          label="country"
-          title="Country:"
-          options={SELECTOR_OPTIONS}
-          ref={this.countryRef}
-          error={this.state.errors.countryError}
-        />
+        <Label label="country" title="Country:" error={this.state.errors.countryError}>
+          <Select
+            defaultValue={DEFAULT_VALUE_COUNTRY}
+            options={SELECTOR_OPTIONS}
+            ref={this.countryRef}
+          />
+        </Label>
 
-        <InputFile
-          label="avatar"
-          title="Avatar:"
-          ready={this.state.validAvatar}
-          ref={this.avatarRef}
-          onClick={this.onClickAvatar}
-          error={this.state.errors.avatarError}
-        />
+        <Label label="avatar" title="Avatar:" error={this.state.errors.avatarError}>
+          <InputFile
+            ready={this.state.validAvatar}
+            ref={this.avatarRef}
+            onClick={this.onClickAvatar}
+          />
+        </Label>
 
-        <InputSwitch
-          label="switch"
-          title="Male/Female:"
-          onClick={this.onClickSwitch}
-          ref={this.switchRef}
-        />
+        <Label label="switch" title="Male/Female:">
+          <InputSwitch onClick={this.onClickSwitch} ref={this.switchRef} />
+        </Label>
 
-        <InputCheckbox
-          label="agree"
-          title="Consent to data processing:"
-          onClick={this.onClickPersonalData}
-          ref={this.personalDataRef}
-          error={this.state.errors.personaDataError}
-        />
+        <Label label="agree" title="Consent to data processing:">
+          <InputCheckbox
+            onClick={this.onClickPersonalData}
+            ref={this.personalDataRef}
+            error={this.state.errors.personaDataError}
+          />
+        </Label>
 
         <Button disabled={this.state.isDisabled}>Post</Button>
+
         {this.state.isDone && (
           <div className={classes.done} data-testid="final-text">
             Done

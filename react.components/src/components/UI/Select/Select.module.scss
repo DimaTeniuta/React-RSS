@@ -1,38 +1,25 @@
 @import '../../../styles/variables.scss';
 
-.wrap {
-  position: relative;
+.select {
+  width: 400px;
+  height: 40px;
+  margin: 10px 0;
+  padding: 0 25px;
+  backdrop-filter: $filter;
+  background: url(../../../../public/assets/svg/arrow-down.svg) no-repeat right;
+  background-color: $color-background-box;
+  background-size: 22px 22px;
+  background-position-x: calc(100% - 23px);
+  border: 1px solid $color-blue;
+  border-radius: 20px;
+  color: $color-white;
+  font-family: 'Montserrat-regular', sans-serif;
+  font-size: $font-regular;
+  font-weight: 400;
+  transition: 0.3s;
+  appearance: none;
 
-  .select {
-    width: 400px;
-    height: 40px;
-    margin: 10px 0;
-    padding: 0 25px;
-    backdrop-filter: $filter;
-    background: url(../../../../public/assets/svg/arrow-down.svg) no-repeat right;
-    background-color: $color-background-box;
-    background-size: 22px 22px;
-    background-position-x: calc(100% - 23px);
-    border: 1px solid $color-blue;
-    border-radius: 20px;
-    color: $color-white;
-    font-family: 'Montserrat-regular', sans-serif;
-    font-size: $font-regular;
-    font-weight: 400;
-    transition: 0.3s;
-    appearance: none;
-
-    &:focus {
-      outline: none;
-    }
-  }
-  
-  .error {
-    position: absolute;
-    top: 73px;
-    height: 8px;
-    color: $color-red;
-    font-size: 14px;
+  &:focus {
+    outline: none;
   }
 }
-
