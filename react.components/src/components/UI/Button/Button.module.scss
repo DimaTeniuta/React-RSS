@@ -34,4 +34,13 @@
   &:active {
     transform: scale(0.95);
   }
+
+  &:disabled {
+    color: $color-background-box;
+  }
+
+  &:disabled:active  {
+    transform: scale(1);
+  }
 }
+

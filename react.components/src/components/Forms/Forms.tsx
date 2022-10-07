@@ -267,9 +267,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
           error={this.state.errors.personaDataError}
         />
 
-        <Button className={classes.standardBtn} disabled={this.state.isDisabled}>
-          Post
-        </Button>
+        <Button disabled={this.state.isDisabled}>Post</Button>
         {this.state.isDone && (
           <div className={classes.done} data-testid="final-text">
             Done
