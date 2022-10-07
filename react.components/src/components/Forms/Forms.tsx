@@ -1,19 +1,17 @@
 import { Input } from 'components/UI/Input/Input';
 import React, { Component } from 'react';
 import classes from './Forms.module.scss';
-import SELECT_DATA from '../../data/optionsForSelect.json';
+import SELECTOR_OPTIONS from '../../data/optionsForSelect.json';
 import Button from 'components/UI/Button/Button';
 import { Select } from 'components/UI/Select/Select';
 import { InputFile } from 'components/UI/InputFile/InputFile';
 import { InputSwitch } from 'components/UI/InputSwitch/InputSwitch';
 import { InputCheckbox } from 'components/UI/InputCheckbox/InputCheckbox';
-import { SelectData } from 'types/formTypes';
 import { FormData } from 'types/formTypes';
 
 const DEFAULT_VALUE_COUNTRY = 'Country';
 
 interface StateForms {
-  selectData: SelectData[];
   isDisabled: boolean;
   isFirstInput: boolean;
   isValid: boolean;
@@ -42,7 +40,6 @@ export default class Forms extends Component<PropsForms, StateForms> {
   constructor(props: PropsForms) {
     super(props);
     this.state = {
-      selectData: SELECT_DATA,
       isFirstInput: false,
       isDisabled: true,
       isValid: false,
@@ -316,7 +313,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
           defaultValue={DEFAULT_VALUE_COUNTRY}
           label="country"
           title="Country:"
-          options={this.state.selectData}
+          options={SELECTOR_OPTIONS}
           onChange={this.handleOnChange}
           ref={this.state.countryRef}
           error={this.state.countryError}
