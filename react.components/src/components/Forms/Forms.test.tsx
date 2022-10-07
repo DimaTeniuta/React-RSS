@@ -17,7 +17,7 @@ describe('Forms', () => {
     expect(screen.getByTestId('switch')).toBeInTheDocument();
   });
 
-  it('renders final text', async () => {
+  it('renders final text', () => {
     render(<Forms addData={mockGetData} />);
     const nameInput = screen.getByTestId('inputName');
     const surnameInput = screen.getByTestId('inputSurname');
@@ -30,11 +30,7 @@ describe('Forms', () => {
     userEvent.type(surnameInput, 'Test');
     userEvent.type(dateInput, '2020-01-01');
     userEvent.selectOptions(select, 'Belarus');
-    await act(async () => {
-      await waitFor(() => {
-        userEvent.upload(inputFile, fakeFile);
-      });
-    });
+    userEvent.upload(inputFile, fakeFile);
     userEvent.click(checkbox);
     userEvent.click(btn);
     const finalText = screen.getByTestId('final-text');
@@ -184,7 +180,7 @@ describe('Forms validation', () => {
     expect(screen.queryByText('Chose country')).not.toBeInTheDocument();
   });
 
-  it('validation inputFile', async () => {
+  it('validation inputFile', () => {
     render(<Forms addData={mockGetData} />);
     const nameInput = screen.getByTestId('inputName');
     userEvent.type(nameInput, 'Test1');
@@ -192,17 +188,9 @@ describe('Forms validation', () => {
     userEvent.click(btn);
     const inputFile = screen.getByTestId('inputFile');
     expect(screen.getByText('Upload an image in JPG or PNG format')).toBeInTheDocument();
-    await act(async () => {
-      await waitFor(() => {
-        userEvent.upload(inputFile, fakeFileWithWrongFormat);
-      });
-    });
+    userEvent.upload(inputFile, fakeFileWithWrongFormat);
     expect(screen.getByText('The image must be in JPG or PNG format')).toBeInTheDocument();
-    await act(async () => {
-      await waitFor(() => {
-        userEvent.upload(inputFile, fakeFile);
-      });
-    });
+    userEvent.upload(inputFile, fakeFile);
     expect(screen.queryByText('Upload an image in JPG or PNG format')).not.toBeInTheDocument();
     expect(screen.queryByText('The image must be in JPG or PNG format')).not.toBeInTheDocument();
   });
@@ -247,7 +235,7 @@ describe('Forms after success validation', () => {
     expect(screen.queryByText('Post')).not.toBeDisabled();
   });
 
-  it('send data', async () => {
+  it('send data', () => {
     render(<Forms addData={mockGetData} />);
     const nameInput = screen.getByTestId('inputName');
     const surnameInput = screen.getByTestId('inputSurname');
@@ -261,11 +249,7 @@ describe('Forms after success validation', () => {
     userEvent.type(surnameInput, 'Test');
     userEvent.type(dateInput, '2020-01-01');
     userEvent.selectOptions(select, 'Belarus');
-    await act(async () => {
-      await waitFor(() => {
-        userEvent.upload(inputFile, fakeFile);
-      });
-    });
+    userEvent.upload(inputFile, fakeFile);
     userEvent.click(checkbox);
     userEvent.click(btn);
     expect(mockGetData).toBeCalledTimes(1);
