@@ -209,7 +209,7 @@ describe('Forms validation', () => {
 });
 
 describe('Forms after success validation', () => {
-  it('isDisable button after success validation', async () => {
+  it('isDisable button after success validation', () => {
     render(<Forms addData={mockGetData} />);
     const nameInput = screen.getByTestId('inputName');
     const surnameInput = screen.getByTestId('inputSurname');
@@ -226,11 +226,7 @@ describe('Forms after success validation', () => {
     userEvent.type(surnameInput, 'Test');
     userEvent.type(dateInput, '2020-01-01');
     userEvent.selectOptions(select, 'Belarus');
-    await act(async () => {
-      await waitFor(() => {
-        userEvent.upload(inputFile, fakeFile);
-      });
-    });
+    userEvent.upload(inputFile, fakeFile);
     userEvent.click(checkbox);
     expect(screen.queryByText('Post')).not.toBeDisabled();
   });
