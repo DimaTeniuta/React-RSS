@@ -18,15 +18,14 @@ export default class FormPage extends Component<PropsFormPage, StateFormPage> {
     };
   }
 
-  getData = (data: FormData): void => {
-    const arr = [...this.state.data, data];
-    this.setState({ data: arr });
+  addData = (data: FormData): void => {
+    this.setState({ data: [...this.state.data, data] });
   };
 
   render() {
     return (
       <div className={classes.container} data-testid="form-page">
-        <Forms getData={this.getData} />
+        <Forms addData={this.addData} />
         <div className={classes.wrapCards}>
           {this.state.data && this.state.data.map((el, i) => <FormCard key={i} data={el} />)}
         </div>

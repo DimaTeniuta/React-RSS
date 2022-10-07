@@ -37,7 +37,7 @@ interface StateForms {
 }
 
 type PropsForms = {
-  getData: (data: FormData) => void;
+  addData: (data: FormData) => void;
 };
 
 export default class Forms extends Component<PropsForms, StateForms> {
@@ -180,7 +180,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
       personalData: this.personalDataRef.current!.checked,
       gender: this.switchRef.current!.checked,
     };
-    this.props.getData(cardData);
+    this.props.addData(cardData);
   };
 
   handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
