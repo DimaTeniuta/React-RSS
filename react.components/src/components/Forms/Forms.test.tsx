@@ -112,12 +112,12 @@ describe('Forms disabled button', () => {
 
   it('disabled btn after change switches value', () => {
     render(<Forms addData={mockGetData} />);
-    const inputSwitch = screen.getByTestId('switch');
+    const btnSwitch = screen.getByTestId('btn-switch');
     const btn = screen.getByText('Post');
     expect(btn).toBeDisabled();
     userEvent.click(btn);
     expect(btn).toBeDisabled();
-    userEvent.click(inputSwitch);
+    userEvent.click(btnSwitch);
     expect(btn).not.toBeDisabled();
     userEvent.click(btn);
     expect(btn).toBeDisabled();
@@ -145,38 +145,16 @@ describe('Forms validation', () => {
     const btn = screen.getByText('Post');
     userEvent.click(btn);
     expect(
-      screen.getByText('The name should contain only the letters a-z, A-Z')
+      screen.getByText('The text should contain only the letters a-z, A-Z')
     ).toBeInTheDocument();
     userEvent.clear(nameInput);
     userEvent.type(nameInput, 'Te');
-    expect(screen.getByText('The name must be longer than 3 characters')).toBeInTheDocument();
+    const texts = screen.getAllByText('The text must be longer than 3 characters');
+    expect(texts[0]).toBeInTheDocument();
     userEvent.clear(nameInput);
     userEvent.type(nameInput, 'Test');
-    expect(screen.queryByText('The name must be longer than 3 characters')).not.toBeInTheDocument();
     expect(
-      screen.queryByText('The name should contain only the letters a-z, A-Z')
-    ).not.toBeInTheDocument();
-  });
-
-  it('validation inputSurname', () => {
-    render(<Forms addData={mockGetData} />);
-    const surnameInput = screen.getByTestId('inputSurname');
-    userEvent.type(surnameInput, 'Test1');
-    const btn = screen.getByText('Post');
-    userEvent.click(btn);
-    expect(
-      screen.getByText('The name should contain only the letters a-z, A-Z')
-    ).toBeInTheDocument();
-    userEvent.clear(surnameInput);
-    userEvent.type(surnameInput, 'Te');
-    expect(screen.getByText('The surname must be longer than 3 characters')).toBeInTheDocument();
-    userEvent.clear(surnameInput);
-    userEvent.type(surnameInput, 'Test');
-    expect(
-      screen.queryByText('The surname must be longer than 3 characters')
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByText('The name should contain only the letters a-z, A-Z')
+      screen.queryByText('The text should contain only the letters a-z, A-Z')
     ).not.toBeInTheDocument();
   });
 

@@ -5,11 +5,11 @@ export const validateTextInput = (value: string | undefined): string => {
   }
 
   if (!value) {
-    return 'The name must be longer than 3 characters';
+    return 'The text must be longer than 3 characters';
   } else if (!isPattern) {
-    return 'The name should contain only the letters a-z, A-Z';
+    return 'The text should contain only the letters a-z, A-Z';
   } else if (value.length < 3) {
-    return 'The name must be longer than 3 characters';
+    return 'The text must be longer than 3 characters';
   } else {
     return '';
   }

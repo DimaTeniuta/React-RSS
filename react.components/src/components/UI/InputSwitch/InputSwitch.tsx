@@ -10,7 +10,7 @@ interface SwitchProps {
 export const InputSwitch: FC<SwitchProps> = React.forwardRef((props, ref) => {
   return (
     <div className={classes.wrap}>
-      <div className={classes.switch} data-testid="btn-switch">
+      <div className={classes.switch}>
         <input
           {...props}
           type="checkbox"
@@ -19,7 +19,7 @@ export const InputSwitch: FC<SwitchProps> = React.forwardRef((props, ref) => {
           ref={ref}
           data-testid="switch"
         />
-        <span className={classes.slider} onClick={props.onClick}></span>
+        <span className={classes.slider} onClick={props.onClick} data-testid="btn-switch"></span>
       </div>
     </div>
   );

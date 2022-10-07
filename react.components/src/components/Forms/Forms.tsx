@@ -214,7 +214,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
         </Label>
 
         <Label label="birthday" title="Birthday:" error={this.state.errors.birthdayError}>
-          <Input type="date" ref={this.birthdayRef} testid="inputSurname" />
+          <Input type="date" ref={this.birthdayRef} testid="inputDate" />
         </Label>
 
         <Label label="country" title="Country:" error={this.state.errors.countryError}>
