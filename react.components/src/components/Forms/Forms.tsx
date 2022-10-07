@@ -8,8 +8,24 @@ import { InputFile } from 'components/UI/InputFile/InputFile';
 import { InputSwitch } from 'components/UI/InputSwitch/InputSwitch';
 import { InputCheckbox } from 'components/UI/InputCheckbox/InputCheckbox';
 import { FormData } from 'types/formTypes';
+import {
+  validateDateInput,
+  validateInputCheckbox,
+  validateInputFile,
+  validateSelectInput,
+  validateTextInput,
+} from 'utils/validator';
 
 const DEFAULT_VALUE_COUNTRY = 'Country';
+
+enum ErrorFieldNames {
+  NAME_ERROR = 'nameError',
+  SURNAME_ERROR = 'surnameError',
+  BIRTHDAY_ERROR = 'birthdayError',
+  COUNTRY_ERROR = 'countryError',
+  PERSONAL_DATA_ERROR = 'personaDataError',
+  AVATAR_ERROR = 'avatarError',
+}
 
 interface StateForms {
   isDisabled: boolean;
@@ -17,14 +33,7 @@ interface StateForms {
   isValid: boolean;
   isDone: boolean;
   validAvatar: string;
-  errors: {
-    nameError: string;
-    surnameError: string;
-    birthdayError: string;
-    countryError: string;
-    avatarError: string;
-    personaDataError: string;
-  };
+  errors: Record<string, string>;
 }
 
 type PropsForms = {
@@ -82,139 +91,10 @@ export default class Forms extends Component<PropsForms, StateForms> {
     }
   };
 
-  validationName = (): boolean => {
-    const name = this.nameRef.current?.value;
-    let isPattern;
-    if (name) {
-      isPattern = name.match(/^[a-zA-Z]*$/g);
-    }
-
-    if (!name) {
-      const err = this.state.errors;
-      err.nameError = 'The name must be longer than 3 characters';
-      this.setState({ errors: err });
-      return false;
-    } else if (!isPattern) {
-      const err = this.state.errors;
-      err.nameError = 'The name should contain only the letters a-z, A-Z';
-      this.setState({ errors: err });
-      return false;
-    } else if (name.length < 3) {
-      const err = this.state.errors;
-      err.nameError = 'The name must be longer than 3 characters';
-      this.setState({ errors: err });
-      return false;
-    } else {
-      const err = this.state.errors;
-      err.nameError = '';
-      this.setState({ errors: err });
-      return true;
-    }
-  };
-
-  validationSurname = (): boolean => {
-    const surname = this.surnameRef.current?.value;
-    let isPattern;
-    if (surname) {
-      isPattern = surname.match(/^[a-zA-Z]*$/g);
-    }
-
-    if (!surname) {
-      const err = this.state.errors;
-      err.surnameError = 'The name must be longer than 3 characters';
-      this.setState({ errors: err });
-      return false;
-    } else if (!isPattern) {
-      const err = this.state.errors;
-      err.surnameError = 'The name should contain only the letters a-z, A-Z';
-      this.setState({ errors: err });
-      return false;
-    } else if (surname.length < 3) {
-      const err = this.state.errors;
-      err.surnameError = 'The surname must be longer than 3 characters';
-      this.setState({ errors: err });
-      return false;
-    } else {
-      const err = this.state.errors;
-      err.surnameError = '';
-      this.setState({ errors: err });
-      return true;
-    }
-  };
-
-  validationBirthday = (): boolean => {
-    const birthday = this.birthdayRef.current?.value;
-    let isPattern;
-    if (birthday) {
-      isPattern = birthday.match(/^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/g);
-    }
-
-    if (!isPattern) {
-      const err = this.state.errors;
-      err.birthdayError = 'The date must be in the format: DD-MM-YYYY';
-      this.setState({ errors: err });
-      return false;
-    } else {
-      const err = this.state.errors;
-      err.birthdayError = '';
-      this.setState({ errors: err });
-      return true;
-    }
-  };
-
-  validationCountry = (): boolean => {
-    const country = this.countryRef.current?.value;
-    if (country === DEFAULT_VALUE_COUNTRY) {
-      const err = this.state.errors;
-      err.countryError = 'Chose country';
-      this.setState({ errors: err });
-      return false;
-    } else {
-      const err = this.state.errors;
-      err.countryError = '';
-      this.setState({ errors: err });
-      return true;
-    }
-  };
-
-  validationPersonalData = (): boolean => {
-    const value = this.personalDataRef.current?.checked;
-    if (!value) {
-      const err = this.state.errors;
-      err.personaDataError = 'This field is required';
-      this.setState({ errors: err });
-      return false;
-    } else {
-      const err = this.state.errors;
-      err.personaDataError = '';
-      this.setState({ errors: err });
-      return true;
-    }
-  };
-
-  validationAvatar = (): boolean => {
-    const file = this.avatarRef.current?.files;
-    let isPattern;
-    if (file && file.length) {
-      isPattern = file[0].name.match(/.*\.(jpg|JPG|png|PNG)$/);
-    }
-
-    if (file && !file.length) {
-      const err = this.state.errors;
-      err.avatarError = 'Upload an image in JPG or PNG format';
-      this.setState({ errors: err, validAvatar: '' });
-      return false;
-    } else if (!isPattern) {
-      const err = this.state.errors;
-      err.avatarError = 'The image must be in JPG or PNG format';
-      this.setState({ errors: err, validAvatar: '' });
-      return false;
-    } else {
-      const err = this.state.errors;
-      err.avatarError = '';
-      this.setState({ errors: err, validAvatar: 'true' });
-      return true;
-    }
+  setError = (errorName: string, errorText: string) => {
+    const err = this.state.errors;
+    err[errorName] = errorText;
+    this.setState({ errors: err });
   };
 
   onClickAvatar = (): void => {
@@ -229,15 +109,37 @@ export default class Forms extends Component<PropsForms, StateForms> {
     this.personalDataRef.current?.click();
   };
 
-  validationAfterWrongPost = (): void => {
-    const name = this.validationName();
-    const surname = this.validationSurname();
-    const birthday = this.validationBirthday();
-    const country = this.validationCountry();
-    const personalData = this.validationPersonalData();
-    const avatar = this.validationAvatar();
+  validateForm = (): boolean => {
+    const nameError = validateTextInput(this.nameRef.current?.value);
+    this.setError(ErrorFieldNames.NAME_ERROR, nameError);
+    const surnameError = validateTextInput(this.surnameRef.current?.value);
+    this.setError(ErrorFieldNames.SURNAME_ERROR, surnameError);
+    const birthdayError = validateDateInput(this.birthdayRef.current?.value);
+    this.setError(ErrorFieldNames.BIRTHDAY_ERROR, birthdayError);
+    const countryError = validateSelectInput(this.countryRef.current?.value, DEFAULT_VALUE_COUNTRY);
+    this.setError(ErrorFieldNames.COUNTRY_ERROR, countryError);
+    const personalDataError = validateInputCheckbox(this.personalDataRef.current?.checked);
+    this.setError(ErrorFieldNames.PERSONAL_DATA_ERROR, personalDataError);
+    const avatarError = validateInputFile(this.avatarRef.current?.files);
+    this.setError(ErrorFieldNames.AVATAR_ERROR, avatarError);
+    avatarError ? this.setState({ validAvatar: '' }) : this.setState({ validAvatar: 'true' });
 
-    if (name && surname && birthday && country && personalData && avatar) {
+    if (
+      !nameError &&
+      !surnameError &&
+      !birthdayError &&
+      !countryError &&
+      !personalDataError &&
+      !avatarError
+    ) {
+      return true;
+    }
+    return false;
+  };
+
+  validationAfterWrongPost = (): void => {
+    const isValidForm = this.validateForm();
+    if (isValidForm) {
       this.setState({ isDisabled: false });
     }
   };
@@ -284,21 +186,9 @@ export default class Forms extends Component<PropsForms, StateForms> {
   handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     this.setState({ isDisabled: true, isValid: true });
-    const isValidName = this.validationName();
-    const isValidSurname = this.validationSurname();
-    const isValidBirthday = this.validationBirthday();
-    const isValidCountry = this.validationCountry();
-    const personalData = this.validationPersonalData();
-    const avatar = this.validationAvatar();
+    const isValidForm = this.validateForm();
 
-    if (
-      isValidName &&
-      isValidSurname &&
-      isValidBirthday &&
-      isValidCountry &&
-      personalData &&
-      avatar
-    ) {
+    if (isValidForm) {
       this.postData();
       this.setState({ isDone: true });
       this.clearForm();
