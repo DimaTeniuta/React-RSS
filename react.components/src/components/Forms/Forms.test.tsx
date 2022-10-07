@@ -10,7 +10,7 @@ const fakeFileWithWrongFormat = new File(['test'], 'test.pdf', { type: 'image/pd
 
 describe('Forms', () => {
   it('renders form', () => {
-    render(<Forms getData={mockGetData} />);
+    render(<Forms addData={mockGetData} />);
     expect(screen.getByTestId('inputFile')).toBeInTheDocument();
     expect(screen.getByTestId('inputCheckbox')).toBeInTheDocument();
     expect(screen.getByTestId('select')).toBeInTheDocument();
@@ -18,7 +18,7 @@ describe('Forms', () => {
   });
 
   it('renders final text', async () => {
-    render(<Forms getData={mockGetData} />);
+    render(<Forms addData={mockGetData} />);
     const nameInput = screen.getByTestId('inputName');
     const surnameInput = screen.getByTestId('inputSurname');
     const dateInput = screen.getByTestId('inputDate');
@@ -51,7 +51,7 @@ describe('Forms', () => {
 
 describe('Forms disabled button', () => {
   it('disabled btn before change inputs values', () => {
-    render(<Forms getData={mockGetData} />);
+    render(<Forms addData={mockGetData} />);
     const btn = screen.getByText('Post');
     expect(btn).toBeDisabled();
     userEvent.click(btn);
@@ -59,7 +59,7 @@ describe('Forms disabled button', () => {
   });
 
   it('disabled btn after change name value', () => {
-    render(<Forms getData={mockGetData} />);
+    render(<Forms addData={mockGetData} />);
     const nameInput = screen.getByTestId('inputName');
     const btn = screen.getByText('Post');
     expect(btn).toBeDisabled();
@@ -72,7 +72,7 @@ describe('Forms disabled button', () => {
   });
 
   it('disabled btn after change surname value', () => {
-    render(<Forms getData={mockGetData} />);
+    render(<Forms addData={mockGetData} />);
     const surnameInput = screen.getByTestId('inputSurname');
     const btn = screen.getByText('Post');
     expect(btn).toBeDisabled();
@@ -85,7 +85,7 @@ describe('Forms disabled button', () => {
   });
 
   it('disabled btn after change inputDate value', () => {
-    render(<Forms getData={mockGetData} />);
+    render(<Forms addData={mockGetData} />);
     const inputDate = screen.getByTestId('inputDate');
     const btn = screen.getByText('Post');
     expect(btn).toBeDisabled();
@@ -98,7 +98,7 @@ describe('Forms disabled button', () => {
   });
 
   it('disabled btn after change select value', () => {
-    render(<Forms getData={mockGetData} />);
+    render(<Forms addData={mockGetData} />);
     const select = screen.getByTestId('select');
     const btn = screen.getByText('Post');
     expect(btn).toBeDisabled();
@@ -111,7 +111,7 @@ describe('Forms disabled button', () => {
   });
 
   it('disabled btn after change switches value', () => {
-    render(<Forms getData={mockGetData} />);
+    render(<Forms addData={mockGetData} />);
     const inputSwitch = screen.getByTestId('switch');
     const btn = screen.getByText('Post');
     expect(btn).toBeDisabled();
@@ -124,7 +124,7 @@ describe('Forms disabled button', () => {
   });
 
   it('disabled btn after change inputCheckbox value', () => {
-    render(<Forms getData={mockGetData} />);
+    render(<Forms addData={mockGetData} />);
     const checkbox = screen.getByTestId('inputCheckbox');
     const btn = screen.getByText('Post');
     expect(btn).toBeDisabled();
@@ -139,7 +139,7 @@ describe('Forms disabled button', () => {
 
 describe('Forms validation', () => {
   it('validation inputName', () => {
-    render(<Forms getData={mockGetData} />);
+    render(<Forms addData={mockGetData} />);
     const nameInput = screen.getByTestId('inputName');
     userEvent.type(nameInput, 'Test1');
     const btn = screen.getByText('Post');
@@ -159,7 +159,7 @@ describe('Forms validation', () => {
   });
 
   it('validation inputSurname', () => {
-    render(<Forms getData={mockGetData} />);
+    render(<Forms addData={mockGetData} />);
     const surnameInput = screen.getByTestId('inputSurname');
     userEvent.type(surnameInput, 'Test1');
     const btn = screen.getByText('Post');
@@ -181,7 +181,7 @@ describe('Forms validation', () => {
   });
 
   it('validation inputDate', () => {
-    render(<Forms getData={mockGetData} />);
+    render(<Forms addData={mockGetData} />);
     const dateInput = screen.getByTestId('inputDate');
     userEvent.type(dateInput, '20202-01-01');
     const btn = screen.getByText('Post');
@@ -195,7 +195,7 @@ describe('Forms validation', () => {
   });
 
   it('validation select', () => {
-    render(<Forms getData={mockGetData} />);
+    render(<Forms addData={mockGetData} />);
     const nameInput = screen.getByTestId('inputName');
     userEvent.type(nameInput, 'Test1');
     const btn = screen.getByText('Post');
@@ -207,7 +207,7 @@ describe('Forms validation', () => {
   });
 
   it('validation inputFile', async () => {
-    render(<Forms getData={mockGetData} />);
+    render(<Forms addData={mockGetData} />);
     const nameInput = screen.getByTestId('inputName');
     userEvent.type(nameInput, 'Test1');
     const btn = screen.getByText('Post');
@@ -230,7 +230,7 @@ describe('Forms validation', () => {
   });
 
   it('validation inputCheckbox', () => {
-    render(<Forms getData={mockGetData} />);
+    render(<Forms addData={mockGetData} />);
     const checkbox = screen.getByTestId('inputCheckbox');
     userEvent.click(checkbox);
     expect(screen.getByText('Post')).not.toBeDisabled();
@@ -244,7 +244,7 @@ describe('Forms validation', () => {
 
 describe('Forms after success validation', () => {
   it('isDisable button after success validation', async () => {
-    render(<Forms getData={mockGetData} />);
+    render(<Forms addData={mockGetData} />);
     const nameInput = screen.getByTestId('inputName');
     const surnameInput = screen.getByTestId('inputSurname');
     const dateInput = screen.getByTestId('inputDate');
@@ -270,7 +270,7 @@ describe('Forms after success validation', () => {
   });
 
   it('send data', async () => {
-    render(<Forms getData={mockGetData} />);
+    render(<Forms addData={mockGetData} />);
     const nameInput = screen.getByTestId('inputName');
     const surnameInput = screen.getByTestId('inputSurname');
     const dateInput = screen.getByTestId('inputDate');
