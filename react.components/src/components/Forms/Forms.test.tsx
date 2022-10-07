@@ -1,8 +1,8 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import Forms from './Forms';
 import userEvent from '@testing-library/user-event';
-import { act } from 'react-dom/test-utils';
+
 import { fakeFile } from 'data/mockData';
 
 const mockGetData = jest.fn();
@@ -222,7 +222,6 @@ describe('Forms after success validation', () => {
     expect(screen.queryByText('Post')).not.toBeDisabled();
     userEvent.click(btn);
     expect(screen.getByText('Post')).toBeDisabled();
-
     userEvent.type(surnameInput, 'Test');
     userEvent.type(dateInput, '2020-01-01');
     userEvent.selectOptions(select, 'Belarus');

@@ -140,6 +140,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
 
   validateAfterWrongPost = (): void => {
     const isValidForm = this.validateForm();
+
     if (isValidForm) {
       this.setState({ isDisabled: false });
     }
@@ -162,6 +163,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
       isValid: false,
       validAvatar: '',
     });
+
     this.nameRef.current!.value = '';
     this.surnameRef.current!.value = '';
     this.birthdayRef.current!.value = '';
@@ -181,6 +183,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
       personalData: this.personalDataRef.current!.checked,
       gender: this.switchRef.current!.checked,
     };
+
     this.props.addData(cardData);
   };
 
