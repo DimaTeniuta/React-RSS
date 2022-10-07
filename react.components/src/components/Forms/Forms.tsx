@@ -16,13 +16,6 @@ interface StateForms {
   isFirstInput: boolean;
   isValid: boolean;
   isDone: boolean;
-  nameRef: React.RefObject<HTMLInputElement>;
-  surnameRef: React.RefObject<HTMLInputElement>;
-  birthdayRef: React.RefObject<HTMLInputElement>;
-  countryRef: React.RefObject<HTMLSelectElement>;
-  avatarRef: React.RefObject<HTMLInputElement>;
-  personalDataRef: React.RefObject<HTMLInputElement>;
-  switchRef: React.RefObject<HTMLInputElement>;
   validAvatar: string;
   nameError: string;
   surnameError: string;
@@ -37,6 +30,14 @@ type PropsForms = {
 };
 
 export default class Forms extends Component<PropsForms, StateForms> {
+  private nameRef: React.RefObject<HTMLInputElement>;
+  private surnameRef: React.RefObject<HTMLInputElement>;
+  private birthdayRef: React.RefObject<HTMLInputElement>;
+  private countryRef: React.RefObject<HTMLSelectElement>;
+  private avatarRef: React.RefObject<HTMLInputElement>;
+  private personalDataRef: React.RefObject<HTMLInputElement>;
+  private switchRef: React.RefObject<HTMLInputElement>;
+
   constructor(props: PropsForms) {
     super(props);
     this.state = {
@@ -44,13 +45,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
       isDisabled: true,
       isValid: false,
       isDone: false,
-      nameRef: React.createRef(),
-      surnameRef: React.createRef(),
-      birthdayRef: React.createRef(),
-      countryRef: React.createRef(),
-      avatarRef: React.createRef(),
-      personalDataRef: React.createRef(),
-      switchRef: React.createRef(),
+
       validAvatar: '',
       nameError: '',
       surnameError: '',
@@ -59,17 +54,25 @@ export default class Forms extends Component<PropsForms, StateForms> {
       avatarError: '',
       personaDataError: '',
     };
+
+    this.nameRef = React.createRef();
+    this.surnameRef = React.createRef();
+    this.birthdayRef = React.createRef();
+    this.countryRef = React.createRef();
+    this.avatarRef = React.createRef();
+    this.personalDataRef = React.createRef();
+    this.switchRef = React.createRef();
   }
 
   firstInput = (): void => {
     if (
-      this.state.nameRef.current?.value ||
-      this.state.surnameRef.current?.value ||
-      this.state.birthdayRef.current?.value ||
-      this.state.countryRef.current?.value !== DEFAULT_VALUE_COUNTRY ||
-      this.state.avatarRef.current?.value ||
-      this.state.switchRef.current?.checked ||
-      this.state.personalDataRef.current?.checked
+      this.nameRef.current?.value ||
+      this.surnameRef.current?.value ||
+      this.birthdayRef.current?.value ||
+      this.countryRef.current?.value !== DEFAULT_VALUE_COUNTRY ||
+      this.avatarRef.current?.value ||
+      this.switchRef.current?.checked ||
+      this.personalDataRef.current?.checked
     ) {
       this.setState({ isDisabled: false, isFirstInput: true });
       this.setState({ isDone: false });
@@ -77,7 +80,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
   };
 
   validationName = (): boolean => {
-    const name = this.state.nameRef.current?.value;
+    const name = this.nameRef.current?.value;
     let isPattern;
     if (name) {
       isPattern = name.match(/^[a-zA-Z]*$/g);
@@ -99,7 +102,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
   };
 
   validationSurname = (): boolean => {
-    const surname = this.state.surnameRef.current?.value;
+    const surname = this.surnameRef.current?.value;
     let isPattern;
     if (surname) {
       isPattern = surname.match(/^[a-zA-Z]*$/g);
@@ -121,7 +124,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
   };
 
   validationBirthday = (): boolean => {
-    const birthday = this.state.birthdayRef.current?.value;
+    const birthday = this.birthdayRef.current?.value;
     let isPattern;
     if (birthday) {
       isPattern = birthday.match(/^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/g);
@@ -137,7 +140,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
   };
 
   validationCountry = (): boolean => {
-    const country = this.state.countryRef.current?.value;
+    const country = this.countryRef.current?.value;
     if (country === DEFAULT_VALUE_COUNTRY) {
       this.setState({ countryError: 'Chose country' });
       return false;
@@ -148,7 +151,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
   };
 
   validationPersonalData = (): boolean => {
-    const value = this.state.personalDataRef.current?.checked;
+    const value = this.personalDataRef.current?.checked;
     if (!value) {
       this.setState({ personaDataError: 'This field is required' });
       return false;
@@ -159,7 +162,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
   };
 
   validationAvatar = (): boolean => {
-    const file = this.state.avatarRef.current?.files;
+    const file = this.avatarRef.current?.files;
     let isPattern;
     if (file && file.length) {
       isPattern = file[0].name.match(/.*\.(jpg|JPG|png|PNG)$/);
@@ -181,15 +184,15 @@ export default class Forms extends Component<PropsForms, StateForms> {
   };
 
   onClickAvatar = (): void => {
-    this.state.avatarRef.current?.click();
+    this.avatarRef.current?.click();
   };
 
   onClickSwitch = (): void => {
-    this.state.switchRef.current?.click();
+    this.switchRef.current?.click();
   };
 
   onClickPersonalData = (): void => {
-    this.state.personalDataRef.current?.click();
+    this.personalDataRef.current?.click();
   };
 
   validationAfterWrongPost = (): void => {
@@ -222,24 +225,24 @@ export default class Forms extends Component<PropsForms, StateForms> {
       isValid: false,
       validAvatar: '',
     });
-    this.state.nameRef.current!.value = '';
-    this.state.surnameRef.current!.value = '';
-    this.state.birthdayRef.current!.value = '';
-    this.state.countryRef.current!.value = DEFAULT_VALUE_COUNTRY;
-    this.state.avatarRef.current!.value = '';
-    this.state.personalDataRef.current!.checked = false;
-    this.state.switchRef.current!.checked = false;
+    this.nameRef.current!.value = '';
+    this.surnameRef.current!.value = '';
+    this.birthdayRef.current!.value = '';
+    this.countryRef.current!.value = DEFAULT_VALUE_COUNTRY;
+    this.avatarRef.current!.value = '';
+    this.personalDataRef.current!.checked = false;
+    this.switchRef.current!.checked = false;
   };
 
   postData = () => {
     const cardData: FormData = {
-      name: this.state.nameRef.current!.value,
-      surname: this.state.surnameRef.current!.value,
-      birthday: this.state.birthdayRef.current!.value,
-      country: this.state.countryRef.current!.value,
-      avatar: this.state.avatarRef.current!.files![0],
-      personalData: this.state.personalDataRef.current!.checked,
-      gender: this.state.switchRef.current!.checked,
+      name: this.nameRef.current!.value,
+      surname: this.surnameRef.current!.value,
+      birthday: this.birthdayRef.current!.value,
+      country: this.countryRef.current!.value,
+      avatar: this.avatarRef.current!.files![0],
+      personalData: this.personalDataRef.current!.checked,
+      gender: this.switchRef.current!.checked,
     };
     this.props.getData(cardData);
   };
@@ -282,7 +285,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
           title="Name:"
           className={classes.inputText}
           onChange={this.handleOnChange}
-          ref={this.state.nameRef}
+          ref={this.nameRef}
           error={this.state.nameError}
           testid="inputName"
         />
@@ -293,7 +296,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
           title="Surname:"
           className={classes.inputText}
           onChange={this.handleOnChange}
-          ref={this.state.surnameRef}
+          ref={this.surnameRef}
           error={this.state.surnameError}
           testid="inputSurname"
         />
@@ -304,7 +307,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
           title="Birthday:"
           className={classes.inputData}
           onChange={this.handleOnChange}
-          ref={this.state.birthdayRef}
+          ref={this.birthdayRef}
           error={this.state.birthdayError}
           testid="inputDate"
         />
@@ -315,7 +318,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
           title="Country:"
           options={SELECTOR_OPTIONS}
           onChange={this.handleOnChange}
-          ref={this.state.countryRef}
+          ref={this.countryRef}
           error={this.state.countryError}
         />
 
@@ -323,7 +326,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
           label="avatar"
           title="Avatar:"
           ready={this.state.validAvatar}
-          ref={this.state.avatarRef}
+          ref={this.avatarRef}
           onClick={this.onClickAvatar}
           onChange={this.handleOnChange}
           error={this.state.avatarError}
@@ -334,7 +337,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
           title="Male/Female:"
           onClick={this.onClickSwitch}
           onChange={this.handleOnChange}
-          ref={this.state.switchRef}
+          ref={this.switchRef}
         />
 
         <InputCheckbox
@@ -342,7 +345,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
           title="Consent to data processing:"
           onClick={this.onClickPersonalData}
           onChange={this.handleOnChange}
-          ref={this.state.personalDataRef}
+          ref={this.personalDataRef}
           error={this.state.personaDataError}
         />
 
