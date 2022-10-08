@@ -1,7 +1,10 @@
 import React, { FC } from 'react';
+import { Label } from '../Label/Label';
 import classes from './InputSwitch.module.scss';
 
 interface SwitchProps {
+  label: string;
+  title: string;
   ref?: React.ForwardedRef<HTMLInputElement>;
   onClick?: () => void;
   onChange?: (event?: React.ChangeEvent<HTMLInputElement>) => void;
@@ -9,7 +12,7 @@ interface SwitchProps {
 
 export const InputSwitch: FC<SwitchProps> = React.forwardRef((props, ref) => {
   return (
-    <div className={classes.wrap}>
+    <Label label={props.label} title={props.title} className={classes.wrap}>
       <div className={classes.switch}>
         <input
           {...props}
@@ -21,6 +24,6 @@ export const InputSwitch: FC<SwitchProps> = React.forwardRef((props, ref) => {
         />
         <span className={classes.slider} onClick={props.onClick} data-testid="btn-switch"></span>
       </div>
-    </div>
+    </Label>
   );
 });

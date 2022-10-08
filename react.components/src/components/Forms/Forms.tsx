@@ -15,7 +15,6 @@ import {
   validateSelectInput,
   validateTextInput,
 } from 'utils/validator';
-import { Label } from 'components/UI/Label/Label';
 
 const DEFAULT_VALUE_COUNTRY = 'Country';
 
@@ -122,13 +121,13 @@ export default class Forms extends Component<PropsForms, StateForms> {
       [ErrorFieldNames.PERSONAL_DATA]: validateInputCheckbox(this.personalDataRef.current?.checked),
       [ErrorFieldNames.AVATAR]: validateInputFile(this.avatarRef.current?.files),
     };
-    const errorsArr = Object.entries(errors);
+    const errorsArray = Object.entries(errors);
     errors[ErrorFieldNames.AVATAR]
       ? this.setState({ isValidAvatar: false })
       : this.setState({ isValidAvatar: true });
 
-    errorsArr.forEach((el) => this.setError(el[0], el[1]));
-    return errorsArr.every((i) => !i[1]);
+    errorsArray.forEach((el) => this.setError(el[0], el[1]));
+    return errorsArray.every((i) => !i[1]);
   };
 
   validateAfterWrongPost = (): void => {
@@ -201,45 +200,65 @@ export default class Forms extends Component<PropsForms, StateForms> {
         noValidate
         data-testid="forms"
       >
-        <Label label="firstName" title="Name:" error={this.state.errors.nameError}>
-          <Input type="text" ref={this.nameRef} testid="inputName" />
-        </Label>
+        <Input
+          label="firstName"
+          title="Name:"
+          type="text"
+          ref={this.nameRef}
+          testid="inputName"
+          error={this.state.errors.nameError}
+        />
 
-        <Label label="surname" title="Surname:" error={this.state.errors.surnameError}>
-          <Input type="text" ref={this.surnameRef} testid="inputSurname" />
-        </Label>
+        <Input
+          label="surname"
+          title="Surname:"
+          type="text"
+          ref={this.surnameRef}
+          testid="inputSurname"
+          error={this.state.errors.surnameError}
+        />
 
-        <Label label="birthday" title="Birthday:" error={this.state.errors.birthdayError}>
-          <Input type="date" ref={this.birthdayRef} testid="inputDate" />
-        </Label>
+        <Input
+          label="birthday"
+          title="Birthday:"
+          type="date"
+          ref={this.birthdayRef}
+          testid="inputDate"
+          error={this.state.errors.birthdayError}
+        />
 
-        <Label label="country" title="Country:" error={this.state.errors.countryError}>
-          <Select
-            defaultValue={DEFAULT_VALUE_COUNTRY}
-            options={SELECTOR_OPTIONS}
-            ref={this.countryRef}
-          />
-        </Label>
+        <Select
+          label="country"
+          title="Country:"
+          defaultValue={DEFAULT_VALUE_COUNTRY}
+          options={SELECTOR_OPTIONS}
+          ref={this.countryRef}
+          error={this.state.errors.countryError}
+        />
 
-        <Label label="avatar" title="Avatar:" error={this.state.errors.avatarError}>
-          <InputFile
-            ready={this.state.isValidAvatar.toString()}
-            ref={this.avatarRef}
-            onClick={this.onClickAvatar}
-          />
-        </Label>
+        <InputFile
+          label="avatar"
+          title="Avatar:"
+          ready={this.state.isValidAvatar.toString()}
+          ref={this.avatarRef}
+          onClick={this.onClickAvatar}
+          error={this.state.errors.avatarError}
+        />
 
-        <Label label="switch" title="Male/Female:">
-          <InputSwitch onClick={this.onClickSwitch} ref={this.switchRef} />
-        </Label>
+        <InputSwitch
+          label="switch"
+          title="Male/Female:"
+          onClick={this.onClickSwitch}
+          ref={this.switchRef}
+        />
 
-        <Label label="agree" title="Consent to data processing:">
-          <InputCheckbox
-            onClick={this.onClickPersonalData}
-            ref={this.personalDataRef}
-            error={this.state.errors.personaDataError}
-          />
-        </Label>
+        <InputCheckbox
+          label="agree"
+          title="Consent to data processing:"
+          onClick={this.onClickPersonalData}
+          ref={this.personalDataRef}
+          error={this.state.errors.personaDataError}
+        />
 
         <Button disabled={this.state.isDisabled}>Post</Button>
 

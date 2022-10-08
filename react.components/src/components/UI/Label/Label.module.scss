@@ -8,12 +8,12 @@
     color: $color-white;
     font-size: 18px;
   }
+}
 
-  .error {
-    position: absolute;
-    top: 73px;
-    height: 8px;
-    color: $color-red;
-    font-size: 14px;
-  }
+.error {
+  position: absolute;
+  top: 73px;
+  height: 8px;
+  color: $color-red;
+  font-size: 14px;
 }

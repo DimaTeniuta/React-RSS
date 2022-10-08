@@ -6,16 +6,15 @@ interface LabelProps {
   title: string;
   children: React.ReactNode;
   error?: string;
+  className?: string;
 }
 
 export const Label: FC<LabelProps> = (props) => {
   return (
-    <>
-      <label htmlFor={props.label} className={classes.wrap}>
-        <span className={classes.title}>{props.title}</span>
-        {props.children}
-        <p className={classes.error}>{props.error}</p>
-      </label>
-    </>
+    <label htmlFor={props.label} className={props.className ?? classes.wrap}>
+      <span className={classes.title}>{props.title}</span>
+      {props.children}
+      <p className={classes.error}>{props.error}</p>
+    </label>
   );
 };

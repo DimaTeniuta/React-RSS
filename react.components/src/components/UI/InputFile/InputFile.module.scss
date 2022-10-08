@@ -44,7 +44,7 @@
 
   .img {
     position: absolute;
-    top: 12px;
+    top: 34px;
     left: 150px;
     width: 30px;
     height: 30px;
@@ -52,5 +52,13 @@
     background-image: url(../../../../public/assets/images/check.png);
     background-repeat: no-repeat;
     background-size: 30px 30px;
+  }
+
+  .error {
+    position: absolute;
+    top: 73px;
+    height: 8px;
+    color: $color-red;
+    font-size: 14px;
   }
 }

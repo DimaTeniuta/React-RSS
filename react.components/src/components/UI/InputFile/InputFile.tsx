@@ -1,15 +1,19 @@
 import React, { FC } from 'react';
+import { Label } from '../Label/Label';
 import classes from './InputFile.module.scss';
 
 interface InputFileProps {
+  label: string;
+  title: string;
   ref: React.ForwardedRef<HTMLInputElement>;
   ready: string;
   onClick: () => void;
+  error?: string;
 }
 
 export const InputFile: FC<InputFileProps> = React.forwardRef((props, ref) => {
   return (
-    <div className={classes.wrap}>
+    <Label label={props.label} title={props.title} error={props.error} className={classes.wrap}>
       <input
         {...props}
         type="file"
@@ -22,6 +26,6 @@ export const InputFile: FC<InputFileProps> = React.forwardRef((props, ref) => {
         Upload File
       </div>
       <span className={props.ready === 'true' ? classes.img : ''}></span>
-    </div>
+    </Label>
   );
 });
