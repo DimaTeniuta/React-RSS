@@ -33,7 +33,7 @@ interface StateForms {
   isFirstInput: boolean;
   isValid: boolean;
   isDone: boolean;
-  validAvatar: string;
+  isValidAvatar: boolean;
   errors: Record<string, string>;
 }
 
@@ -57,7 +57,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
       isDisabled: true,
       isValid: false,
       isDone: false,
-      validAvatar: '',
+      isValidAvatar: false,
       errors: {
         nameError: '',
         surnameError: '',
@@ -123,7 +123,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
     this.setError(ErrorFieldNames.PERSONAL_DATA_ERROR, personalDataError);
     const avatarError = validateInputFile(this.avatarRef.current?.files);
     this.setError(ErrorFieldNames.AVATAR_ERROR, avatarError);
-    avatarError ? this.setState({ validAvatar: '' }) : this.setState({ validAvatar: 'true' });
+    avatarError ? this.setState({ isValidAvatar: false }) : this.setState({ isValidAvatar: true });
 
     if (
       !nameError &&
@@ -161,7 +161,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
       isFirstInput: false,
       isDisabled: true,
       isValid: false,
-      validAvatar: '',
+      isValidAvatar: false,
     });
 
     this.nameRef.current!.value = '';
@@ -230,7 +230,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
 
         <Label label="avatar" title="Avatar:" error={this.state.errors.avatarError}>
           <InputFile
-            ready={this.state.validAvatar}
+            ready={this.state.isValidAvatar}
             ref={this.avatarRef}
             onClick={this.onClickAvatar}
           />
