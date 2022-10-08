@@ -1,9 +1,8 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import FormPage from './FormPage';
 import userEvent from '@testing-library/user-event';
 import { fakeFile } from 'data/mockData';
-import { act } from 'react-dom/test-utils';
 
 describe('FormPage', () => {
   it('renders FormPage', () => {
@@ -27,11 +26,7 @@ describe('FormPage', () => {
     userEvent.type(surnameInput, 'Test');
     userEvent.type(dateInput, '2020-01-01');
     userEvent.selectOptions(select, 'Belarus');
-    await act(async () => {
-      await waitFor(() => {
-        userEvent.upload(inputFile, fakeFile);
-      });
-    });
+    userEvent.upload(inputFile, fakeFile);
     userEvent.click(checkbox);
     userEvent.click(btn);
 
