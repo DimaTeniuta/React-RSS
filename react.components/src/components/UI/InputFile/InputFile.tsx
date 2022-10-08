@@ -3,7 +3,7 @@ import classes from './InputFile.module.scss';
 
 interface InputFileProps {
   ref: React.ForwardedRef<HTMLInputElement>;
-  ready: boolean;
+  ready: string;
   onClick: () => void;
 }
 
@@ -21,7 +21,7 @@ export const InputFile: FC<InputFileProps> = React.forwardRef((props, ref) => {
       <div className={classes.btn} onClick={props.onClick}>
         Upload File
       </div>
-      <span className={props.ready ? classes.img : ''}></span>
+      <span className={props.ready === 'true' ? classes.img : ''}></span>
     </div>
   );
 });

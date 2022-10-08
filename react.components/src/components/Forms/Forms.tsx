@@ -20,12 +20,12 @@ import { Label } from 'components/UI/Label/Label';
 const DEFAULT_VALUE_COUNTRY = 'Country';
 
 enum ErrorFieldNames {
-  NAME_ERROR = 'nameError',
-  SURNAME_ERROR = 'surnameError',
-  BIRTHDAY_ERROR = 'birthdayError',
-  COUNTRY_ERROR = 'countryError',
-  PERSONAL_DATA_ERROR = 'personaDataError',
-  AVATAR_ERROR = 'avatarError',
+  NAME = 'nameError',
+  SURNAME = 'surnameError',
+  BIRTHDAY = 'birthdayError',
+  COUNTRY = 'countryError',
+  PERSONAL_DATA = 'personaDataError',
+  AVATAR = 'avatarError',
 }
 
 interface StateForms {
@@ -111,31 +111,24 @@ export default class Forms extends Component<PropsForms, StateForms> {
   };
 
   validateForm = (): boolean => {
-    const nameError = validateTextInput(this.nameRef.current?.value);
-    this.setError(ErrorFieldNames.NAME_ERROR, nameError);
-    const surnameError = validateTextInput(this.surnameRef.current?.value);
-    this.setError(ErrorFieldNames.SURNAME_ERROR, surnameError);
-    const birthdayError = validateDateInput(this.birthdayRef.current?.value);
-    this.setError(ErrorFieldNames.BIRTHDAY_ERROR, birthdayError);
-    const countryError = validateSelectInput(this.countryRef.current?.value, DEFAULT_VALUE_COUNTRY);
-    this.setError(ErrorFieldNames.COUNTRY_ERROR, countryError);
-    const personalDataError = validateInputCheckbox(this.personalDataRef.current?.checked);
-    this.setError(ErrorFieldNames.PERSONAL_DATA_ERROR, personalDataError);
-    const avatarError = validateInputFile(this.avatarRef.current?.files);
-    this.setError(ErrorFieldNames.AVATAR_ERROR, avatarError);
-    avatarError ? this.setState({ isValidAvatar: false }) : this.setState({ isValidAvatar: true });
+    const errors = {
+      [ErrorFieldNames.NAME]: validateTextInput(this.nameRef.current?.value),
+      [ErrorFieldNames.SURNAME]: validateTextInput(this.surnameRef.current?.value),
+      [ErrorFieldNames.BIRTHDAY]: validateDateInput(this.birthdayRef.current?.value),
+      [ErrorFieldNames.COUNTRY]: validateSelectInput(
+        this.countryRef.current?.value,
+        DEFAULT_VALUE_COUNTRY
+      ),
+      [ErrorFieldNames.PERSONAL_DATA]: validateInputCheckbox(this.personalDataRef.current?.checked),
+      [ErrorFieldNames.AVATAR]: validateInputFile(this.avatarRef.current?.files),
+    };
+    const errorsArr = Object.entries(errors);
+    errors[ErrorFieldNames.AVATAR]
+      ? this.setState({ isValidAvatar: false })
+      : this.setState({ isValidAvatar: true });
 
-    if (
-      !nameError &&
-      !surnameError &&
-      !birthdayError &&
-      !countryError &&
-      !personalDataError &&
-      !avatarError
-    ) {
-      return true;
-    }
-    return false;
+    errorsArr.forEach((el) => this.setError(el[0], el[1]));
+    return errorsArr.every((i) => !i[1]);
   };
 
   validateAfterWrongPost = (): void => {
@@ -230,7 +223,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
 
         <Label label="avatar" title="Avatar:" error={this.state.errors.avatarError}>
           <InputFile
-            ready={this.state.isValidAvatar}
+            ready={this.state.isValidAvatar.toString()}
             ref={this.avatarRef}
             onClick={this.onClickAvatar}
           />
