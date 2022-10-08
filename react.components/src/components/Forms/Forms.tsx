@@ -92,9 +92,12 @@ export default class Forms extends Component<PropsForms, StateForms> {
   };
 
   setError = (errorName: string, errorText: string): void => {
-    const err = this.state.errors;
-    err[errorName] = errorText;
-    this.setState({ errors: err });
+    this.setState((prevState) => ({
+      errors: {
+        ...prevState.errors,
+        [errorName]: errorText,
+      },
+    }));
   };
 
   onClickAvatar = (): void => {
