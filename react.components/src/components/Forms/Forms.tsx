@@ -181,7 +181,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
       country: this.countryRef.current!.value,
       avatar: this.avatarRef.current!.files![0],
       personalData: this.personalDataRef.current!.checked,
-      gender: this.switchRef.current!.checked,
+      genderMale: this.switchRef.current!.checked,
     };
 
     this.props.addData(cardData);

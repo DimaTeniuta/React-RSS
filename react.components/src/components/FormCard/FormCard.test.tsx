@@ -9,7 +9,7 @@ const mockData: FormData = {
   surname: 'Test2',
   birthday: '2000.01.01',
   country: 'test-country',
-  gender: false,
+  genderMale: false,
   personalData: true,
   avatar: fakeFile,
 };
@@ -19,7 +19,7 @@ const mockData2: FormData = {
   surname: 'Test2',
   birthday: '2000.01.01',
   country: 'test-country',
-  gender: true,
+  genderMale: true,
   personalData: true,
   avatar: fakeFile,
 };

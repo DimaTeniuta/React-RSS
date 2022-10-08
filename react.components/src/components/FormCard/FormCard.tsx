@@ -25,7 +25,7 @@ export const FormCard: FC<StateFormCard> = ({ data }) => {
       <div className={classes.wrapText}>
         <span className={classes.text}>Country: </span> {data.country}
       </div>
-      {data.gender ? (
+      {data.genderMale ? (
         <span className={classes.female} data-testid="test-female"></span>
       ) : (
         <span className={classes.male} data-testid="test-male"></span>

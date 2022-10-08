@@ -5,7 +5,7 @@ export interface FormData {
   country: string;
   avatar: File;
   personalData: boolean;
-  gender: boolean;
+  genderMale: boolean;
 }
 
 export interface SelectData {
