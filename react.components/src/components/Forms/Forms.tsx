@@ -91,15 +91,6 @@ export default class Forms extends Component<PropsForms, StateForms> {
     }
   };
 
-  setError = (errorName: string, errorText: string): void => {
-    this.setState((prevState) => ({
-      errors: {
-        ...prevState.errors,
-        [errorName]: errorText,
-      },
-    }));
-  };
-
   onClickAvatar = (): void => {
     this.avatarRef.current?.click();
   };
@@ -110,6 +101,15 @@ export default class Forms extends Component<PropsForms, StateForms> {
 
   onClickPersonalData = (): void => {
     this.personalDataRef.current?.click();
+  };
+
+  setError = (errorName: string, errorText: string): void => {
+    this.setState((prevState) => ({
+      errors: {
+        ...prevState.errors,
+        [errorName]: errorText,
+      },
+    }));
   };
 
   validateForm = (): boolean => {
@@ -151,21 +151,15 @@ export default class Forms extends Component<PropsForms, StateForms> {
     }
   };
 
-  clearForm = (): void => {
+  clearForm = (event: React.FormEvent<HTMLFormElement>): void => {
     this.setState({
       isFirstInput: false,
       isDisabled: true,
       isValid: false,
       isValidAvatar: false,
     });
-
-    this.nameRef.current!.value = '';
-    this.surnameRef.current!.value = '';
-    this.birthdayRef.current!.value = '';
-    this.countryRef.current!.value = DEFAULT_VALUE_COUNTRY;
-    this.avatarRef.current!.value = '';
-    this.personalDataRef.current!.checked = false;
-    this.switchRef.current!.checked = false;
+    const target = event?.target as HTMLFormElement;
+    target.reset();
   };
 
   postData = () => {
@@ -190,7 +184,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
     if (isValidForm) {
       this.postData();
       this.setState({ isDone: true });
-      this.clearForm();
+      this.clearForm(event);
     }
   };
 
