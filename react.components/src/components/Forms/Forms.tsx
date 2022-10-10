@@ -103,15 +103,6 @@ export default class Forms extends Component<PropsForms, StateForms> {
     this.personalDataRef.current?.click();
   };
 
-  setError = (errorName: string, errorText: string): void => {
-    this.setState((prevState) => ({
-      errors: {
-        ...prevState.errors,
-        [errorName]: errorText,
-      },
-    }));
-  };
-
   validateForm = (): boolean => {
     const errors = {
       [ErrorFieldNames.NAME]: validateTextInput(this.nameRef.current?.value),
@@ -124,13 +115,12 @@ export default class Forms extends Component<PropsForms, StateForms> {
       [ErrorFieldNames.PERSONAL_DATA]: validateInputCheckbox(this.personalDataRef.current?.checked),
       [ErrorFieldNames.AVATAR]: validateInputFile(this.avatarRef.current?.files),
     };
-    const errorsArray = Object.entries(errors);
+    this.setState({ errors });
     errors[ErrorFieldNames.AVATAR]
       ? this.setState({ isValidAvatar: false })
       : this.setState({ isValidAvatar: true });
 
-    errorsArray.forEach((el) => this.setError(el[0], el[1]));
-    return errorsArray.every((i) => !i[1]);
+    return Object.entries(errors).every((item) => !item[1]);
   };
 
   validateAfterWrongPost = (): void => {
