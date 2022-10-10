@@ -86,8 +86,7 @@ export default class Forms extends Component<PropsForms, StateForms> {
       this.switchRef.current?.checked ||
       this.personalDataRef.current?.checked
     ) {
-      this.setState({ isDisabled: false, isFirstInput: true });
-      this.setState({ isDone: false });
+      this.setState({ isDisabled: false, isFirstInput: true, isDone: false });
     }
   };
 
@@ -148,8 +147,8 @@ export default class Forms extends Component<PropsForms, StateForms> {
       isValid: false,
       isValidAvatar: false,
     });
-    const target = event?.target as HTMLFormElement;
-    target.reset();
+    const form = event?.target as HTMLFormElement;
+    form.reset();
   };
 
   postData = () => {
