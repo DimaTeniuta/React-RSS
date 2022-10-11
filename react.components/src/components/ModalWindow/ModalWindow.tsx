@@ -10,7 +10,6 @@ interface ModalWindowProps {
 }
 
 export const ModalWindow: FC<ModalWindowProps> = (props) => {
-  console.log(props.data);
   return (
     <div className={props.active ? classes.overlayActive : classes.overlay} onClick={props.onClick}>
       <div className={classes.modal} onClick={(e) => e.stopPropagation()}>
@@ -40,6 +39,9 @@ export const ModalWindow: FC<ModalWindowProps> = (props) => {
           <form action={props.data.urls?.full} target="_blank">
             <Button>Full size</Button>
           </form>
+        </div>
+        <div>
+          <Button className={classes.closeBtn} onClick={props.onClick}></Button>
         </div>
       </div>
     </div>
