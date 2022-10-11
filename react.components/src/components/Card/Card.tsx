@@ -24,8 +24,6 @@ export default class Card extends Component<PropsCard, StateCard> {
     this.setState({ isActiveModalWindow: !this.state.isActiveModalWindow });
   };
 
-  showModalWindow = (): void => {};
-
   render() {
     return (
       <>
@@ -36,7 +34,14 @@ export default class Card extends Component<PropsCard, StateCard> {
           <div className={classes.icon}></div>
           <Button onClick={this.toggleModalWindow}>More details</Button>
         </div>
-        <ModalWindow active={this.state.isActiveModalWindow} onClick={this.toggleModalWindow} />
+
+        {this.state.isActiveModalWindow && (
+          <ModalWindow
+            active={this.state.isActiveModalWindow}
+            onClick={this.toggleModalWindow}
+            data={this.props.data}
+          />
+        )}
       </>
     );
   }

@@ -30,12 +30,14 @@ export type ResultsData = {
     full?: string;
     regular?: string;
     small?: string;
+    small_s3?: string;
     thumb?: string;
   };
   links?: {
     self?: string;
     html?: string;
     download?: string;
+    download_location?: string;
   };
 };
 
