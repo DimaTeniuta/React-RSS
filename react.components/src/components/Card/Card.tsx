@@ -1,22 +1,43 @@
+import { ModalWindow } from 'components/ModalWindow/ModalWindow';
 import Button from 'components/UI/Button/Button';
-import React from 'react';
+import React, { Component } from 'react';
 import { ResultsData } from 'types/generalTypes';
 import classes from './Card.module.scss';
 
-type DataCard = {
+interface StateCard {
+  isActiveModalWindow: boolean;
+}
+
+type PropsCard = {
   data: ResultsData;
 };
 
-export const Card: React.FC<DataCard> = ({ data }) => {
-  return (
-    <div className={classes.card} data-testid="test-card">
-      <img className={classes.images} src={data.urls?.small} alt="card-image" />
-      <p className={classes.title}>{data.description ?? 'Unknown'}</p>
-      <span className={classes.likes}>{data.likes}</span>
-      <div className={classes.icon}></div>
-      <form action={data.urls?.full} target="_blank">
-        <Button className={classes.standardBtn}>Full size</Button>
-      </form>
-    </div>
-  );
-};
+export default class Card extends Component<PropsCard, StateCard> {
+  constructor(props: PropsCard) {
+    super(props);
+    this.state = {
+      isActiveModalWindow: false,
+    };
+  }
+
+  toggleModalWindow = (): void => {
+    this.setState({ isActiveModalWindow: !this.state.isActiveModalWindow });
+  };
+
+  showModalWindow = (): void => {};
+
+  render() {
+    return (
+      <>
+        <div className={classes.card} data-testid="test-card">
+          <img className={classes.images} src={this.props.data.urls?.small} alt="card-image" />
+          <p className={classes.title}>{this.props.data.description ?? 'Unknown'}</p>
+          <span className={classes.likes}>{this.props.data.likes}</span>
+          <div className={classes.icon}></div>
+          <Button onClick={this.toggleModalWindow}>More details</Button>
+        </div>
+        <ModalWindow active={this.state.isActiveModalWindow} onClick={this.toggleModalWindow} />
+      </>
+    );
+  }
+}

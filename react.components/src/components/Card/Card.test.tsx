@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import MainPage from 'components/pages/MainPage/MainPage';
 import React from 'react';
-import { Card } from './Card';
+import Card from './Card';
 
 const mockData = {
   id: '1',

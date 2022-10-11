@@ -1,0 +1,43 @@
+@import '../../styles/variables.scss';
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+  opacity: 0;
+  transition: 0.5s;
+}
+
+.modal {
+  width: 400px;
+  height: 400px;
+  padding: 50px 10px;
+  backdrop-filter: $filter;
+  background-color: $color-background-box;
+  border: 2px solid $color-grey;
+  border-radius: 10px;
+  color: $color-white;
+}
+
+.overlayActive {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  pointer-events: all;
+  opacity: 1;
+}

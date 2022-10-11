@@ -1,9 +1,9 @@
-import { Card } from 'components/Card/Card';
 import TextWindow from 'components/TextWindow/TextWindow';
 import Search from 'components/Search/Search';
 import React, { Component } from 'react';
 import { ResultsData } from 'types/generalTypes';
 import classes from './MainPage.module.scss';
+import Card from 'components/Card/Card';
 
 type StateMain = {
   data: ResultsData[];
