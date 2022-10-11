@@ -40,9 +40,8 @@ export const ModalWindow: FC<ModalWindowProps> = (props) => {
             <Button>Full size</Button>
           </form>
         </div>
-        <div>
-          <Button className={classes.closeBtn} onClick={props.onClick}></Button>
-        </div>
+
+        <Button className={classes.closeBtn} onClick={props.onClick}></Button>
       </div>
     </div>
   );
