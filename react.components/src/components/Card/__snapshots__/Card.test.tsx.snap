@@ -27,16 +27,11 @@ Object {
         <div
           class="icon"
         />
-        <form
-          action="https://hd.unsplash.com/photo-1416339306562-f3d12fefd36f"
-          target="_blank"
+        <button
+          class="standardBtn"
         >
-          <button
-            class="standardBtn"
-          >
-            Full size
-          </button>
-        </form>
+          More details
+        </button>
       </div>
     </div>
   </body>,
@@ -63,16 +58,11 @@ Object {
       <div
         class="icon"
       />
-      <form
-        action="https://hd.unsplash.com/photo-1416339306562-f3d12fefd36f"
-        target="_blank"
+      <button
+        class="standardBtn"
       >
-        <button
-          class="standardBtn"
-        >
-          Full size
-        </button>
-      </form>
+        More details
+      </button>
     </div>
   </div>,
   "debug": [Function],
@@ -164,21 +154,9 @@ Object {
         <div
           class="wrapCards"
         >
-          <div
-            class="wrap"
-            data-testid="modal-test"
-          >
-            <h1
-              class="title"
-            >
-              Not Found
-            </h1>
-            <p
-              class="message"
-            >
-              Try entering another query
-            </p>
-          </div>
+          <span
+            class="loader"
+          />
         </div>
       </div>
     </div>
@@ -214,21 +192,9 @@ Object {
       <div
         class="wrapCards"
       >
-        <div
-          class="wrap"
-          data-testid="modal-test"
-        >
-          <h1
-            class="title"
-          >
-            Not Found
-          </h1>
-          <p
-            class="message"
-          >
-            Try entering another query
-          </p>
-        </div>
+        <span
+          class="loader"
+        />
       </div>
     </div>
   </div>,

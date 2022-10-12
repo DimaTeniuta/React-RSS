@@ -8,6 +8,7 @@ import classes from './Search.module.scss';
 
 interface SearchProps {
   getData: (data: ResultsData[]) => void;
+  onLoader: () => void;
 }
 
 interface SearchState {
@@ -23,6 +24,7 @@ export default class Search extends Component<SearchProps, SearchState> {
   }
 
   getNewCards = async (value?: string): Promise<void> => {
+    this.props.onLoader();
     if (value && typeof value === 'string') {
       const data = await fetchCards(value);
       this.props.getData(data);

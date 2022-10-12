@@ -5,6 +5,8 @@ import { localStorageMock } from 'data/mockData';
 import userEvent from '@testing-library/user-event';
 
 Object.defineProperty(window, 'localStorage', { value: localStorageMock });
+const mockLoader = jest.fn();
+const mockFn = jest.fn();
 
 describe('Search', () => {
   beforeEach(() => {
@@ -12,15 +14,13 @@ describe('Search', () => {
   });
 
   it('renders search', () => {
-    const mockFn = jest.fn();
-    render(<Search getData={mockFn} />);
+    render(<Search getData={mockFn} onLoader={mockLoader} />);
     expect(screen.getByPlaceholderText(/search/i)).toBeInTheDocument();
     expect(screen.queryByTestId('clear-btn')).toBeInTheDocument();
   });
 
   it('save input value in localStorage', () => {
-    const mockFn = jest.fn();
-    const { unmount } = render(<Search getData={mockFn} />);
+    const { unmount } = render(<Search getData={mockFn} onLoader={mockLoader} />);
     const input = screen.getByPlaceholderText(/search/i);
     const testValue = 'test';
     userEvent.type(input, testValue);
@@ -29,19 +29,17 @@ describe('Search', () => {
   });
 
   it('get value in input from localStorage', () => {
-    const mockFn = jest.fn();
-    const { unmount } = render(<Search getData={mockFn} />);
+    const { unmount } = render(<Search getData={mockFn} onLoader={mockLoader} />);
     const input = screen.getByPlaceholderText(/search/i);
     const testValue = 'test';
     userEvent.type(input, testValue);
     unmount();
-    render(<Search getData={mockFn} />);
+    render(<Search getData={mockFn} onLoader={mockLoader} />);
     expect(screen.getByDisplayValue('test')).toBeInTheDocument();
   });
 
   it('clear input', () => {
-    const mockFn = jest.fn();
-    render(<Search getData={mockFn} />);
+    render(<Search getData={mockFn} onLoader={mockLoader} />);
     const btn = screen.getByTestId('clear-btn');
     userEvent.click(btn);
     const input = screen.getByPlaceholderText(/search/i);

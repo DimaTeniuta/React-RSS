@@ -4,9 +4,11 @@ import React, { Component } from 'react';
 import { ResultsData } from 'types/generalTypes';
 import classes from './MainPage.module.scss';
 import Card from 'components/Card/Card';
+import { Loader } from 'components/Loader/Loader';
 
 type StateMain = {
   data: ResultsData[];
+  isLoading: boolean;
 };
 
 type PropsMain = object;
@@ -16,20 +18,27 @@ export default class MainPage extends Component<PropsMain, StateMain> {
     super(props);
     this.state = {
       data: [],
+      isLoading: false,
     };
   }
 
   getCards = (data: ResultsData[]): void => {
-    this.setState({ data });
+    this.setState({ data, isLoading: false });
+  };
+
+  turnOnLoader = (): void => {
+    this.setState({ isLoading: true });
   };
 
   render() {
     return (
       <div className={classes.container} data-testid="main-page">
-        <Search getData={this.getCards} />
+        <Search getData={this.getCards} onLoader={this.turnOnLoader} />
 
         <div className={classes.wrapCards}>
-          {this.state.data.length ? (
+          {this.state.isLoading ? (
+            <Loader />
+          ) : this.state.data.length ? (
             this.state.data.map((el) => <Card key={el.id} data={el} />)
           ) : (
             <TextWindow title="Not Found">Try entering another query</TextWindow>
