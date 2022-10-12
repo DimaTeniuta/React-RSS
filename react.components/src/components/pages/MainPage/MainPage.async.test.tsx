@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import axios from 'axios';
 import MainPage from './MainPage';
 import userEvent from '@testing-library/user-event';
@@ -56,8 +56,11 @@ describe('MainPage async', () => {
   it('show not found message', async () => {
     (axios as jest.Mocked<typeof axios>).get.mockReturnValue(wrongResponse);
     render(<MainPage />);
-    expect(axios.get).toBeCalledTimes(1);
-    expect(screen.getByTestId('modal-test')).toBeInTheDocument();
+    waitFor(() => {
+      expect(axios.get).toBeCalledTimes(1);
+      const modalText = screen.getByTestId('modal-test');
+      expect(modalText).toBeInTheDocument();
+    });
   });
 
   it('check catch case', async () => {

@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import MainPage from 'components/pages/MainPage/MainPage';
 import React from 'react';
 import Card from './Card';
@@ -18,8 +19,9 @@ describe('Card', () => {
   it('Card renders', () => {
     render(<Card data={mockData} />);
     expect(screen.getByRole('img')).toBeInTheDocument();
-    expect(screen.getByText(/full size/i)).toBeInTheDocument();
+    expect(screen.getByText(/more details/i)).toBeInTheDocument();
     expect(screen.getByText(mockData.description)).toBeInTheDocument();
+    expect(screen.queryByTestId('modalWindowWrap')).not.toBeInTheDocument();
   });
 
   it('Card snapshot', () => {
@@ -41,5 +43,24 @@ describe('Card', () => {
   it('Cards snapshot', () => {
     const cards = render(<MainPage />);
     expect(cards).toMatchSnapshot();
+  });
+
+  it('show modal window', () => {
+    render(<Card data={mockData} />);
+    const btn = screen.getByRole('button');
+    userEvent.click(btn);
+    expect(screen.getByTestId('modalWindowWrap')).toBeInTheDocument();
+  });
+
+  it('toggle modal window', () => {
+    render(<Card data={mockData} />);
+    const btn = screen.getByRole('button');
+    userEvent.click(btn);
+    const overlay = screen.getByTestId('modalWindowWrap');
+    expect(overlay).toBeInTheDocument();
+    userEvent.click(screen.getByTestId('modalWindow'));
+    expect(overlay).toBeInTheDocument();
+    userEvent.click(overlay);
+    expect(overlay).not.toBeInTheDocument();
   });
 });

@@ -37,7 +37,7 @@ export default class Card extends Component<PropsCard, StateCard> {
 
         {this.state.isActiveModalWindow && (
           <ModalWindow
-            active={this.state.isActiveModalWindow}
+            isActive={this.state.isActiveModalWindow}
             onClick={this.toggleModalWindow}
             data={this.props.data}
           />
