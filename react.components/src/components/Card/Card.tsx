@@ -1,8 +1,8 @@
-import { ModalWindow } from 'components/ModalWindow/ModalWindow';
 import Button from 'components/UI/Button/Button';
 import React, { Component } from 'react';
 import { ResultsData } from 'types/generalTypes';
 import classes from './Card.module.scss';
+import { CardModalWindow } from 'components/CardModalWindow/CardModalWindow';
 
 interface StateCard {
   isActiveModalWindow: boolean;
@@ -36,7 +36,7 @@ export default class Card extends Component<PropsCard, StateCard> {
         </div>
 
         {this.state.isActiveModalWindow && (
-          <ModalWindow
+          <CardModalWindow
             isActive={this.state.isActiveModalWindow}
             onClick={this.toggleModalWindow}
             data={this.props.data}

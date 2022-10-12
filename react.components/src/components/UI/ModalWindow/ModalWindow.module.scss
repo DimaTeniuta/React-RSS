@@ -1,4 +1,4 @@
-@import '../../styles/variables.scss';
+@import '../../../styles/variables.scss';
 
 .overlay {
   position: fixed;
@@ -20,35 +20,12 @@
     flex-direction: column;
     row-gap: 20px;
     width: 480px;
-    padding: 20px 40px 0 40px;
+    padding: 20px 40px 20px 40px;
     backdrop-filter: $filter;
     background-color: $color-background-box;
     border: 2px solid $color-grey;
     border-radius: 10px;
     color: $color-white;
-  }
-
-  .wrapSize {
-    display: flex;
-    column-gap: 50px;
-  }
-
-  .text {
-    color: $color-white;
-    font-size: 20px;
-    font-weight: 500;
-
-    .textTitle {
-      color: $color-yellow;
-      font-size: $font-regular18;
-      font-weight: 400;
-    }
-  }
-
-  .buttonWrap {
-    display: flex;
-    justify-content: center;
-    column-gap: 20px;
   }
 
   .closeBtn {
@@ -59,7 +36,7 @@
     height: 32px;
     border: none;
     background-color: transparent;
-    background-image: url(../../../public/assets/svg/close.svg);
+    background-image: url(../../../../public/assets/svg/close.svg);
     background-repeat: no-repeat;
     filter: invert(85%) sepia(0%) saturate(1%) hue-rotate(316deg) brightness(120%) contrast(101%);
     transition: 0.3s;
