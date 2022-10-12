@@ -35,13 +35,11 @@ export default class Card extends Component<PropsCard, StateCard> {
           <Button onClick={this.toggleModalWindow}>More details</Button>
         </div>
 
-        {this.state.isActiveModalWindow && (
-          <CardModalWindow
-            isActive={this.state.isActiveModalWindow}
-            onClick={this.toggleModalWindow}
-            data={this.props.data}
-          />
-        )}
+        <CardModalWindow
+          isActive={this.state.isActiveModalWindow}
+          onClick={this.toggleModalWindow}
+          data={this.props.data}
+        />
       </>
     );
   }
