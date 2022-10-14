@@ -5,14 +5,13 @@ import { ResultsData } from 'types/generalTypes';
 import classes from './CardModalWindow.module.scss';
 
 interface CardModalWindowProps {
-  isActive: boolean;
   onClick: () => void;
   data: ResultsData;
 }
 
 export const CardModalWindow: FC<CardModalWindowProps> = (props) => {
   return (
-    <ModalWindow isActive={props.isActive} onClick={props.onClick}>
+    <ModalWindow onClick={props.onClick}>
       <div className={classes.text}>
         <p className={classes.textTitle}>Author: </p>
         {props.data.user?.name}
