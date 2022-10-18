@@ -12,7 +12,7 @@ interface InputProps {
   error?: string;
 }
 
-export const Input: FC<InputProps> = React.forwardRef((props, ref) => {
+const Input: FC<InputProps> = React.forwardRef((props, ref) => {
   const isTypeText = props.type === 'text';
   return (
     <Label label={props.label} title={props.title} error={props.error}>
@@ -25,3 +25,5 @@ export const Input: FC<InputProps> = React.forwardRef((props, ref) => {
     </Label>
   );
 });
+
+export default Input;

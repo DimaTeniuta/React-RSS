@@ -11,7 +11,7 @@ interface InputFileProps {
   error?: string;
 }
 
-export const InputFile: FC<InputFileProps> = React.forwardRef((props, ref) => {
+const InputFile: FC<InputFileProps> = React.forwardRef((props, ref) => {
   return (
     <Label label={props.label} title={props.title} error={props.error} className={classes.wrap}>
       <input
@@ -29,3 +29,5 @@ export const InputFile: FC<InputFileProps> = React.forwardRef((props, ref) => {
     </Label>
   );
 });
+
+export default InputFile;

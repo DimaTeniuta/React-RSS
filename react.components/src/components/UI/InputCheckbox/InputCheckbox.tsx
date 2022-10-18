@@ -11,7 +11,7 @@ interface InputCheckboxProps {
   error?: string;
 }
 
-export const InputCheckbox: FC<InputCheckboxProps> = React.forwardRef((props, ref) => {
+const InputCheckbox: FC<InputCheckboxProps> = React.forwardRef((props, ref) => {
   return (
     <Label label={props.label} title={props.title} className={classes.wrap}>
       <div className={classes.box} onClick={props.onClick} data-testid="btn-inputCheckbox">
@@ -28,3 +28,5 @@ export const InputCheckbox: FC<InputCheckboxProps> = React.forwardRef((props, re
     </Label>
   );
 });
+
+export default InputCheckbox;

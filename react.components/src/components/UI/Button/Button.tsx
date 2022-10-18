@@ -8,7 +8,7 @@ interface ButtonProps {
   disabled?: boolean;
 }
 
-const Button: FC<ButtonProps> = ({ children, ...props }) => {
+const Button: FC<ButtonProps> = ({ children, ...props }): JSX.Element => {
   return (
     <button {...props} className={props.className ?? classes.standardBtn}>
       {children}

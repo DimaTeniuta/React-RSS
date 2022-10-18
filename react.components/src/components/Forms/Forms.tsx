@@ -1,12 +1,12 @@
-import { Input } from 'components/UI/Input/Input';
+import Input from 'components/UI/Input/Input';
 import React, { FC, useRef, useState } from 'react';
 import classes from './Forms.module.scss';
 import SELECTOR_OPTIONS from '../../data/optionsForSelect.json';
 import Button from 'components/UI/Button/Button';
 import { Select } from 'components/UI/Select/Select';
-import { InputFile } from 'components/UI/InputFile/InputFile';
+import InputFile from 'components/UI/InputFile/InputFile';
 import { InputSwitch } from 'components/UI/InputSwitch/InputSwitch';
-import { InputCheckbox } from 'components/UI/InputCheckbox/InputCheckbox';
+import InputCheckbox from 'components/UI/InputCheckbox/InputCheckbox';
 import { FormData } from 'types/formTypes';
 import {
   validateDateInput,
