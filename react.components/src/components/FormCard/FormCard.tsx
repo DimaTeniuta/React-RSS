@@ -6,7 +6,7 @@ type StateFormCard = {
   data: FormData;
 };
 
-export const FormCard: FC<StateFormCard> = ({ data }) => {
+export const FormCard: FC<StateFormCard> = ({ data }): JSX.Element => {
   return (
     <div className={classes.card} data-testid="formCard">
       <span

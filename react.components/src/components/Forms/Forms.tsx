@@ -1,5 +1,5 @@
 import { Input } from 'components/UI/Input/Input';
-import React, { Component } from 'react';
+import React, { FC, useRef, useState } from 'react';
 import classes from './Forms.module.scss';
 import SELECTOR_OPTIONS from '../../data/optionsForSelect.json';
 import Button from 'components/UI/Button/Button';
@@ -27,234 +27,213 @@ enum ErrorFieldNames {
   AVATAR = 'avatarError',
 }
 
-interface StateForms {
-  isDisabled: boolean;
-  isFirstInput: boolean;
-  isValid: boolean;
-  isDone: boolean;
-  isValidAvatar: boolean;
-  errors: Record<string, string>;
-}
-
 type PropsForms = {
   addData: (data: FormData) => void;
 };
 
-export default class Forms extends Component<PropsForms, StateForms> {
-  private nameRef: React.RefObject<HTMLInputElement>;
-  private surnameRef: React.RefObject<HTMLInputElement>;
-  private birthdayRef: React.RefObject<HTMLInputElement>;
-  private countryRef: React.RefObject<HTMLSelectElement>;
-  private avatarRef: React.RefObject<HTMLInputElement>;
-  private personalDataRef: React.RefObject<HTMLInputElement>;
-  private switchRef: React.RefObject<HTMLInputElement>;
+interface Errors {
+  nameError: string;
+  surnameError: string;
+  birthdayError: string;
+  countryError: string;
+  avatarError: string;
+  personaDataError: string;
+}
 
-  constructor(props: PropsForms) {
-    super(props);
-    this.state = {
-      isFirstInput: false,
-      isDisabled: true,
-      isValid: false,
-      isDone: false,
-      isValidAvatar: false,
-      errors: {
-        nameError: '',
-        surnameError: '',
-        birthdayError: '',
-        countryError: '',
-        avatarError: '',
-        personaDataError: '',
-      },
-    };
+const Forms: FC<PropsForms> = ({ addData }): JSX.Element => {
+  const [isFirstInput, setIsFirstInput] = useState<boolean>(false);
+  const [isDisabled, setIsDisabled] = useState<boolean>(true);
+  const [isValid, setIsValid] = useState<boolean>(false);
+  const [isDone, setIsDone] = useState<boolean>(false);
+  const [isValidAvatar, setIsValidAvatar] = useState<boolean>(false);
+  const [errors, setErrors] = useState<Errors>({
+    nameError: '',
+    surnameError: '',
+    birthdayError: '',
+    countryError: '',
+    avatarError: '',
+    personaDataError: '',
+  });
+  const nameRef = useRef<HTMLInputElement>(null);
+  const surnameRef = useRef<HTMLInputElement>(null);
+  const birthdayRef = useRef<HTMLInputElement>(null);
+  const countryRef = useRef<HTMLSelectElement>(null);
+  const avatarRef = useRef<HTMLInputElement>(null);
+  const personalDataRef = useRef<HTMLInputElement>(null);
+  const switchRef = useRef<HTMLInputElement>(null);
 
-    this.nameRef = React.createRef();
-    this.surnameRef = React.createRef();
-    this.birthdayRef = React.createRef();
-    this.countryRef = React.createRef();
-    this.avatarRef = React.createRef();
-    this.personalDataRef = React.createRef();
-    this.switchRef = React.createRef();
-  }
-
-  firstInput = (): void => {
+  const firstInput = (): void => {
     if (
-      this.nameRef.current?.value ||
-      this.surnameRef.current?.value ||
-      this.birthdayRef.current?.value ||
-      this.countryRef.current?.value !== DEFAULT_VALUE_COUNTRY ||
-      this.avatarRef.current?.value ||
-      this.switchRef.current?.checked ||
-      this.personalDataRef.current?.checked
+      nameRef.current?.value ||
+      surnameRef.current?.value ||
+      birthdayRef.current?.value ||
+      countryRef.current?.value !== DEFAULT_VALUE_COUNTRY ||
+      avatarRef.current?.value ||
+      switchRef.current?.checked ||
+      personalDataRef.current?.checked
     ) {
-      this.setState({ isDisabled: false, isFirstInput: true, isDone: false });
+      setIsDisabled(false);
+      setIsFirstInput(true);
+      setIsDone(false);
     }
   };
 
-  onClickAvatar = (): void => {
-    this.avatarRef.current?.click();
+  const onClickAvatar = (): void => {
+    avatarRef.current?.click();
   };
 
-  onClickSwitch = (): void => {
-    this.switchRef.current?.click();
+  const onClickSwitch = (): void => {
+    switchRef.current?.click();
   };
 
-  onClickPersonalData = (): void => {
-    this.personalDataRef.current?.click();
+  const onClickPersonalData = (): void => {
+    personalDataRef.current!.click();
   };
 
-  validateForm = (): boolean => {
-    const errors = {
-      [ErrorFieldNames.NAME]: validateTextInput(this.nameRef.current?.value),
-      [ErrorFieldNames.SURNAME]: validateTextInput(this.surnameRef.current?.value),
-      [ErrorFieldNames.BIRTHDAY]: validateDateInput(this.birthdayRef.current?.value),
+  const validateForm = (): boolean => {
+    const errors: Errors = {
+      [ErrorFieldNames.NAME]: validateTextInput(nameRef.current?.value),
+      [ErrorFieldNames.SURNAME]: validateTextInput(surnameRef.current?.value),
+      [ErrorFieldNames.BIRTHDAY]: validateDateInput(birthdayRef.current?.value),
       [ErrorFieldNames.COUNTRY]: validateSelectInput(
-        this.countryRef.current?.value,
+        countryRef.current?.value,
         DEFAULT_VALUE_COUNTRY
       ),
-      [ErrorFieldNames.PERSONAL_DATA]: validateInputCheckbox(this.personalDataRef.current?.checked),
-      [ErrorFieldNames.AVATAR]: validateInputFile(this.avatarRef.current?.files),
+      [ErrorFieldNames.PERSONAL_DATA]: validateInputCheckbox(personalDataRef.current?.checked),
+      [ErrorFieldNames.AVATAR]: validateInputFile(avatarRef.current?.files),
     };
-    this.setState({ errors });
-    errors[ErrorFieldNames.AVATAR]
-      ? this.setState({ isValidAvatar: false })
-      : this.setState({ isValidAvatar: true });
+    setErrors(errors);
+    errors[ErrorFieldNames.AVATAR] ? setIsValidAvatar(false) : setIsValidAvatar(true);
 
     return Object.entries(errors).every((item) => !item[1]);
   };
 
-  validateAfterWrongPost = (): void => {
-    const isValidForm = this.validateForm();
-
+  const validateAfterWrongPost = (): void => {
+    const isValidForm = validateForm();
     if (isValidForm) {
-      this.setState({ isDisabled: false });
+      setIsDisabled(false);
     }
   };
 
-  handleOnChange = (): void => {
-    if (!this.state.isFirstInput) {
-      this.firstInput();
+  const handleOnChange = () => {
+    if (!isFirstInput) {
+      firstInput();
     }
 
-    if (this.state.isValid) {
-      this.validateAfterWrongPost();
+    if (isValid) {
+      validateAfterWrongPost();
     }
   };
 
-  clearForm = (event: React.FormEvent<HTMLFormElement>): void => {
-    this.setState({
-      isFirstInput: false,
-      isDisabled: true,
-      isValid: false,
-      isValidAvatar: false,
-    });
+  const clearForm = (event: React.FormEvent<HTMLFormElement>): void => {
+    setIsFirstInput(false);
+    setIsDisabled(true);
+    setIsValid(false);
+    setIsValidAvatar(false);
     const form = event?.target as HTMLFormElement;
     form.reset();
+    switchRef.current!.checked = false;
+    personalDataRef.current!.checked = false;
   };
 
-  postData = () => {
+  const postData = () => {
     const cardData: FormData = {
-      name: this.nameRef.current!.value,
-      surname: this.surnameRef.current!.value,
-      birthday: this.birthdayRef.current!.value,
-      country: this.countryRef.current!.value,
-      avatar: this.avatarRef.current!.files![0],
-      personalData: this.personalDataRef.current!.checked,
-      genderMale: this.switchRef.current!.checked,
+      name: nameRef.current!.value,
+      surname: surnameRef.current!.value,
+      birthday: birthdayRef.current!.value,
+      country: countryRef.current!.value,
+      avatar: avatarRef.current!.files![0],
+      personalData: personalDataRef.current!.checked,
+      genderMale: switchRef.current!.checked,
     };
-
-    this.props.addData(cardData);
+    addData(cardData);
   };
 
-  handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    this.setState({ isDisabled: true, isValid: true });
-    const isValidForm = this.validateForm();
-
+    setIsDisabled(true);
+    setIsValid(true);
+    const isValidForm = validateForm();
     if (isValidForm) {
-      this.postData();
-      this.setState({ isDone: true });
-      this.clearForm(event);
+      postData();
+      setIsDone(true);
+      clearForm(event);
     }
   };
 
-  render() {
-    return (
-      <form
-        className={classes.container}
-        onSubmit={this.handleSubmit}
-        onChange={this.handleOnChange}
-        noValidate
-        data-testid="forms"
-      >
-        <Input
-          label="firstName"
-          title="Name:"
-          type="text"
-          ref={this.nameRef}
-          testid="inputName"
-          error={this.state.errors.nameError}
-        />
+  return (
+    <form
+      className={classes.container}
+      onSubmit={handleSubmit}
+      onChange={handleOnChange}
+      noValidate
+      data-testid="forms"
+    >
+      <Input
+        label="firstName"
+        title="Name:"
+        type="text"
+        ref={nameRef}
+        testid="inputName"
+        error={errors.nameError}
+      />
 
-        <Input
-          label="surname"
-          title="Surname:"
-          type="text"
-          ref={this.surnameRef}
-          testid="inputSurname"
-          error={this.state.errors.surnameError}
-        />
+      <Input
+        label="surname"
+        title="Surname:"
+        type="text"
+        ref={surnameRef}
+        testid="inputSurname"
+        error={errors.surnameError}
+      />
 
-        <Input
-          label="birthday"
-          title="Birthday:"
-          type="date"
-          ref={this.birthdayRef}
-          testid="inputDate"
-          error={this.state.errors.birthdayError}
-        />
+      <Input
+        label="birthday"
+        title="Birthday:"
+        type="date"
+        ref={birthdayRef}
+        testid="inputDate"
+        error={errors.birthdayError}
+      />
 
-        <Select
-          label="country"
-          title="Country:"
-          defaultValue={DEFAULT_VALUE_COUNTRY}
-          options={SELECTOR_OPTIONS}
-          ref={this.countryRef}
-          error={this.state.errors.countryError}
-        />
+      <Select
+        label="country"
+        title="Country:"
+        defaultValue={DEFAULT_VALUE_COUNTRY}
+        options={SELECTOR_OPTIONS}
+        ref={countryRef}
+        error={errors.countryError}
+      />
 
-        <InputFile
-          label="avatar"
-          title="Avatar:"
-          ready={this.state.isValidAvatar.toString()}
-          ref={this.avatarRef}
-          onClick={this.onClickAvatar}
-          error={this.state.errors.avatarError}
-        />
+      <InputFile
+        label="avatar"
+        title="Avatar:"
+        ready={isValidAvatar.toString()}
+        ref={avatarRef}
+        onClick={onClickAvatar}
+        error={errors.avatarError}
+      />
 
-        <InputSwitch
-          label="switch"
-          title="Male/Female:"
-          onClick={this.onClickSwitch}
-          ref={this.switchRef}
-        />
+      <InputSwitch label="switch" title="Male/Female:" onClick={onClickSwitch} ref={switchRef} />
 
-        <InputCheckbox
-          label="agree"
-          title="Consent to data processing:"
-          onClick={this.onClickPersonalData}
-          ref={this.personalDataRef}
-          error={this.state.errors.personaDataError}
-        />
+      <InputCheckbox
+        label="agree"
+        title="Consent to data processing:"
+        onClick={onClickPersonalData}
+        ref={personalDataRef}
+        error={errors.personaDataError}
+      />
 
-        <Button disabled={this.state.isDisabled}>Post</Button>
+      <Button disabled={isDisabled}>Post</Button>
 
-        {this.state.isDone && (
-          <div className={classes.done} data-testid="final-text">
-            Done
-            <span className={classes.doneImg} data-testid="final-img"></span>
-          </div>
-        )}
-      </form>
-    );
-  }
-}
+      {isDone && (
+        <div className={classes.done} data-testid="final-text">
+          Done
+          <span className={classes.doneImg} data-testid="final-img"></span>
+        </div>
+      )}
+    </form>
+  );
+};
+
+export default Forms;

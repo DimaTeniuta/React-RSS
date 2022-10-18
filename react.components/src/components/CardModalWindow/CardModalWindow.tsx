@@ -9,7 +9,7 @@ interface CardModalWindowProps {
   data: ResultsData;
 }
 
-export const CardModalWindow: FC<CardModalWindowProps> = (props) => {
+export const CardModalWindow: FC<CardModalWindowProps> = (props): JSX.Element => {
   return (
     <ModalWindow onClick={props.onClick}>
       <div className={classes.text}>

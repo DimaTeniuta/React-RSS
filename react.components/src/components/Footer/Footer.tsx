@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './Footer.module.scss';
 
-export default function Footer() {
+export default function Footer(): JSX.Element {
   return (
     <footer className={classes.footer}>
       <div className={classes.container}>
