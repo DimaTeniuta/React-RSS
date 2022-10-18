@@ -1,26 +1,27 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import classes from './Header.module.scss';
 
-export default class Header extends Component {
-  setActive = (props: { isActive: boolean }): string => {
+const Header = (): JSX.Element => {
+  const setActive = (props: { isActive: boolean }): string => {
     return props.isActive ? classes.navLinkActive : classes.navLink;
   };
-  render() {
-    return (
-      <header className={classes.header}>
-        <nav className={classes.nav}>
-          <NavLink end className={this.setActive} to="/" data-testid="about-link">
-            About Us
-          </NavLink>
-          <NavLink to="/main" className={this.setActive} data-testid="main-link">
-            Main
-          </NavLink>
-          <NavLink to="/form" className={this.setActive} data-testid="form-link">
-            Form
-          </NavLink>
-        </nav>
-      </header>
-    );
-  }
-}
+
+  return (
+    <header className={classes.header}>
+      <nav className={classes.nav}>
+        <NavLink end className={setActive} to="/" data-testid="about-link">
+          About Us
+        </NavLink>
+        <NavLink to="/main" className={setActive} data-testid="main-link">
+          Main
+        </NavLink>
+        <NavLink to="/form" className={setActive} data-testid="form-link">
+          Form
+        </NavLink>
+      </nav>
+    </header>
+  );
+};
+
+export default Header;
