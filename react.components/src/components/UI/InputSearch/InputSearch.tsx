@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { FC } from 'react';
 import Button from '../Button/Button';
 import classes from './InputSearch.module.scss';
 
@@ -12,29 +12,21 @@ interface InputProps {
   clearInput: () => void;
 }
 
-interface InputState {
-  value: string;
-}
+const InputSearch: FC<InputProps> = (props): JSX.Element => {
+  return (
+    <div>
+      <input
+        className={classes.myInput}
+        type={props.type}
+        value={props.value}
+        onChange={props.onChange}
+        onKeyDown={props.onKeyDown}
+        placeholder={props.placeholder}
+        autoFocus={props.autoFocus}
+      />
+      <Button className={classes.clearBtn} onClick={props.clearInput} data-testid="clear-btn" />
+    </div>
+  );
+};
 
-export default class InputSearch extends Component<InputProps, InputState> {
-  render() {
-    return (
-      <div>
-        <input
-          className={classes.myInput}
-          type={this.props.type}
-          value={this.props.value}
-          onChange={this.props.onChange}
-          onKeyDown={this.props.onKeyDown}
-          placeholder={this.props.placeholder}
-          autoFocus={this.props.autoFocus}
-        />
-        <Button
-          className={classes.clearBtn}
-          onClick={this.props.clearInput}
-          data-testid="clear-btn"
-        />
-      </div>
-    );
-  }
-}
+export default InputSearch;
