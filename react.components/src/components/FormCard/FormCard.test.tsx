@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { fakeFile } from 'data/mockData';
 import React from 'react';
 import { FormData } from 'types/formTypes';
-import { FormCard } from './FormCard';
+import FormCard from './FormCard';
 
 const mockData: FormData = {
   name: 'Test',

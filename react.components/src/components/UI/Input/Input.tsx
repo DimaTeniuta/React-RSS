@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Label } from '../Label/Label';
+import Label from '../Label/Label';
 import classes from './Input.module.scss';
 
 interface InputProps {
@@ -12,7 +12,7 @@ interface InputProps {
   error?: string;
 }
 
-const Input: FC<InputProps> = React.forwardRef((props, ref) => {
+const Input: FC<InputProps> = React.forwardRef((props, ref): JSX.Element => {
   const isTypeText = props.type === 'text';
   return (
     <Label label={props.label} title={props.title} error={props.error}>

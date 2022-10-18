@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Label } from '../Label/Label';
+import Label from '../Label/Label';
 import classes from './InputFile.module.scss';
 
 interface InputFileProps {
@@ -11,7 +11,7 @@ interface InputFileProps {
   error?: string;
 }
 
-const InputFile: FC<InputFileProps> = React.forwardRef((props, ref) => {
+const InputFile: FC<InputFileProps> = React.forwardRef((props, ref): JSX.Element => {
   return (
     <Label label={props.label} title={props.title} error={props.error} className={classes.wrap}>
       <input

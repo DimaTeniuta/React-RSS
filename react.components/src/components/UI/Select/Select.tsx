@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { SelectData } from 'types/formTypes';
-import { Label } from '../Label/Label';
+import Label from '../Label/Label';
 import classes from './Select.module.scss';
 
 interface SelectProps {
@@ -14,7 +14,7 @@ interface SelectProps {
   error?: string;
 }
 
-export const Select: FC<SelectProps> = React.forwardRef((props, ref) => {
+const Select: FC<SelectProps> = React.forwardRef((props, ref): JSX.Element => {
   return (
     <Label label={props.label} title={props.title} error={props.error}>
       <select
@@ -35,3 +35,5 @@ export const Select: FC<SelectProps> = React.forwardRef((props, ref) => {
     </Label>
   );
 });
+
+export default Select;

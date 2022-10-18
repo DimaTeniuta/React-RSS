@@ -1,4 +1,4 @@
-import { FormCard } from 'components/FormCard/FormCard';
+import FormCard from 'components/FormCard/FormCard';
 import Forms from 'components/Forms/Forms';
 import React, { useState } from 'react';
 import { FormData } from 'types/formTypes';

@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { ResultsData } from 'types/generalTypes';
 import classes from './MainPage.module.scss';
 import Card from 'components/Card/Card';
-import { Loader } from 'components/Loader/Loader';
+import Loader from 'components/Loader/Loader';
 
 const MainPage = (): JSX.Element => {
   const [data, setData] = useState<ResultsData[]>([]);

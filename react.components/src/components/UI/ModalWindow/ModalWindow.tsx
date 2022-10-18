@@ -7,7 +7,7 @@ interface ModalWindowProps {
   children: ReactNode;
 }
 
-export const ModalWindow: FC<ModalWindowProps> = (props) => {
+export const ModalWindow: FC<ModalWindowProps> = (props): JSX.Element => {
   return (
     <div className={classes.overlay} onClick={props.onClick} data-testid="modalWindowWrap">
       <div className={classes.modal} onClick={(e) => e.stopPropagation()} data-testid="modalWindow">

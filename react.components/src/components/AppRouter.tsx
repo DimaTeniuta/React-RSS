@@ -6,7 +6,7 @@ import ErrorPage from './pages/ErrorPage';
 import FormPage from './pages/FormPage/FormPage';
 import MainPage from './pages/MainPage/MainPage';
 
-export default function AppRouter() {
+const AppRouter = (): JSX.Element => {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
@@ -18,4 +18,6 @@ export default function AppRouter() {
       </Route>
     </Routes>
   );
-}
+};
+
+export default AppRouter;

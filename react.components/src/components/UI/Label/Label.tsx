@@ -9,7 +9,7 @@ interface LabelProps {
   className?: string;
 }
 
-export const Label: FC<LabelProps> = (props) => {
+const Label: FC<LabelProps> = (props): JSX.Element => {
   return (
     <label htmlFor={props.label} className={props.className ?? classes.wrap}>
       <span className={classes.title}>{props.title}</span>
@@ -18,3 +18,5 @@ export const Label: FC<LabelProps> = (props) => {
     </label>
   );
 };
+
+export default Label;

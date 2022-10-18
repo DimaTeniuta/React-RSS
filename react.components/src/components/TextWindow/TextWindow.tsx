@@ -6,10 +6,10 @@ interface ModalProps {
   title: string;
 }
 
-const TextWindow: FC<ModalProps> = ({ children, ...props }): JSX.Element => {
+const TextWindow: FC<ModalProps> = ({ children, title }): JSX.Element => {
   return (
     <div className={classes.wrap} data-testid="modal-test">
-      <h1 className={classes.title}>{props.title}</h1>
+      <h1 className={classes.title}>{title}</h1>
       <p className={classes.message}>{children}</p>
     </div>
   );

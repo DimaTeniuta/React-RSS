@@ -24,6 +24,7 @@ describe('Search', () => {
     const input = screen.getByPlaceholderText(/search/i);
     const testValue = 'test';
     userEvent.type(input, testValue);
+    userEvent.click(screen.getByTestId('test-search-btn'));
     unmount();
     expect(localStorage.getItem('inputValue')).toEqual(JSON.stringify(testValue));
   });
@@ -33,6 +34,7 @@ describe('Search', () => {
     const input = screen.getByPlaceholderText(/search/i);
     const testValue = 'test';
     userEvent.type(input, testValue);
+    userEvent.click(screen.getByTestId('test-search-btn'));
     unmount();
     render(<Search getData={mockFn} onLoader={mockLoader} />);
     expect(screen.getByDisplayValue('test')).toBeInTheDocument();
