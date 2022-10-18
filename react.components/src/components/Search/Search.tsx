@@ -1,7 +1,7 @@
 import { fetchCards } from 'API/httpRequest';
 import Button from 'components/UI/Button/Button';
 import InputSearch from 'components/UI/InputSearch/InputSearch';
-import React, { Component } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { ResultsData } from 'types/generalTypes';
 import localStorageModule from 'utils/localStorage';
 import classes from './Search.module.scss';
@@ -11,71 +11,62 @@ interface SearchProps {
   onLoader: () => void;
 }
 
-interface SearchState {
-  value: string;
-}
-
-export default class Search extends Component<SearchProps, SearchState> {
-  constructor(props: SearchProps) {
-    super(props);
-    this.state = {
-      value: '',
-    };
-  }
-
-  getNewCards = async (value?: string): Promise<void> => {
-    this.props.onLoader();
+const Search: FC<SearchProps> = (props): JSX.Element => {
+  const [searchValue, setSearchValue] = useState<string>('');
+  const [isSearch, setIsSearch] = useState<boolean>(false);
+  const getNewCards = async (value?: string): Promise<void> => {
+    setIsSearch((prev) => !prev);
+    props.onLoader();
     if (value && typeof value === 'string') {
       const data = await fetchCards(value);
-      this.props.getData(data);
+      props.getData(data);
       return;
     }
-
-    const data = await fetchCards(this.state.value);
-    this.props.getData(data);
+    const data = await fetchCards(searchValue);
+    props.getData(data);
   };
 
-  onEnterPress = (event: React.KeyboardEvent<HTMLInputElement>): void => {
+  const onEnterPress = (event: React.KeyboardEvent<HTMLInputElement>): void => {
     if (event.key === 'Enter') {
-      this.getNewCards();
+      getNewCards();
     }
   };
 
-  getValue = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  const getValue = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const value = event.target.value;
-    this.setState({ value });
+    setSearchValue(value);
   };
 
-  clearInput = () => {
-    this.setState({ value: '' });
+  const clearInput = (): void => {
+    setSearchValue('');
   };
 
-  componentDidMount = (): void => {
+  useEffect(() => {
     const value = localStorageModule.getValue('inputValue') || '';
-    this.setState({ value });
-    this.getNewCards(value);
-  };
+    setSearchValue(value);
+    getNewCards(value);
+  }, []);
 
-  componentWillUnmount = (): void => {
-    localStorageModule.setValue('inputValue', this.state.value);
-  };
+  useEffect(() => {
+    localStorageModule.setValue('inputValue', searchValue);
+  }, [isSearch]);
 
-  render() {
-    return (
-      <div className={classes.wrap} data-testid="search-test">
-        <InputSearch
-          type="text"
-          placeholder="Search"
-          autoFocus={true}
-          value={this.state.value}
-          onChange={this.getValue}
-          onKeyDown={this.onEnterPress}
-          clearInput={this.clearInput}
-        />
-        <Button onClick={this.getNewCards} data-testid="test-search-btn">
-          Search
-        </Button>
-      </div>
-    );
-  }
-}
+  return (
+    <div className={classes.wrap} data-testid="search-test">
+      <InputSearch
+        type="text"
+        placeholder="Search"
+        autoFocus={true}
+        value={searchValue}
+        onChange={getValue}
+        onKeyDown={onEnterPress}
+        clearInput={clearInput}
+      />
+      <Button onClick={getNewCards} data-testid="test-search-btn">
+        Search
+      </Button>
+    </div>
+  );
+};
+
+export default Search;
