@@ -14,6 +14,7 @@ interface SearchProps {
 const Search: FC<SearchProps> = (props): JSX.Element => {
   const [searchValue, setSearchValue] = useState<string>('');
   const [isSearch, setIsSearch] = useState<boolean>(false);
+
   const getNewCards = async (value?: string): Promise<void> => {
     setIsSearch((prev) => !prev);
     props.onLoader();
