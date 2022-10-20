@@ -7,7 +7,7 @@ import Select from 'components/UI/Select/Select';
 import InputFile from 'components/UI/InputFile/InputFile';
 import { InputSwitch } from 'components/UI/InputSwitch/InputSwitch';
 import InputCheckbox from 'components/UI/InputCheckbox/InputCheckbox';
-import { FormData } from 'types/formTypes';
+import { FormData, SelectData } from 'types/formTypes';
 import {
   validateDateInput,
   validateInputCheckbox,
@@ -15,7 +15,8 @@ import {
   validateSelectInput,
   validateTextInput,
 } from 'utils/validator';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { urlToHttpOptions } from 'url';
 
 const DEFAULT_VALUE_COUNTRY = 'Country';
 
@@ -33,6 +34,7 @@ enum ErrorsForm {
   LENGTH = 'The text must be longer than 3 characters',
   ALPHABET = 'The text should contain only the letters a-z, A-Z',
   BIRTHDAY = 'The date must be in the format: DD-MM-YYYY',
+  COUNTRY = 'Chose country',
 }
 
 type PropsForms = {
@@ -43,6 +45,7 @@ interface FormInputs {
   firstName: string;
   surname: string;
   birthday: string;
+  country: string;
 }
 
 export const Forms: FC<PropsForms> = (): JSX.Element => {
@@ -50,6 +53,7 @@ export const Forms: FC<PropsForms> = (): JSX.Element => {
     register,
     formState: { errors },
     handleSubmit,
+    control,
     reset,
   } = useForm<FormInputs>();
 
@@ -116,6 +120,25 @@ export const Forms: FC<PropsForms> = (): JSX.Element => {
           },
         })}
         error={errors?.birthday?.message}
+      />
+
+      <Controller
+        control={control}
+        name="country"
+        rules={{ required: ErrorsForm.COUNTRY }}
+        render={({ field: { onChange, value } }) => (
+          <>
+            <Select
+              label="country"
+              title="Country:"
+              defaultValue={DEFAULT_VALUE_COUNTRY}
+              options={SELECTOR_OPTIONS}
+              value={value}
+              onChange={onChange}
+              error={errors?.country?.message}
+            />
+          </>
+        )}
       />
 
       <Button>Post</Button>

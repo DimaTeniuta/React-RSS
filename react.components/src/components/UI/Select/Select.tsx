@@ -8,6 +8,7 @@ interface SelectProps {
   title: string;
   options: SelectData[];
   defaultValue: string;
+  value?: string;
   className?: string;
   onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   ref?: React.ForwardedRef<HTMLSelectElement>;
@@ -21,7 +22,9 @@ const Select: FC<SelectProps> = React.forwardRef((props, ref): JSX.Element => {
         {...props}
         className={props.className ?? classes.select}
         ref={ref}
+        value={props.value}
         data-testid="select"
+        placeholder="country"
       >
         <option value={props.defaultValue} disabled>
           {props.defaultValue}

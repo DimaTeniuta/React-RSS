@@ -30,7 +30,7 @@ export const validateDateInput = (value: string | undefined): string => {
 
 export const validateSelectInput = (value: string | undefined, defaultValue: string): string => {
   if (value === defaultValue) {
-    return 'Chose country';
+    return 'Please, chose country';
   } else {
     return '';
   }
