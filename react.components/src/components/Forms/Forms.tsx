@@ -40,6 +40,7 @@ type PropsForms = {
 
 interface FormInputs {
   firstName: string;
+  surname: string;
 }
 
 export const Forms: FC<PropsForms> = (): JSX.Element => {
@@ -47,9 +48,13 @@ export const Forms: FC<PropsForms> = (): JSX.Element => {
     register,
     formState: { errors },
     handleSubmit,
+    reset,
   } = useForm<FormInputs>();
 
-  const onSubmit: SubmitHandler<FormInputs> = (data): void => {};
+  const onSubmit: SubmitHandler<FormInputs> = (data): void => {
+    console.log(data);
+    reset();
+  };
 
   return (
     <form
@@ -75,6 +80,25 @@ export const Forms: FC<PropsForms> = (): JSX.Element => {
           },
         })}
         error={errors?.firstName?.message}
+      />
+
+      <Input
+        label="surname"
+        title="Surname:"
+        type="text"
+        testid="inputSurname"
+        {...register('surname', {
+          required: ErrorsForm.REQUIRED_FIELD,
+          pattern: {
+            value: /^[a-zA-Z]*$/g,
+            message: ErrorsForm.ALPHABET,
+          },
+          minLength: {
+            value: 3,
+            message: ErrorsForm.LENGTH,
+          },
+        })}
+        error={errors?.surname?.message}
       />
       <Button>Post</Button>
     </form>

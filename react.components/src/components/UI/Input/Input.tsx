@@ -29,7 +29,6 @@ interface InputProps {
 
 const Input: FC<InputProps> = React.forwardRef((props, ref): JSX.Element => {
   const isTypeText = props.type === 'text';
-  console.log(props.error);
 
   return (
     <Label label={props.label} title={props.title} error={props.error}>
