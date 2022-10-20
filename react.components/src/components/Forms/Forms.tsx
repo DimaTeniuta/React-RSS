@@ -32,6 +32,7 @@ enum ErrorsForm {
   REQUIRED_FIELD = 'This field is required',
   LENGTH = 'The text must be longer than 3 characters',
   ALPHABET = 'The text should contain only the letters a-z, A-Z',
+  BIRTHDAY = 'The date must be in the format: DD-MM-YYYY',
 }
 
 type PropsForms = {
@@ -41,6 +42,7 @@ type PropsForms = {
 interface FormInputs {
   firstName: string;
   surname: string;
+  birthday: string;
 }
 
 export const Forms: FC<PropsForms> = (): JSX.Element => {
@@ -100,6 +102,22 @@ export const Forms: FC<PropsForms> = (): JSX.Element => {
         })}
         error={errors?.surname?.message}
       />
+
+      <Input
+        label="birthday"
+        title="Birthday:"
+        type="date"
+        testid="inputDate"
+        {...register('birthday', {
+          required: ErrorsForm.REQUIRED_FIELD,
+          pattern: {
+            value: /^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/g,
+            message: ErrorsForm.BIRTHDAY,
+          },
+        })}
+        error={errors?.birthday?.message}
+      />
+
       <Button>Post</Button>
     </form>
   );
