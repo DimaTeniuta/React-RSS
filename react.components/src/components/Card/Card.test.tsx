@@ -15,9 +15,11 @@ const mockData = {
   },
 };
 
+const mockClick = jest.fn();
+
 describe('Card', () => {
   it('Card renders', () => {
-    render(<Card data={mockData} />);
+    render(<Card onClick={mockClick} data={mockData} />);
     expect(screen.getByRole('img')).toBeInTheDocument();
     expect(screen.getByText(/more details/i)).toBeInTheDocument();
     expect(screen.getByText(mockData.description)).toBeInTheDocument();
@@ -25,12 +27,12 @@ describe('Card', () => {
   });
 
   it('Card snapshot', () => {
-    const card = render(<Card data={mockData} />);
+    const card = render(<Card onClick={mockClick} data={mockData} />);
     expect(card).toMatchSnapshot();
   });
 
   it('renders image in card', () => {
-    render(<Card data={mockData} />);
+    render(<Card onClick={mockClick} data={mockData} />);
     expect(screen.getByAltText('card-image')).toBeInTheDocument();
   });
 
@@ -45,17 +47,17 @@ describe('Card', () => {
     expect(cards).toMatchSnapshot();
   });
 
-  it('show modal window', () => {
-    render(<Card data={mockData} />);
-    const btn = screen.getByRole('button');
-    userEvent.click(btn);
+  it('show modal window', async () => {
+    render(<MainPage />);
+    const btn = await screen.findAllByText('More details');
+    userEvent.click(btn[1]);
     expect(screen.getByTestId('modalWindowWrap')).toBeInTheDocument();
   });
 
-  it('toggle modal window', () => {
-    render(<Card data={mockData} />);
-    const btn = screen.getByRole('button');
-    userEvent.click(btn);
+  it('toggle modal window', async () => {
+    render(<MainPage />);
+    const btn = await screen.findAllByText('More details');
+    userEvent.click(btn[1]);
     const overlay = screen.getByTestId('modalWindowWrap');
     expect(overlay).toBeInTheDocument();
     userEvent.click(screen.getByTestId('modalWindow'));
