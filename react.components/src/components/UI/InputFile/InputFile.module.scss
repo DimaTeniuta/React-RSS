@@ -1,9 +1,14 @@
 @import '../../../styles/variables.scss';
 
+.title {
+  margin: 0 0 -10px -340px;
+}
+
 .wrap {
   width: 100%;
   position: relative;
   margin: 0 0 60px 5px;
+  background-color: red;
 
   .input {
     opacity: 0;
@@ -56,7 +61,7 @@
 
   .error {
     position: absolute;
-    top: 73px;
+    top: 53px;
     height: 8px;
     color: $color-red;
     font-size: 14px;

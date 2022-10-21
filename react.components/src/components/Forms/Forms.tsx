@@ -15,8 +15,9 @@ import {
   validateSelectInput,
   validateTextInput,
 } from 'utils/validator';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm, UseFormReturn } from 'react-hook-form';
 import { urlToHttpOptions } from 'url';
+import { getValue } from '@testing-library/user-event/dist/utils';
 
 const DEFAULT_VALUE_COUNTRY = 'Country';
 
@@ -35,20 +36,22 @@ enum ErrorsForm {
   ALPHABET = 'The text should contain only the letters a-z, A-Z',
   BIRTHDAY = 'The date must be in the format: DD-MM-YYYY',
   COUNTRY = 'Chose country',
+  FILE = 'Upload an image in JPG or PNG format',
 }
 
 type PropsForms = {
   addData: (data: FormData) => void;
 };
 
-interface FormInputs {
-  firstName: string;
+export interface FormInputs {
+  name: string;
   surname: string;
   birthday: string;
   country: string;
+  avatar: FileList;
 }
 
-export const Forms: FC<PropsForms> = (): JSX.Element => {
+export const Forms: FC<PropsForms> = ({ addData }): JSX.Element => {
   const {
     register,
     formState: { errors },
@@ -57,8 +60,22 @@ export const Forms: FC<PropsForms> = (): JSX.Element => {
     reset,
   } = useForm<FormInputs>();
 
+  const createDataForCard = (data: FormInputs): void => {
+    const obj: FormData = {
+      name: data.name,
+      surname: data.surname,
+      birthday: data.birthday,
+      country: data.country,
+      avatar: URL.createObjectURL(data.avatar[0]),
+      personalData: true,
+      genderMale: false,
+    };
+    addData(obj);
+  };
+
   const onSubmit: SubmitHandler<FormInputs> = (data): void => {
     console.log(data);
+    createDataForCard(data);
     reset();
   };
 
@@ -74,7 +91,7 @@ export const Forms: FC<PropsForms> = (): JSX.Element => {
         title="Name:"
         type="text"
         testid="inputName"
-        {...register('firstName', {
+        {...register('name', {
           required: ErrorsForm.REQUIRED_FIELD,
           pattern: {
             value: /^[a-zA-Z]*$/g,
@@ -85,7 +102,7 @@ export const Forms: FC<PropsForms> = (): JSX.Element => {
             message: ErrorsForm.LENGTH,
           },
         })}
-        error={errors?.firstName?.message}
+        error={errors?.name?.message}
       />
 
       <Input
@@ -127,18 +144,26 @@ export const Forms: FC<PropsForms> = (): JSX.Element => {
         name="country"
         rules={{ required: ErrorsForm.COUNTRY }}
         render={({ field: { onChange, value } }) => (
-          <>
-            <Select
-              label="country"
-              title="Country:"
-              defaultValue={DEFAULT_VALUE_COUNTRY}
-              options={SELECTOR_OPTIONS}
-              value={value}
-              onChange={onChange}
-              error={errors?.country?.message}
-            />
-          </>
+          <Select
+            label="country"
+            title="Country:"
+            defaultValue={DEFAULT_VALUE_COUNTRY}
+            options={SELECTOR_OPTIONS}
+            value={value}
+            onChange={onChange}
+            error={errors?.country?.message}
+          />
         )}
+      />
+
+      <InputFile
+        label="avatar"
+        title="Avatar:"
+        accept="image/png, image/jpeg"
+        {...register('avatar', {
+          required: ErrorsForm.FILE,
+        })}
+        error={errors?.avatar?.message}
       />
 
       <Button>Post</Button>

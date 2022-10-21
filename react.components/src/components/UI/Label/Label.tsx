@@ -3,10 +3,11 @@ import classes from './Label.module.scss';
 
 interface LabelProps {
   label: string;
-  title: string;
+  title?: string;
   children: React.ReactNode;
   error?: string;
   className?: string;
+  ref?: React.ForwardedRef<HTMLInputElement>;
 }
 
 const Label: FC<LabelProps> = (props): JSX.Element => {
