@@ -33,7 +33,7 @@ export default class MainPage extends Component<PropsMain, StateMain> {
   render() {
     return (
       <div className={classes.container} data-testid="main-page">
-        <Search getData={this.getCards} onLoader={this.turnOnLoader} />
+        <Search getData={this.getCards} showLoader={this.turnOnLoader} />
 
         <div className={classes.wrapCards}>
           {this.state.isLoading ? (
