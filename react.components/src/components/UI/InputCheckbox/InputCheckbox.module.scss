@@ -1,13 +1,17 @@
 @import '../../../styles/variables.scss';
 
+.title {
+  margin: 0 0 0 -170px;
+}
+
 .wrap {
   position: relative;
-  margin: 10px 0 0 -170px;
+  margin: 5px 0 0 -170px;
 
   .box {
     position: absolute;
-    top: -11px;
-    left: 232px;
+    top: -47px;
+    left: 120px;
     width: 25px;
     height: 25px;
     margin: 10px auto;
@@ -40,8 +44,9 @@
 
   .error {
     position: absolute;
-    top: 20px;
-    left: 2px;
+    top: -15px;
+    left: -112px;
+    width: 200px;
     height: 8px;
     color: $color-red;
     font-size: 14px;
