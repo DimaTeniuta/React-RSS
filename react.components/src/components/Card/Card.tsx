@@ -1,17 +1,16 @@
 import Button from 'components/UI/Button/Button';
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { ResultsData } from 'types/generalTypes';
 import classes from './Card.module.scss';
-import { CardModalWindow } from 'components/CardModalWindow/CardModalWindow';
 
 type PropsCard = {
   data: ResultsData;
+  onClick: (data: ResultsData) => void;
 };
 
-const Card: FC<PropsCard> = ({ data }): JSX.Element => {
-  const [isActiveModalWindow, setIsActiveModalWindow] = useState<boolean>(false);
-  const toggleModalWindow = (): void => {
-    setIsActiveModalWindow(!isActiveModalWindow);
+const Card: FC<PropsCard> = ({ data, onClick }): JSX.Element => {
+  const setModalWindowData = (): void => {
+    onClick(data);
   };
 
   return (
@@ -21,10 +20,8 @@ const Card: FC<PropsCard> = ({ data }): JSX.Element => {
         <p className={classes.title}>{data.description ?? 'Unknown'}</p>
         <span className={classes.likes}>{data.likes}</span>
         <div className={classes.icon}></div>
-        <Button onClick={toggleModalWindow}>More details</Button>
+        <Button onClick={setModalWindowData}>More details</Button>
       </div>
-
-      {isActiveModalWindow && <CardModalWindow onClick={toggleModalWindow} data={data} />}
     </>
   );
 };
