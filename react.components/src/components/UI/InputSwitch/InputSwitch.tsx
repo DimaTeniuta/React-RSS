@@ -6,24 +6,26 @@ interface SwitchProps {
   label: string;
   title: string;
   ref?: React.ForwardedRef<HTMLInputElement>;
-  onClick?: () => void;
-  onChange?: (event?: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const InputSwitch: FC<SwitchProps> = React.forwardRef((props, ref): JSX.Element => {
   return (
-    <Label label={props.label} title={props.title} className={classes.wrap}>
-      <div className={classes.switch}>
-        <input
-          {...props}
-          type="checkbox"
-          {...props}
-          className={classes.input}
-          ref={ref}
-          data-testid="switch"
-        />
-        <span className={classes.slider} onClick={props.onClick} data-testid="btn-switch"></span>
-      </div>
-    </Label>
+    <>
+      <div className={classes.title}>{props.title}</div>
+      <Label label={props.label} className={classes.wrap}>
+        <div className={classes.switch}>
+          <input
+            {...props}
+            id={props.label}
+            type="checkbox"
+            {...props}
+            className={classes.input}
+            ref={ref}
+            data-testid="switch"
+          />
+          <span className={classes.slider} data-testid="btn-switch"></span>
+        </div>
+      </Label>
+    </>
   );
 });

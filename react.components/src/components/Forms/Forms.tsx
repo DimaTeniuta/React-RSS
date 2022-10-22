@@ -49,6 +49,7 @@ export interface FormInputs {
   birthday: string;
   country: string;
   avatar: FileList;
+  gender: boolean;
 }
 
 export const Forms: FC<PropsForms> = ({ addData }): JSX.Element => {
@@ -165,6 +166,8 @@ export const Forms: FC<PropsForms> = ({ addData }): JSX.Element => {
         })}
         error={errors?.avatar?.message}
       />
+
+      <InputSwitch label="switch" title="Male/Female:" {...register('gender')} />
 
       <Button>Post</Button>
     </form>

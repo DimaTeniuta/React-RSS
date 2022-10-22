@@ -1,8 +1,12 @@
 @import '../../../styles/variables.scss';
 
+.title {
+  margin: 0 0 -16px -287px;
+}
+
 .wrap {
   position: relative;
-  margin: 0 0 15px -283px;
+  margin: 0 0 15px -310px;
   padding:  12px 0 0 0;
 
   .switch {
