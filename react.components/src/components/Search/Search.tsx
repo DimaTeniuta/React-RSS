@@ -7,7 +7,7 @@ import localStorageModule from 'utils/localStorage';
 import classes from './Search.module.scss';
 
 interface SearchProps {
-  getData: (data: ResultsData[]) => void;
+  setData: (data: ResultsData[]) => void;
   showLoader: () => void;
 }
 
@@ -20,11 +20,11 @@ const Search: FC<SearchProps> = (props): JSX.Element => {
     props.showLoader();
     if (value && typeof value === 'string') {
       const data = await fetchCards(value);
-      props.getData(data);
+      props.setData(data);
       return;
     }
     const data = await fetchCards(searchValue);
-    props.getData(data);
+    props.setData(data);
   };
 
   const onEnterPress = (event: React.KeyboardEvent<HTMLInputElement>): void => {

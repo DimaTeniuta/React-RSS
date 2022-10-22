@@ -13,7 +13,7 @@ const MainPage = (): JSX.Element => {
   const [isActiveModalWindow, setIsActiveModalWindow] = useState<boolean>(false);
   const [modalWindowData, setModalWindowData] = useState<ResultsData>({});
 
-  const getCards = (data: ResultsData[]): void => {
+  const setCards = (data: ResultsData[]): void => {
     setData(data);
     setIsLoading(false);
   };
@@ -33,7 +33,7 @@ const MainPage = (): JSX.Element => {
 
   return (
     <div className={classes.container} data-testid="main-page">
-      <Search getData={getCards} showLoader={turnOnLoader} />
+      <Search setData={setCards} showLoader={turnOnLoader} />
 
       <div className={classes.wrapCards}>
         {isActiveModalWindow && (
