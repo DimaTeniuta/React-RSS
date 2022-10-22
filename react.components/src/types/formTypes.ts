@@ -3,9 +3,9 @@ export interface FormData {
   surname: string;
   birthday: string;
   country: string;
-  avatar: string;
-  personalData?: boolean;
-  genderMale?: boolean;
+  avatar: File;
+  personalData: boolean;
+  genderMale: boolean;
 }
 
 export interface SelectData {

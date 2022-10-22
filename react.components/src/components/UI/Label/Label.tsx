@@ -8,11 +8,16 @@ interface LabelProps {
   error?: string;
   className?: string;
   ref?: React.ForwardedRef<HTMLInputElement>;
+  testid?: string;
 }
 
 const Label: FC<LabelProps> = (props): JSX.Element => {
   return (
-    <label htmlFor={props.label} className={props.className ?? classes.wrap}>
+    <label
+      htmlFor={props.label}
+      className={props.className ?? classes.wrap}
+      data-testid={props.testid}
+    >
       <span className={classes.title}>{props.title}</span>
       {props.children}
       <p className={classes.error}>{props.error}</p>

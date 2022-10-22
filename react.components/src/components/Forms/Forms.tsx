@@ -34,16 +34,20 @@ export const Forms: FC<PropsForms> = ({ addData }): JSX.Element => {
     handleSubmit,
     control,
     reset,
+    setValue,
   } = useForm<FormInputs>();
 
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
+  const [isDone, setIsDone] = useState<boolean>(false);
+  const [isUploadFile, setIsUploadFile] = useState<boolean>(false);
 
   const checkConditionsForSubmit = (): void => {
     if (isDirty && !isSubmitted) {
       setIsDisabled(false);
+      setIsDone(false);
     } else if (isSubmitted && !isValid) {
       setIsDisabled(true);
-    } else if (isValid) {
+    } else if (isSubmitted && isValid) {
       setIsDisabled(false);
     }
   };
@@ -59,7 +63,7 @@ export const Forms: FC<PropsForms> = ({ addData }): JSX.Element => {
   const createDataForCard = (data: FormInputs): void => {
     const dataCard: FormData = {
       ...data,
-      avatar: URL.createObjectURL(data.avatar[0]),
+      avatar: data.avatar[0],
     };
     addData(dataCard);
   };
@@ -67,12 +71,23 @@ export const Forms: FC<PropsForms> = ({ addData }): JSX.Element => {
   const onSubmit: SubmitHandler<FormInputs> = (data): void => {
     createDataForCard(data);
     setIsDisabled(true);
+    setIsDone(true);
+    setIsUploadFile(false);
+    setValue('genderMale', false);
+    setValue('personalData', false);
+  };
+
+  const HandleChange = (e: React.FormEvent<HTMLFormElement>) => {
+    if ((e.target as HTMLInputElement).id === 'avatar' && isSubmitted) {
+      (e.target as HTMLInputElement)?.files![0] ? setIsUploadFile(true) : setIsUploadFile(false);
+    }
   };
 
   return (
     <form
       className={classes.container}
       onSubmit={handleSubmit(onSubmit)}
+      onChange={HandleChange}
       noValidate
       data-testid="forms"
     >
@@ -153,6 +168,7 @@ export const Forms: FC<PropsForms> = ({ addData }): JSX.Element => {
         {...register(RegisterNames.AVATAR, {
           required: ErrorsForm.FILE,
         })}
+        ready={isUploadFile.toString()}
         error={errors?.avatar?.message}
       />
 
@@ -172,6 +188,13 @@ export const Forms: FC<PropsForms> = ({ addData }): JSX.Element => {
       />
 
       <Button disabled={isDisabled}>Post</Button>
+
+      {isDone && (
+        <div className={classes.done} data-testid="final-text">
+          Done
+          <span className={classes.doneImg} data-testid="final-img"></span>
+        </div>
+      )}
     </form>
   );
 };

@@ -13,8 +13,8 @@ const InputCheckbox: FC<InputCheckboxProps> = React.forwardRef((props, ref): JSX
   return (
     <>
       <div className={classes.title}>{props.title}</div>
-      <Label label={props.label} className={classes.wrap}>
-        <div className={classes.box} data-testid="btn-inputCheckbox">
+      <Label label={props.label} className={classes.wrap} testid="btn-inputCheckbox">
+        <div className={classes.box}>
           <input
             {...props}
             id={props.label}

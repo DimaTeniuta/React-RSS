@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import FormPage from './FormPage';
 import userEvent from '@testing-library/user-event';
 import { fakeFile } from 'data/mockData';
@@ -30,7 +30,9 @@ describe('FormPage', () => {
     userEvent.click(checkbox);
     userEvent.click(btn);
 
-    const cards = await screen.findAllByTestId('formCard');
-    expect(cards.length).toBe(1);
+    waitFor(async () => {
+      const cards = await screen.findByTestId('formCard');
+      expect(cards).toBeInTheDocument;
+    });
   });
 });

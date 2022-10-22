@@ -12,7 +12,7 @@ export const InputSwitch: FC<SwitchProps> = React.forwardRef((props, ref): JSX.E
   return (
     <>
       <div className={classes.title}>{props.title}</div>
-      <Label label={props.label} className={classes.wrap}>
+      <Label label={props.label} className={classes.wrap} testid="switch">
         <div className={classes.switch}>
           <input
             {...props}
@@ -21,7 +21,6 @@ export const InputSwitch: FC<SwitchProps> = React.forwardRef((props, ref): JSX.E
             {...props}
             className={classes.input}
             ref={ref}
-            data-testid="switch"
           />
           <span className={classes.slider} data-testid="btn-switch"></span>
         </div>
