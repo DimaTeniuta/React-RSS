@@ -8,7 +8,7 @@ import classes from './Search.module.scss';
 
 interface SearchProps {
   getData: (data: ResultsData[]) => void;
-  onLoader: () => void;
+  showLoader: () => void;
 }
 
 const Search: FC<SearchProps> = (props): JSX.Element => {
@@ -17,7 +17,7 @@ const Search: FC<SearchProps> = (props): JSX.Element => {
 
   const getNewCards = async (value?: string): Promise<void> => {
     setIsSearch((prev) => !prev);
-    props.onLoader();
+    props.showLoader();
     if (value && typeof value === 'string') {
       const data = await fetchCards(value);
       props.getData(data);

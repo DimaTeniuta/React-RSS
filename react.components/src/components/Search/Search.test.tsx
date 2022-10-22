@@ -14,13 +14,13 @@ describe('Search', () => {
   });
 
   it('renders search', () => {
-    render(<Search getData={mockFn} onLoader={mockLoader} />);
+    render(<Search getData={mockFn} showLoader={mockLoader} />);
     expect(screen.getByPlaceholderText(/search/i)).toBeInTheDocument();
     expect(screen.queryByTestId('clear-btn')).toBeInTheDocument();
   });
 
   it('save input value in localStorage', () => {
-    const { unmount } = render(<Search getData={mockFn} onLoader={mockLoader} />);
+    const { unmount } = render(<Search getData={mockFn} showLoader={mockLoader} />);
     const input = screen.getByPlaceholderText(/search/i);
     const testValue = 'test';
     userEvent.type(input, testValue);
@@ -30,18 +30,18 @@ describe('Search', () => {
   });
 
   it('get value in input from localStorage', () => {
-    const { unmount } = render(<Search getData={mockFn} onLoader={mockLoader} />);
+    const { unmount } = render(<Search getData={mockFn} showLoader={mockLoader} />);
     const input = screen.getByPlaceholderText(/search/i);
     const testValue = 'test';
     userEvent.type(input, testValue);
     userEvent.click(screen.getByTestId('test-search-btn'));
     unmount();
-    render(<Search getData={mockFn} onLoader={mockLoader} />);
+    render(<Search getData={mockFn} showLoader={mockLoader} />);
     expect(screen.getByDisplayValue('test')).toBeInTheDocument();
   });
 
   it('clear input', () => {
-    render(<Search getData={mockFn} onLoader={mockLoader} />);
+    render(<Search getData={mockFn} showLoader={mockLoader} />);
     const btn = screen.getByTestId('clear-btn');
     userEvent.click(btn);
     const input = screen.getByPlaceholderText(/search/i);

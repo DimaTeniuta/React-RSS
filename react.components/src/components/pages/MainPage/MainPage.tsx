@@ -19,7 +19,7 @@ const MainPage = (): JSX.Element => {
 
   return (
     <div className={classes.container} data-testid="main-page">
-      <Search getData={getCards} onLoader={turnOnLoader} />
+      <Search getData={getCards} showLoader={turnOnLoader} />
 
       <div className={classes.wrapCards}>
         {isLoading ? (
