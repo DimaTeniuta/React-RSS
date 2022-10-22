@@ -7,25 +7,17 @@ import Select from 'components/UI/Select/Select';
 import InputFile from 'components/UI/InputFile/InputFile';
 import { InputSwitch } from 'components/UI/InputSwitch/InputSwitch';
 import InputCheckbox from 'components/UI/InputCheckbox/InputCheckbox';
-import { FormData } from 'types/formTypes';
+import { ErrorsForm, FormData, RegisterNames } from 'types/formTypes';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import formValidator from 'utils/validator';
 
 const DEFAULT_VALUE_COUNTRY = 'Country';
-
-enum ErrorsForm {
-  REQUIRED_FIELD = 'This field is required',
-  LENGTH = 'The text must be longer than 3 characters',
-  ALPHABET = 'The text should contain only the letters a-z, A-Z',
-  BIRTHDAY = 'The date must be in the format: DD-MM-YYYY',
-  COUNTRY = 'Chose country',
-  FILE = 'Upload an image in JPG or PNG format',
-}
 
 type PropsForms = {
   addData: (data: FormData) => void;
 };
 
-export interface FormInputs {
+interface FormInputs {
   name: string;
   surname: string;
   birthday: string;
@@ -45,7 +37,7 @@ export const Forms: FC<PropsForms> = ({ addData }): JSX.Element => {
   } = useForm<FormInputs>();
 
   const createDataForCard = (data: FormInputs): void => {
-    const obj: FormData = {
+    const dataCard: FormData = {
       name: data.name,
       surname: data.surname,
       birthday: data.birthday,
@@ -54,7 +46,7 @@ export const Forms: FC<PropsForms> = ({ addData }): JSX.Element => {
       personalData: data.personalData,
       genderMale: data.gender,
     };
-    addData(obj);
+    addData(dataCard);
   };
 
   const onSubmit: SubmitHandler<FormInputs> = (data): void => {
@@ -71,14 +63,14 @@ export const Forms: FC<PropsForms> = ({ addData }): JSX.Element => {
       data-testid="forms"
     >
       <Input
-        label="firstName"
+        label={RegisterNames.NAME}
         title="Name:"
         type="text"
         testid="inputName"
-        {...register('name', {
+        {...register(RegisterNames.NAME, {
           required: ErrorsForm.REQUIRED_FIELD,
           pattern: {
-            value: /^[a-zA-Z]*$/g,
+            value: formValidator.requiredField,
             message: ErrorsForm.ALPHABET,
           },
           minLength: {
@@ -90,14 +82,14 @@ export const Forms: FC<PropsForms> = ({ addData }): JSX.Element => {
       />
 
       <Input
-        label="surname"
+        label={RegisterNames.SURNAME}
         title="Surname:"
         type="text"
         testid="inputSurname"
-        {...register('surname', {
+        {...register(RegisterNames.SURNAME, {
           required: ErrorsForm.REQUIRED_FIELD,
           pattern: {
-            value: /^[a-zA-Z]*$/g,
+            value: formValidator.requiredField,
             message: ErrorsForm.ALPHABET,
           },
           minLength: {
@@ -109,14 +101,14 @@ export const Forms: FC<PropsForms> = ({ addData }): JSX.Element => {
       />
 
       <Input
-        label="birthday"
+        label={RegisterNames.BIRTHDAY}
         title="Birthday:"
         type="date"
         testid="inputDate"
-        {...register('birthday', {
+        {...register(RegisterNames.BIRTHDAY, {
           required: ErrorsForm.REQUIRED_FIELD,
           pattern: {
-            value: /^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/g,
+            value: formValidator.birthdayField,
             message: ErrorsForm.BIRTHDAY,
           },
         })}
@@ -125,11 +117,11 @@ export const Forms: FC<PropsForms> = ({ addData }): JSX.Element => {
 
       <Controller
         control={control}
-        name="country"
+        name={RegisterNames.COUNTRY}
         rules={{ required: ErrorsForm.COUNTRY }}
         render={({ field: { onChange, value } }) => (
           <Select
-            label="country"
+            label={RegisterNames.COUNTRY}
             title="Country:"
             defaultValue={DEFAULT_VALUE_COUNTRY}
             options={SELECTOR_OPTIONS}
@@ -141,21 +133,25 @@ export const Forms: FC<PropsForms> = ({ addData }): JSX.Element => {
       />
 
       <InputFile
-        label="avatar"
+        label={RegisterNames.AVATAR}
         title="Avatar:"
         accept="image/png, image/jpeg"
-        {...register('avatar', {
+        {...register(RegisterNames.AVATAR, {
           required: ErrorsForm.FILE,
         })}
         error={errors?.avatar?.message}
       />
 
-      <InputSwitch label="switch" title="Male/Female:" {...register('gender')} />
+      <InputSwitch
+        label={RegisterNames.GENDER}
+        title="Male/Female:"
+        {...register(RegisterNames.GENDER)}
+      />
 
       <InputCheckbox
-        label="agree"
+        label={RegisterNames.PERSONAL_DATA}
         title="Consent to data processing:"
-        {...register('personalData', {
+        {...register(RegisterNames.PERSONAL_DATA, {
           required: ErrorsForm.REQUIRED_FIELD,
         })}
         error={errors?.personalData?.message}
