@@ -1,5 +1,5 @@
 import Input from 'components/UI/Input/Input';
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import classes from './Forms.module.scss';
 import SELECTOR_OPTIONS from '../../data/optionsForSelect.json';
 import Button from 'components/UI/Button/Button';
@@ -8,7 +8,7 @@ import InputFile from 'components/UI/InputFile/InputFile';
 import { InputSwitch } from 'components/UI/InputSwitch/InputSwitch';
 import InputCheckbox from 'components/UI/InputCheckbox/InputCheckbox';
 import { ErrorsForm, FormData, RegisterNames } from 'types/formTypes';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm, useFormState } from 'react-hook-form';
 import formValidator from 'utils/validator';
 
 const DEFAULT_VALUE_COUNTRY = 'Country';
@@ -23,36 +23,50 @@ interface FormInputs {
   birthday: string;
   country: string;
   avatar: FileList;
-  gender: boolean;
+  genderMale: boolean;
   personalData: boolean;
 }
 
 export const Forms: FC<PropsForms> = ({ addData }): JSX.Element => {
   const {
     register,
-    formState: { errors },
+    formState: { errors, isDirty, isSubmitted, isValid, isSubmitSuccessful },
     handleSubmit,
     control,
     reset,
   } = useForm<FormInputs>();
 
+  const [isDisabled, setIsDisabled] = useState<boolean>(true);
+
+  const checkConditionsForSubmit = (): void => {
+    if (isDirty && !isSubmitted) {
+      setIsDisabled(false);
+    } else if (isSubmitted && !isValid) {
+      setIsDisabled(true);
+    } else if (isValid) {
+      setIsDisabled(false);
+    }
+  };
+
+  useEffect(() => {
+    checkConditionsForSubmit();
+  }, [isDirty, isSubmitted, isValid]);
+
+  useEffect(() => {
+    reset();
+  }, [isSubmitSuccessful]);
+
   const createDataForCard = (data: FormInputs): void => {
     const dataCard: FormData = {
-      name: data.name,
-      surname: data.surname,
-      birthday: data.birthday,
-      country: data.country,
+      ...data,
       avatar: URL.createObjectURL(data.avatar[0]),
-      personalData: data.personalData,
-      genderMale: data.gender,
     };
     addData(dataCard);
   };
 
   const onSubmit: SubmitHandler<FormInputs> = (data): void => {
-    console.log(data);
     createDataForCard(data);
-    reset();
+    setIsDisabled(true);
   };
 
   return (
@@ -157,7 +171,7 @@ export const Forms: FC<PropsForms> = ({ addData }): JSX.Element => {
         error={errors?.personalData?.message}
       />
 
-      <Button>Post</Button>
+      <Button disabled={isDisabled}>Post</Button>
     </form>
   );
 };

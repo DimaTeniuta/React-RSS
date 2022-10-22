@@ -28,6 +28,6 @@ export enum RegisterNames {
   BIRTHDAY = 'birthday',
   COUNTRY = 'country',
   AVATAR = 'avatar',
-  GENDER = 'gender',
+  GENDER = 'genderMale',
   PERSONAL_DATA = 'personalData',
 }
