@@ -8,7 +8,7 @@ import InputFile from 'components/UI/InputFile/InputFile';
 import { InputSwitch } from 'components/UI/InputSwitch/InputSwitch';
 import InputCheckbox from 'components/UI/InputCheckbox/InputCheckbox';
 import { ErrorsForm, FormData, RegisterNames } from 'types/formTypes';
-import { Controller, SubmitHandler, useForm, useFormState } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import formValidator from 'utils/validator';
 
 const DEFAULT_VALUE_COUNTRY = 'Country';

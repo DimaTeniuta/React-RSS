@@ -16,7 +16,7 @@ const InputFile: FC<InputFileProps> = React.forwardRef((props, ref): JSX.Element
   return (
     <>
       <div className={classes.title}>{props.title}</div>
-      <Label label={props.label} className={classes.wrap} testid="inputFile">
+      <Label label={props.label} className={classes.wrap}>
         <input
           {...props}
           accept={props.accept}
@@ -24,10 +24,11 @@ const InputFile: FC<InputFileProps> = React.forwardRef((props, ref): JSX.Element
           type="file"
           className={classes.input}
           ref={ref}
+          data-testid="inputFile"
         />
         <p className={classes.error}>{props.error}</p>
         <div className={classes.btn}>Upload File</div>
-        <span className={props.ready === 'true' ? classes.img : ''}></span>
+        {props.ready === 'true' && <span className={classes.img} data-testid="readyFile"></span>}
       </Label>
     </>
   );

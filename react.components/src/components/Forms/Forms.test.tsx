@@ -4,9 +4,9 @@ import Forms from './Forms';
 import userEvent from '@testing-library/user-event';
 
 import { fakeFile } from 'data/mockData';
+import { act } from 'react-dom/test-utils';
 
 const mockGetData = jest.fn();
-const fakeFileWithWrongFormat = new File(['test'], 'test.pdf', { type: 'image/pdf' });
 
 describe('Forms', () => {
   it('renders form', () => {
@@ -15,135 +15,6 @@ describe('Forms', () => {
     expect(screen.getByTestId('inputCheckbox')).toBeInTheDocument();
     expect(screen.getByTestId('select')).toBeInTheDocument();
     expect(screen.getByTestId('switch')).toBeInTheDocument();
-  });
-
-  it('renders final text', async () => {
-    render(<Forms addData={mockGetData} />);
-    const nameInput = screen.getByTestId('inputName');
-    const surnameInput = screen.getByTestId('inputSurname');
-    const dateInput = screen.getByTestId('inputDate');
-    const select = screen.getByTestId('select');
-    const inputFile = screen.getByTestId('inputFile');
-    const checkbox = screen.getByTestId('inputCheckbox');
-    userEvent.type(nameInput, 'Test');
-    const btn = screen.getByText('Post');
-    userEvent.type(surnameInput, 'Test');
-    userEvent.type(dateInput, '2020-01-01');
-    userEvent.selectOptions(select, 'Belarus');
-    userEvent.upload(inputFile, fakeFile);
-    userEvent.click(checkbox);
-    userEvent.click(btn);
-    waitFor(async () => {
-      const finalText = await screen.findByTestId('final-text');
-      const finalImg = await screen.findByTestId('final-img');
-      expect(finalText).toBeInTheDocument();
-      expect(finalImg).toBeInTheDocument();
-      expect(screen.getByText('Done')).toBeInTheDocument();
-      userEvent.type(nameInput, 'Test');
-      expect(finalText).not.toBeInTheDocument();
-      expect(finalImg).not.toBeInTheDocument();
-      expect(screen.queryByText('Done')).not.toBeInTheDocument();
-    });
-  });
-});
-
-describe('Forms disabled button', () => {
-  it('disabled btn before change inputs values', () => {
-    render(<Forms addData={mockGetData} />);
-    const btn = screen.getByText('Post');
-    expect(btn).toBeDisabled();
-    userEvent.click(btn);
-    expect(btn).toBeDisabled();
-  });
-
-  it('disabled btn after change name value', () => {
-    render(<Forms addData={mockGetData} />);
-    const nameInput = screen.getByTestId('inputName');
-    const btn = screen.getByText('Post');
-    expect(btn).toBeDisabled();
-    userEvent.click(btn);
-    expect(btn).toBeDisabled();
-    userEvent.type(nameInput, 'Test');
-    waitFor(async () => {
-      expect(btn).not.toBeDisabled();
-      userEvent.click(btn);
-      expect(btn).toBeDisabled();
-    });
-  });
-
-  it('disabled btn after change surname value', () => {
-    render(<Forms addData={mockGetData} />);
-    const surnameInput = screen.getByTestId('inputSurname');
-    const btn = screen.getByText('Post');
-    expect(btn).toBeDisabled();
-    userEvent.click(btn);
-    expect(btn).toBeDisabled();
-    userEvent.type(surnameInput, 'Test');
-    waitFor(async () => {
-      expect(btn).not.toBeDisabled();
-      userEvent.click(btn);
-      expect(btn).toBeDisabled();
-    });
-  });
-
-  it('disabled btn after change inputDate value', () => {
-    render(<Forms addData={mockGetData} />);
-    const inputDate = screen.getByTestId('inputDate');
-    const btn = screen.getByText('Post');
-    expect(btn).toBeDisabled();
-    userEvent.click(btn);
-    expect(btn).toBeDisabled();
-    userEvent.type(inputDate, '2020-01-01');
-    waitFor(async () => {
-      expect(btn).not.toBeDisabled();
-      userEvent.click(btn);
-      expect(btn).toBeDisabled();
-    });
-  });
-
-  it('disabled btn after change select value', () => {
-    render(<Forms addData={mockGetData} />);
-    waitFor(async () => {
-      const select = screen.getByTestId('select');
-      const btn = screen.getByText('Post');
-      expect(btn).toBeDisabled();
-      userEvent.click(btn);
-      expect(btn).toBeDisabled();
-      userEvent.selectOptions(select, 'Belarus');
-      expect(btn).not.toBeDisabled();
-      userEvent.click(btn);
-      expect(btn).toBeDisabled();
-    });
-  });
-
-  it('disabled btn after change switches value', () => {
-    render(<Forms addData={mockGetData} />);
-    const btnSwitch = screen.getByTestId('btn-switch');
-    const btn = screen.getByText('Post');
-    expect(btn).toBeDisabled();
-    userEvent.click(btn);
-    expect(btn).toBeDisabled();
-    userEvent.click(btnSwitch);
-    waitFor(async () => {
-      expect(btn).not.toBeDisabled();
-      userEvent.click(btn);
-      expect(btn).toBeDisabled();
-    });
-  });
-
-  it('disabled btn after change inputCheckbox value', () => {
-    render(<Forms addData={mockGetData} />);
-    const checkbox = screen.getByTestId('inputCheckbox');
-    const btn = screen.getByText('Post');
-    expect(btn).toBeDisabled();
-    userEvent.click(btn);
-    expect(btn).toBeDisabled();
-    userEvent.click(checkbox);
-    waitFor(async () => {
-      expect(btn).not.toBeDisabled();
-      userEvent.click(btn);
-      expect(btn).toBeDisabled();
-    });
   });
 });
 
@@ -209,7 +80,7 @@ describe('Forms validation', () => {
     const btn = screen.getByText('Post');
     userEvent.click(btn);
     const inputFile = screen.getByTestId('inputFile');
-    waitFor(() => {
+    waitFor(async () => {
       expect(screen.getByText('Upload an image in JPG or PNG format')).toBeInTheDocument();
     });
     userEvent.upload(inputFile, fakeFile);
@@ -232,32 +103,43 @@ describe('Forms validation', () => {
   });
 });
 
-describe('Forms after success validation', () => {
-  it('isDisable button after success validation', () => {
+describe('test submit', () => {
+  it('successful submit', async () => {
     render(<Forms addData={mockGetData} />);
+    expect(screen.queryByTestId('readyFile')).not.toBeInTheDocument();
     const nameInput = screen.getByTestId('inputName');
     const surnameInput = screen.getByTestId('inputSurname');
     const dateInput = screen.getByTestId('inputDate');
     const select = screen.getByTestId('select');
     const inputFile = screen.getByTestId('inputFile');
     const checkbox = screen.getByTestId('inputCheckbox');
+    expect(screen.getByText('Post')).toBeDisabled();
     userEvent.type(nameInput, 'Test');
-    const btn = screen.getByText('Post');
-    expect(screen.queryByText('Post')).not.toBeDisabled();
-    userEvent.click(btn);
-    waitFor(() => {
-      expect(screen.getByText('Post')).toBeDisabled();
-    });
     userEvent.type(surnameInput, 'Test');
     userEvent.type(dateInput, '2020-01-01');
     userEvent.selectOptions(select, 'Belarus');
-    userEvent.upload(inputFile, fakeFile);
     userEvent.click(checkbox);
-    expect(screen.queryByText('Post')).not.toBeDisabled();
+    userEvent.click(screen.getByText('Post'));
+    await act(async () => {
+      userEvent.upload(inputFile, fakeFile);
+      Object.defineProperty(inputFile, 'value', {
+        value: [fakeFile],
+      });
+    });
+    waitFor(() => {
+      expect(screen.getByTestId('readyFile')).toBeInTheDocument();
+      expect(screen.getByText('Post')).not.toBeDisabled();
+      userEvent.click(screen.getByText('Post'));
+      expect(screen.getByText('Post')).toBeDisabled();
+      expect(screen.getByTestId('final-text')).toBeInTheDocument();
+      expect(screen.getByTestId('final-img')).toBeInTheDocument();
+      expect(mockGetData).toBeCalledTimes(1);
+    });
   });
 
-  it('send data', () => {
+  it('disabled button', async () => {
     render(<Forms addData={mockGetData} />);
+    expect(screen.queryByTestId('readyFile')).not.toBeInTheDocument();
     const nameInput = screen.getByTestId('inputName');
     const surnameInput = screen.getByTestId('inputSurname');
     const dateInput = screen.getByTestId('inputDate');
@@ -265,16 +147,52 @@ describe('Forms after success validation', () => {
     const inputFile = screen.getByTestId('inputFile');
     const checkbox = screen.getByTestId('inputCheckbox');
     userEvent.type(nameInput, 'Test');
-    const btn = screen.getByText('Post');
-    userEvent.click(btn);
     userEvent.type(surnameInput, 'Test');
     userEvent.type(dateInput, '2020-01-01');
     userEvent.selectOptions(select, 'Belarus');
-    userEvent.upload(inputFile, fakeFile);
     userEvent.click(checkbox);
-    userEvent.click(btn);
+    expect(screen.getByText('Post')).not.toBeDisabled();
+    await act(async () => {
+      userEvent.click(screen.getByText('Post'));
+    });
+    await act(async () => {
+      expect(screen.getByText('Post')).toBeDisabled();
+      userEvent.upload(inputFile, fakeFile);
+      Object.defineProperty(inputFile, 'value', {
+        value: [fakeFile],
+      });
+    });
     waitFor(() => {
-      expect(mockGetData).toBeCalledTimes(1);
+      expect(screen.getByText('Post')).not.toBeDisabled();
+      userEvent.click(screen.getByText('Post'));
+      expect(screen.getByText('Post')).toBeDisabled();
+    });
+  });
+
+  it('toggle InputFile image', async () => {
+    render(<Forms addData={mockGetData} />);
+    const nameInput = screen.getByTestId('inputName');
+    const inputFile = screen.getByTestId('inputFile');
+    userEvent.type(nameInput, 'Test');
+    await act(async () => {
+      expect(screen.queryByTestId('readyFile')).not.toBeInTheDocument();
+      userEvent.upload(inputFile, fakeFile);
+      Object.defineProperty(inputFile, 'value', {
+        value: [fakeFile],
+      });
+    });
+    waitFor(() => {
+      expect(screen.getByTestId('readyFile')).toBeInTheDocument();
+    });
+    await act(async () => {
+      expect(screen.queryByTestId('readyFile')).not.toBeInTheDocument();
+      userEvent.upload(inputFile, []);
+      Object.defineProperty(inputFile, 'value', {
+        value: [],
+      });
+    });
+    waitFor(() => {
+      expect(screen.queryByTestId('readyFile')).not.toBeInTheDocument();
     });
   });
 });
