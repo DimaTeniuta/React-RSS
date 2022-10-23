@@ -19,7 +19,7 @@ describe('Forms', () => {
 });
 
 describe('Forms validation', () => {
-  it('validation inputName', () => {
+  it('validation inputName', async () => {
     render(<Forms addData={mockGetData} />);
     const nameInput = screen.getByTestId('inputName');
     userEvent.type(nameInput, 'Test1');
@@ -37,7 +37,7 @@ describe('Forms validation', () => {
       expect(texts[0]).toBeInTheDocument();
     });
     userEvent.clear(nameInput);
-    userEvent.type(nameInput, 'Test');
+    userEvent.type(nameInput, 'Test1');
     expect(
       screen.queryByText('The text should contain only the letters a-z, A-Z')
     ).not.toBeInTheDocument();
@@ -62,7 +62,7 @@ describe('Forms validation', () => {
   it('validation select', () => {
     render(<Forms addData={mockGetData} />);
     const nameInput = screen.getByTestId('inputName');
-    userEvent.type(nameInput, 'Test1');
+    userEvent.type(nameInput, 'Test');
     const btn = screen.getByText('Post');
     userEvent.click(btn);
     const select = screen.getByTestId('select');
@@ -76,7 +76,7 @@ describe('Forms validation', () => {
   it('validation inputFile', () => {
     render(<Forms addData={mockGetData} />);
     const nameInput = screen.getByTestId('inputName');
-    userEvent.type(nameInput, 'Test1');
+    userEvent.type(nameInput, 'Test');
     const btn = screen.getByText('Post');
     userEvent.click(btn);
     const inputFile = screen.getByTestId('inputFile');
@@ -85,7 +85,6 @@ describe('Forms validation', () => {
     });
     userEvent.upload(inputFile, fakeFile);
     expect(screen.queryByText('Upload an image in JPG or PNG format')).not.toBeInTheDocument();
-    expect(screen.queryByText('The image must be in JPG or PNG format')).not.toBeInTheDocument();
   });
 
   it('validation inputCheckbox', () => {
@@ -155,8 +154,8 @@ describe('test submit', () => {
     await act(async () => {
       userEvent.click(screen.getByText('Post'));
     });
+    expect(screen.getByText('Post')).toBeDisabled();
     await act(async () => {
-      expect(screen.getByText('Post')).toBeDisabled();
       userEvent.upload(inputFile, fakeFile);
       Object.defineProperty(inputFile, 'value', {
         value: [fakeFile],
@@ -174,8 +173,8 @@ describe('test submit', () => {
     const nameInput = screen.getByTestId('inputName');
     const inputFile = screen.getByTestId('inputFile');
     userEvent.type(nameInput, 'Test');
+    expect(screen.queryByTestId('readyFile')).not.toBeInTheDocument();
     await act(async () => {
-      expect(screen.queryByTestId('readyFile')).not.toBeInTheDocument();
       userEvent.upload(inputFile, fakeFile);
       Object.defineProperty(inputFile, 'value', {
         value: [fakeFile],
@@ -184,8 +183,8 @@ describe('test submit', () => {
     waitFor(() => {
       expect(screen.getByTestId('readyFile')).toBeInTheDocument();
     });
+    expect(screen.queryByTestId('readyFile')).not.toBeInTheDocument();
     await act(async () => {
-      expect(screen.queryByTestId('readyFile')).not.toBeInTheDocument();
       userEvent.upload(inputFile, []);
       Object.defineProperty(inputFile, 'value', {
         value: [],
