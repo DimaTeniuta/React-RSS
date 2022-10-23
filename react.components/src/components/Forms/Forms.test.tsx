@@ -2,7 +2,6 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import Forms from './Forms';
 import userEvent from '@testing-library/user-event';
-
 import { fakeFile } from 'data/mockData';
 import { act } from 'react-dom/test-utils';
 
@@ -119,13 +118,11 @@ describe('test submit', () => {
     userEvent.selectOptions(select, 'Belarus');
     userEvent.click(checkbox);
     userEvent.click(screen.getByText('Post'));
-    await act(async () => {
+    waitFor(() => {
       userEvent.upload(inputFile, fakeFile);
       Object.defineProperty(inputFile, 'value', {
         value: [fakeFile],
       });
-    });
-    waitFor(() => {
       expect(screen.getByTestId('readyFile')).toBeInTheDocument();
       expect(screen.getByText('Post')).not.toBeDisabled();
       userEvent.click(screen.getByText('Post'));
@@ -133,6 +130,36 @@ describe('test submit', () => {
       expect(screen.getByTestId('final-text')).toBeInTheDocument();
       expect(screen.getByTestId('final-img')).toBeInTheDocument();
       expect(mockGetData).toBeCalledTimes(1);
+    });
+  });
+
+  it('toggle InputFile image', async () => {
+    render(<Forms addData={mockGetData} />);
+    const nameInput = screen.getByTestId('inputName');
+    const inputFile = screen.getByTestId('inputFile');
+    userEvent.type(nameInput, 'Test');
+    expect(screen.queryByTestId('readyFile')).not.toBeInTheDocument();
+    await act(async () => {
+      userEvent.click(screen.getByText('Post'));
+      expect(screen.queryByTestId('readyFile')).not.toBeInTheDocument();
+    });
+    await waitFor(() => {
+      userEvent.upload(inputFile, fakeFile);
+      Object.defineProperty(inputFile, 'value', {
+        value: [fakeFile],
+      });
+    });
+    waitFor(() => {
+      expect(screen.getByTestId('readyFile')).toBeInTheDocument();
+    });
+    await waitFor(() => {
+      userEvent.upload(inputFile, []);
+      Object.defineProperty(inputFile, 'value', {
+        value: [],
+      });
+    });
+    await waitFor(() => {
+      expect(screen.queryByTestId('readyFile')).not.toBeInTheDocument();
     });
   });
 
@@ -151,47 +178,19 @@ describe('test submit', () => {
     userEvent.selectOptions(select, 'Belarus');
     userEvent.click(checkbox);
     expect(screen.getByText('Post')).not.toBeDisabled();
-    await act(async () => {
-      userEvent.click(screen.getByText('Post'));
-    });
-    expect(screen.getByText('Post')).toBeDisabled();
-    await act(async () => {
-      userEvent.upload(inputFile, fakeFile);
-      Object.defineProperty(inputFile, 'value', {
-        value: [fakeFile],
-      });
-    });
-    waitFor(() => {
-      expect(screen.getByText('Post')).not.toBeDisabled();
+    await waitFor(() => {
       userEvent.click(screen.getByText('Post'));
       expect(screen.getByText('Post')).toBeDisabled();
     });
-  });
-
-  it('toggle InputFile image', async () => {
-    render(<Forms addData={mockGetData} />);
-    const nameInput = screen.getByTestId('inputName');
-    const inputFile = screen.getByTestId('inputFile');
-    userEvent.type(nameInput, 'Test');
-    expect(screen.queryByTestId('readyFile')).not.toBeInTheDocument();
-    await act(async () => {
+    await waitFor(() => {
       userEvent.upload(inputFile, fakeFile);
       Object.defineProperty(inputFile, 'value', {
         value: [fakeFile],
       });
+      expect(screen.getByText('Post')).not.toBeDisabled();
     });
-    waitFor(() => {
-      expect(screen.getByTestId('readyFile')).toBeInTheDocument();
-    });
-    expect(screen.queryByTestId('readyFile')).not.toBeInTheDocument();
-    await act(async () => {
-      userEvent.upload(inputFile, []);
-      Object.defineProperty(inputFile, 'value', {
-        value: [],
-      });
-    });
-    waitFor(() => {
-      expect(screen.queryByTestId('readyFile')).not.toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText('Post')).not.toBeDisabled();
     });
   });
 });

@@ -3,7 +3,6 @@ import { render, screen, waitFor } from '@testing-library/react';
 import FormPage from './FormPage';
 import userEvent from '@testing-library/user-event';
 import { fakeFile } from 'data/mockData';
-import { act } from 'react-dom/test-utils';
 
 describe('FormPage', () => {
   it('renders FormPage', () => {
@@ -28,13 +27,11 @@ describe('FormPage', () => {
     userEvent.selectOptions(select, 'Belarus');
     userEvent.click(checkbox);
     userEvent.click(screen.getByText('Post'));
-    await act(async () => {
+    await waitFor(() => {
       userEvent.upload(inputFile, fakeFile);
       Object.defineProperty(inputFile, 'value', {
         value: [fakeFile],
       });
-    });
-    waitFor(() => {
       const cards = screen.getByTestId('formCard');
       expect(cards).toBeInTheDocument();
     });
