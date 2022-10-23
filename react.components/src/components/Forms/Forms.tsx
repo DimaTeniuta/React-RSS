@@ -39,7 +39,7 @@ export const Forms: FC<PropsForms> = ({ addData }): JSX.Element => {
 
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
   const [isDone, setIsDone] = useState<boolean>(false);
-  const [isUploadFile, setIsUploadFile] = useState<boolean>(false);
+  const [isUploadedFile, setIsUploadedFile] = useState<boolean>(false);
 
   const checkConditionsForSubmit = (): void => {
     if (isDirty && !isSubmitted) {
@@ -57,7 +57,7 @@ export const Forms: FC<PropsForms> = ({ addData }): JSX.Element => {
   }, [isDirty, isSubmitted, isValid]);
 
   useEffect(() => {
-    reset();
+    if (isSubmitSuccessful) reset();
   }, [isSubmitSuccessful]);
 
   const createDataForCard = (data: FormInputs): void => {
@@ -72,14 +72,15 @@ export const Forms: FC<PropsForms> = ({ addData }): JSX.Element => {
     createDataForCard(data);
     setIsDisabled(true);
     setIsDone(true);
-    setIsUploadFile(false);
+    setIsUploadedFile(false);
     setValue('genderMale', false);
     setValue('personalData', false);
   };
 
-  const HandleChange = (e: React.FormEvent<HTMLFormElement>) => {
-    if ((e.target as HTMLInputElement).id === 'avatar' && isSubmitted) {
-      (e.target as HTMLInputElement)?.files![0] ? setIsUploadFile(true) : setIsUploadFile(false);
+  const handleChange = (e: React.FormEvent<HTMLFormElement>) => {
+    const target = e.target as HTMLInputElement;
+    if (target.id === 'avatar' && isSubmitted) {
+      target.files![0] ? setIsUploadedFile(true) : setIsUploadedFile(false);
     }
   };
 
@@ -87,7 +88,7 @@ export const Forms: FC<PropsForms> = ({ addData }): JSX.Element => {
     <form
       className={classes.container}
       onSubmit={handleSubmit(onSubmit)}
-      onChange={HandleChange}
+      onChange={handleChange}
       noValidate
       data-testid="forms"
     >
@@ -168,7 +169,7 @@ export const Forms: FC<PropsForms> = ({ addData }): JSX.Element => {
         {...register(RegisterNames.AVATAR, {
           required: ErrorsForm.FILE,
         })}
-        ready={isUploadFile.toString()}
+        ready={isUploadedFile.toString()}
         error={errors?.avatar?.message}
       />
 
