@@ -22,7 +22,7 @@ export enum ErrorsForm {
   FILE = 'Upload an image in JPG or PNG format',
 }
 
-export enum RegisterNames {
+export enum RegisterName {
   NAME = 'name',
   SURNAME = 'surname',
   BIRTHDAY = 'birthday',
@@ -30,4 +30,14 @@ export enum RegisterNames {
   AVATAR = 'avatar',
   GENDER = 'genderMale',
   PERSONAL_DATA = 'personalData',
+}
+
+export enum TitleForm {
+  NAME = 'Name:',
+  SURNAME = 'Surname:',
+  BIRTHDAY = 'Birthday:',
+  COUNTRY = 'Country:',
+  AVATAR = 'Avatar:',
+  GENDER = 'Male/Female:',
+  PERSONAL_DATA = 'Consent to data processing:',
 }

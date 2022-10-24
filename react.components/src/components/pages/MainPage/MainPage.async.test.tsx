@@ -96,13 +96,13 @@ describe('MainPage async', () => {
     expect(axios.get).toBeCalledTimes(2);
   });
 
-  it('onkeydown enter in input', () => {
+  it('onkeydown enter in input', async () => {
     const mockFn = jest.fn();
     const mockLoader = jest.fn();
     render(<Search setData={mockFn} showLoader={mockLoader} />);
     userEvent.keyboard('[Enter]');
-    setTimeout(() => {
+    waitFor(() => {
       expect(mockFn).toHaveBeenCalled();
-    }, 1000);
+    });
   });
 });

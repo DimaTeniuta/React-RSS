@@ -32,7 +32,7 @@ const MainPage = (): JSX.Element => {
   };
 
   return (
-    <div className={classes.container} data-testid="main-page">
+    <div className={classes.container} data-testid="mainPage">
       <Search setData={setCards} showLoader={turnOnLoader} />
 
       <div className={classes.wrapCards}>

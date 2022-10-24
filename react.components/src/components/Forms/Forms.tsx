@@ -7,7 +7,7 @@ import Select from 'components/UI/Select/Select';
 import InputFile from 'components/UI/InputFile/InputFile';
 import { InputSwitch } from 'components/UI/InputSwitch/InputSwitch';
 import InputCheckbox from 'components/UI/InputCheckbox/InputCheckbox';
-import { ErrorsForm, FormData, RegisterNames } from 'types/formTypes';
+import { ErrorsForm, FormData, RegisterName, TitleForm } from 'types/formTypes';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import formValidator from 'utils/validator';
 
@@ -41,7 +41,7 @@ export const Forms: FC<PropsForms> = ({ addData }): JSX.Element => {
   const [isDone, setIsDone] = useState<boolean>(false);
   const [isUploadedFile, setIsUploadedFile] = useState<boolean>(false);
 
-  const checkConditionsForSubmit = (): void => {
+  useEffect(() => {
     if (isDirty && !isSubmitted) {
       setIsDisabled(false);
       setIsDone(false);
@@ -50,17 +50,13 @@ export const Forms: FC<PropsForms> = ({ addData }): JSX.Element => {
     } else if (isSubmitted && isValid) {
       setIsDisabled(false);
     }
-  };
-
-  useEffect(() => {
-    checkConditionsForSubmit();
   }, [isDirty, isSubmitted, isValid]);
 
   useEffect(() => {
     if (isSubmitSuccessful) reset();
-  }, [isSubmitSuccessful]);
+  }, [isSubmitSuccessful, reset]);
 
-  const createDataForCard = (data: FormInputs): void => {
+  const sendDataForCard = (data: FormInputs): void => {
     const dataCard: FormData = {
       ...data,
       avatar: data.avatar[0],
@@ -69,7 +65,7 @@ export const Forms: FC<PropsForms> = ({ addData }): JSX.Element => {
   };
 
   const onSubmit: SubmitHandler<FormInputs> = (data): void => {
-    createDataForCard(data);
+    sendDataForCard(data);
     setIsDisabled(true);
     setIsDone(true);
     setIsUploadedFile(false);
@@ -79,7 +75,7 @@ export const Forms: FC<PropsForms> = ({ addData }): JSX.Element => {
 
   const handleChange = (e: React.FormEvent<HTMLFormElement>) => {
     const target = e.target as HTMLInputElement;
-    if (target.id === 'avatar' && isSubmitted) {
+    if (target.id === RegisterName.AVATAR && isSubmitted) {
       target.files![0] ? setIsUploadedFile(true) : setIsUploadedFile(false);
     }
   };
@@ -93,11 +89,11 @@ export const Forms: FC<PropsForms> = ({ addData }): JSX.Element => {
       data-testid="forms"
     >
       <Input
-        label={RegisterNames.NAME}
-        title="Name:"
+        label={RegisterName.NAME}
+        title={TitleForm.NAME}
         type="text"
         testid="inputName"
-        {...register(RegisterNames.NAME, {
+        {...register(RegisterName.NAME, {
           required: ErrorsForm.REQUIRED_FIELD,
           pattern: {
             value: formValidator.requiredField,
@@ -112,11 +108,11 @@ export const Forms: FC<PropsForms> = ({ addData }): JSX.Element => {
       />
 
       <Input
-        label={RegisterNames.SURNAME}
-        title="Surname:"
+        label={RegisterName.SURNAME}
+        title={TitleForm.SURNAME}
         type="text"
         testid="inputSurname"
-        {...register(RegisterNames.SURNAME, {
+        {...register(RegisterName.SURNAME, {
           required: ErrorsForm.REQUIRED_FIELD,
           pattern: {
             value: formValidator.requiredField,
@@ -131,11 +127,11 @@ export const Forms: FC<PropsForms> = ({ addData }): JSX.Element => {
       />
 
       <Input
-        label={RegisterNames.BIRTHDAY}
-        title="Birthday:"
+        label={RegisterName.BIRTHDAY}
+        title={TitleForm.BIRTHDAY}
         type="date"
         testid="inputDate"
-        {...register(RegisterNames.BIRTHDAY, {
+        {...register(RegisterName.BIRTHDAY, {
           required: ErrorsForm.REQUIRED_FIELD,
           pattern: {
             value: formValidator.birthdayField,
@@ -147,12 +143,12 @@ export const Forms: FC<PropsForms> = ({ addData }): JSX.Element => {
 
       <Controller
         control={control}
-        name={RegisterNames.COUNTRY}
+        name={RegisterName.COUNTRY}
         rules={{ required: ErrorsForm.COUNTRY }}
         render={({ field: { onChange, value } }) => (
           <Select
-            label={RegisterNames.COUNTRY}
-            title="Country:"
+            label={RegisterName.COUNTRY}
+            title={TitleForm.COUNTRY}
             defaultValue={DEFAULT_VALUE_COUNTRY}
             options={SELECTOR_OPTIONS}
             value={value}
@@ -163,10 +159,10 @@ export const Forms: FC<PropsForms> = ({ addData }): JSX.Element => {
       />
 
       <InputFile
-        label={RegisterNames.AVATAR}
-        title="Avatar:"
+        label={RegisterName.AVATAR}
+        title={TitleForm.AVATAR}
         accept="image/png, image/jpeg"
-        {...register(RegisterNames.AVATAR, {
+        {...register(RegisterName.AVATAR, {
           required: ErrorsForm.FILE,
         })}
         ready={isUploadedFile.toString()}
@@ -174,15 +170,15 @@ export const Forms: FC<PropsForms> = ({ addData }): JSX.Element => {
       />
 
       <InputSwitch
-        label={RegisterNames.GENDER}
-        title="Male/Female:"
-        {...register(RegisterNames.GENDER)}
+        label={RegisterName.GENDER}
+        title={TitleForm.GENDER}
+        {...register(RegisterName.GENDER)}
       />
 
       <InputCheckbox
-        label={RegisterNames.PERSONAL_DATA}
-        title="Consent to data processing:"
-        {...register(RegisterNames.PERSONAL_DATA, {
+        label={RegisterName.PERSONAL_DATA}
+        title={TitleForm.PERSONAL_DATA}
+        {...register(RegisterName.PERSONAL_DATA, {
           required: ErrorsForm.REQUIRED_FIELD,
         })}
         error={errors?.personalData?.message}
@@ -191,9 +187,9 @@ export const Forms: FC<PropsForms> = ({ addData }): JSX.Element => {
       <Button disabled={isDisabled}>Post</Button>
 
       {isDone && (
-        <div className={classes.done} data-testid="final-text">
+        <div className={classes.done} data-testid="finalText">
           Done
-          <span className={classes.doneImg} data-testid="final-img"></span>
+          <span className={classes.doneImg} data-testid="finalImg"></span>
         </div>
       )}
     </form>

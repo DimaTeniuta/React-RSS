@@ -35,27 +35,3 @@ const InputFile: FC<InputFileProps> = React.forwardRef((props, ref): JSX.Element
 });
 
 export default InputFile;
-
-// interface InputFileProps {
-//   label: string;
-//   title: string;
-//   ref?: React.ForwardedRef<HTMLInputElement>;
-//   ready?: string;
-//   onClick?: () => void;
-//   error?: string;
-//   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-// }
-
-// const InputFile: FC<InputFileProps> = React.forwardRef((props, ref): JSX.Element => {
-//   return (
-//     <Label label={props.label} title={props.title} error={props.error} className={classes.wrap}>
-//       <input {...props} type="file" className={classes.input} ref={ref} data-testid="inputFile" />
-//       <div className={classes.btn} onClick={props.onClick}>
-//         Upload File
-//       </div>
-//       <span className={props.ready === 'true' ? classes.img : ''}></span>
-//     </Label>
-//   );
-// });
-
-// export default InputFile;

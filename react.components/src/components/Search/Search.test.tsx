@@ -16,7 +16,7 @@ describe('Search', () => {
   it('renders search', () => {
     render(<Search setData={mockFn} showLoader={mockLoader} />);
     expect(screen.getByPlaceholderText(/search/i)).toBeInTheDocument();
-    expect(screen.queryByTestId('clear-btn')).toBeInTheDocument();
+    expect(screen.queryByTestId('clearBtn')).toBeInTheDocument();
   });
 
   it('save input value in localStorage', () => {
@@ -42,7 +42,7 @@ describe('Search', () => {
 
   it('clear input', () => {
     render(<Search setData={mockFn} showLoader={mockLoader} />);
-    const btn = screen.getByTestId('clear-btn');
+    const btn = screen.getByTestId('clearBtn');
     userEvent.click(btn);
     const input = screen.getByPlaceholderText(/search/i);
     expect(input).toHaveValue('');

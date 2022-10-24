@@ -7,7 +7,7 @@ import { fakeFile } from 'data/mockData';
 describe('FormPage', () => {
   it('renders FormPage', () => {
     render(<FormPage />);
-    expect(screen.getByTestId('form-page')).toBeInTheDocument();
+    expect(screen.getByTestId('formPage')).toBeInTheDocument();
     expect(screen.getByTestId('forms')).toBeInTheDocument();
   });
 

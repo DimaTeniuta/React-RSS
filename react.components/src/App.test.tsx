@@ -12,7 +12,7 @@ describe('App', () => {
     const aboutLink = screen.getByTestId('about-link');
     const mainLink = screen.getByTestId('main-link');
     userEvent.click(mainLink);
-    expect(screen.getByTestId('main-page')).toBeInTheDocument();
+    expect(screen.getByTestId('mainPage')).toBeInTheDocument();
     userEvent.click(aboutLink);
     expect(screen.getByTestId('modal-test')).toBeInTheDocument();
     const titleTest2 = 'Rolling Scopes School';

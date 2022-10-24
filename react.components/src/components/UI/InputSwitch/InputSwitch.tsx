@@ -22,7 +22,7 @@ export const InputSwitch: FC<SwitchProps> = React.forwardRef((props, ref): JSX.E
             className={classes.input}
             ref={ref}
           />
-          <span className={classes.slider} data-testid="btn-switch"></span>
+          <span className={classes.slider}></span>
         </div>
       </Label>
     </>

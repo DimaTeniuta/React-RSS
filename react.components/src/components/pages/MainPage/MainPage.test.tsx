@@ -14,7 +14,7 @@ describe('MainPage', () => {
   it('renders MainPage', () => {
     render(<MainPage />);
     const input = screen.getByPlaceholderText(/search/i);
-    expect(screen.getByTestId('main-page')).toBeInTheDocument();
+    expect(screen.getByTestId('mainPage')).toBeInTheDocument();
     expect(screen.getByText(/search/i)).toBeInTheDocument();
     expect(input).toBeInTheDocument();
   });

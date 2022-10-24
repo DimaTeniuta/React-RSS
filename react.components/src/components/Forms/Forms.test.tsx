@@ -118,17 +118,19 @@ describe('test submit', () => {
     userEvent.selectOptions(select, 'Belarus');
     userEvent.click(checkbox);
     userEvent.click(screen.getByText('Post'));
-    waitFor(() => {
+    await waitFor(() => {
       userEvent.upload(inputFile, fakeFile);
       Object.defineProperty(inputFile, 'value', {
         value: [fakeFile],
       });
+    });
+    waitFor(() => {
       expect(screen.getByTestId('readyFile')).toBeInTheDocument();
       expect(screen.getByText('Post')).not.toBeDisabled();
       userEvent.click(screen.getByText('Post'));
       expect(screen.getByText('Post')).toBeDisabled();
-      expect(screen.getByTestId('final-text')).toBeInTheDocument();
-      expect(screen.getByTestId('final-img')).toBeInTheDocument();
+      expect(screen.getByTestId('finalText')).toBeInTheDocument();
+      expect(screen.getByTestId('finalImg')).toBeInTheDocument();
       expect(mockGetData).toBeCalledTimes(1);
     });
   });

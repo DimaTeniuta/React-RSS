@@ -24,7 +24,7 @@ const InputSearch: FC<InputProps> = (props): JSX.Element => {
         placeholder={props.placeholder}
         autoFocus={props.autoFocus}
       />
-      <Button className={classes.clearBtn} onClick={props.clearInput} data-testid="clear-btn" />
+      <Button className={classes.clearBtn} onClick={props.clearInput} data-testid="clearBtn" />
     </div>
   );
 };

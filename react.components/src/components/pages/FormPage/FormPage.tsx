@@ -11,7 +11,7 @@ const FormPage = (): JSX.Element => {
   };
 
   return (
-    <div className={classes.container} data-testid="form-page">
+    <div className={classes.container} data-testid="formPage">
       <Forms addData={addData} />
       <div className={classes.wrapCards}>
         {data.map((el, i) => (

@@ -126,7 +126,7 @@ Object {
     <div>
       <div
         class="container"
-        data-testid="main-page"
+        data-testid="mainPage"
       >
         <div
           class="wrap"
@@ -141,7 +141,7 @@ Object {
             />
             <button
               class="clearBtn"
-              data-testid="clear-btn"
+              data-testid="clearBtn"
             />
           </div>
           <button
@@ -164,7 +164,7 @@ Object {
   "container": <div>
     <div
       class="container"
-      data-testid="main-page"
+      data-testid="mainPage"
     >
       <div
         class="wrap"
@@ -179,7 +179,7 @@ Object {
           />
           <button
             class="clearBtn"
-            data-testid="clear-btn"
+            data-testid="clearBtn"
           />
         </div>
         <button
