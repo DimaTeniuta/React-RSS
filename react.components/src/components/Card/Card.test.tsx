@@ -15,11 +15,9 @@ const mockData = {
   },
 };
 
-const mockClick = jest.fn();
-
 describe('Card', () => {
   it('Card renders', () => {
-    render(<Card onClick={mockClick} data={mockData} />);
+    render(<Card data={mockData} />);
     expect(screen.getByRole('img')).toBeInTheDocument();
     expect(screen.getByText(/more details/i)).toBeInTheDocument();
     expect(screen.getByText(mockData.description)).toBeInTheDocument();
@@ -27,12 +25,12 @@ describe('Card', () => {
   });
 
   it('Card snapshot', () => {
-    const card = render(<Card onClick={mockClick} data={mockData} />);
+    const card = render(<Card data={mockData} />);
     expect(card).toMatchSnapshot();
   });
 
   it('renders image in card', () => {
-    render(<Card onClick={mockClick} data={mockData} />);
+    render(<Card data={mockData} />);
     expect(screen.getByAltText('card-image')).toBeInTheDocument();
   });
 
