@@ -16,14 +16,10 @@ const Search: FC<SearchProps> = (props): JSX.Element => {
   const [isSearch, setIsSearch] = useState<boolean>(false);
 
   const getNewCards = async (value?: string): Promise<void> => {
+    const queryValue = value && typeof value === 'string' ? value : searchValue;
     setIsSearch((prev) => !prev);
     props.showLoader();
-    if (value && typeof value === 'string') {
-      const data = await fetchCards(value);
-      props.setData(data);
-      return;
-    }
-    const data = await fetchCards(searchValue);
+    const data = await fetchCards(queryValue);
     props.setData(data);
   };
 

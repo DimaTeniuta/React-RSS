@@ -13,8 +13,8 @@ const MainPage = (): JSX.Element => {
   const [isActiveModalWindow, setIsActiveModalWindow] = useState<boolean>(false);
   const [modalWindowData, setModalWindowData] = useState<ResultsData>({});
 
-  const setCards = (data: ResultsData[]): void => {
-    setData(data);
+  const setCards = (newData: ResultsData[]): void => {
+    setData(newData);
     setIsLoading(false);
   };
 
