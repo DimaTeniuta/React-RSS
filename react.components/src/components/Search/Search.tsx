@@ -1,26 +1,26 @@
 import { fetchCards } from 'API/httpRequest';
 import Button from 'components/UI/Button/Button';
 import InputSearch from 'components/UI/InputSearch/InputSearch';
-import React, { FC, useEffect, useState } from 'react';
-import { ResultsData } from 'types/generalTypes';
+import { MainContext } from 'context/MainProvider/MainProvider';
+import React, { FC, useContext, useEffect, useState } from 'react';
 import localStorageModule from 'utils/localStorage';
 import classes from './Search.module.scss';
 
 interface SearchProps {
-  setData: (data: ResultsData[]) => void;
-  showLoader: () => void;
+  toggleLoader: () => void;
 }
 
-const Search: FC<SearchProps> = (props): JSX.Element => {
-  const [searchValue, setSearchValue] = useState<string>('');
+const Search: FC<SearchProps> = ({ toggleLoader }): JSX.Element => {
   const [isSearch, setIsSearch] = useState<boolean>(false);
+  const { searchValue, dispatchData, dispatchSearch } = useContext(MainContext);
 
   const getNewCards = async (value?: string): Promise<void> => {
     const queryValue = value && typeof value === 'string' ? value : searchValue;
     setIsSearch((prev) => !prev);
-    props.showLoader();
+    toggleLoader();
     const data = await fetchCards(queryValue);
-    props.setData(data);
+    dispatchData!({ type: 'add', payload: data });
+    toggleLoader();
   };
 
   const onEnterPress = (event: React.KeyboardEvent<HTMLInputElement>): void => {
@@ -31,17 +31,19 @@ const Search: FC<SearchProps> = (props): JSX.Element => {
 
   const getValue = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const value = event.target.value;
-    setSearchValue(value);
+    dispatchSearch!({ type: 'search', payload: value });
   };
 
   const clearInput = (): void => {
-    setSearchValue('');
+    dispatchSearch!({ type: 'search', payload: '' });
   };
 
   useEffect(() => {
-    const value = localStorageModule.getValue('inputValue') || '';
-    setSearchValue(value);
-    getNewCards(value);
+    if (!searchValue) {
+      const value = localStorageModule.getValue('inputValue') || '';
+      dispatchSearch!({ type: 'search', payload: value });
+      getNewCards(value);
+    }
   }, []);
 
   useEffect(() => {

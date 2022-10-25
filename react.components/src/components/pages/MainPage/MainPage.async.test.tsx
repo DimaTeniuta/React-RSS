@@ -99,7 +99,7 @@ describe('MainPage async', () => {
   it('onkeydown enter in input', async () => {
     const mockFn = jest.fn();
     const mockLoader = jest.fn();
-    render(<Search setData={mockFn} showLoader={mockLoader} />);
+    render(<Search toggleLoader={mockLoader} />);
     userEvent.keyboard('[Enter]');
     waitFor(() => {
       expect(mockFn).toHaveBeenCalled();

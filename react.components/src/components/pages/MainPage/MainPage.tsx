@@ -1,27 +1,22 @@
 import TextWindow from 'components/TextWindow/TextWindow';
 import Search from 'components/Search/Search';
-import React, { useState } from 'react';
-import { ResultsData } from 'types/generalTypes';
+import React, { useContext, useState } from 'react';
 import classes from './MainPage.module.scss';
 import Card from 'components/Card/Card';
 import Loader from 'components/Loader/Loader';
+import { MainContext } from 'context/MainProvider/MainProvider';
 
 const MainPage = (): JSX.Element => {
-  const [data, setData] = useState<ResultsData[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { data } = useContext(MainContext);
 
-  const setDataCards = (newData: ResultsData[]): void => {
-    setData(newData);
-    setIsLoading(false);
-  };
-
-  const turnOnLoader = (): void => {
-    setIsLoading(true);
+  const toggleLoader = (): void => {
+    setIsLoading((value) => !value);
   };
 
   return (
     <div className={classes.container} data-testid="mainPage">
-      <Search setData={setDataCards} showLoader={turnOnLoader} />
+      <Search toggleLoader={toggleLoader} />
 
       <div className={classes.wrapCards}>
         {isLoading ? (
