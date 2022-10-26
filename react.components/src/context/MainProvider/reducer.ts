@@ -1,23 +1,24 @@
 import { ResultsData } from 'types/generalTypes';
-
-export type ActionData = { type: 'add'; payload: ResultsData[] };
-type StateData = ResultsData[];
+import {
+  ActionData,
+  ActionFirsLoad,
+  MainReducer,
+  StateData,
+  StateFirstLoad,
+} from 'types/mainProviderTypes';
 
 export const reducerData = (state: StateData, action: ActionData): ResultsData[] => {
   switch (action.type) {
-    case 'add':
+    case MainReducer.DATA:
       return action.payload;
     default:
       throw new Error();
   }
 };
 
-export type ActionSearch = { type: 'search'; payload: string };
-type StateSearch = string;
-
-export const reducerSearch = (state: StateSearch, action: ActionSearch): string => {
+export const reducerFirstLoad = (state: StateFirstLoad, action: ActionFirsLoad): boolean => {
   switch (action.type) {
-    case 'search':
+    case MainReducer.FIRST_LOAD:
       return action.payload;
     default:
       throw new Error();
