@@ -5,7 +5,7 @@ import classes from './Select.module.scss';
 
 interface SelectProps {
   label: string;
-  title: string;
+  title?: string;
   options: SelectData[];
   defaultValue: string;
   value?: string;

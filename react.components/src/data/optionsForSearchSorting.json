@@ -1,0 +1,5 @@
+[
+  {"value": "landscape", "name": "Landscape"},
+  {"value": "portrait", "name": "Portrait"},
+  {"value": "squarish", "name": "Squarish"}
+]
