@@ -5,6 +5,7 @@ import classes from './MainPage.module.scss';
 import Card from 'components/Card/Card';
 import Loader from 'components/Loader/Loader';
 import { MainContext } from 'context/MainProvider/MainProvider';
+import Pagination from 'components/Pagination/Pagination';
 
 const MainPage = (): JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -18,11 +19,13 @@ const MainPage = (): JSX.Element => {
     <div className={classes.container} data-testid="mainPage">
       <Search toggleLoader={toggleLoader} />
 
+      {data.results.length > 0 && <Pagination toggleLoader={toggleLoader} />}
+
       <div className={classes.wrapCards}>
         {isLoading ? (
           <Loader />
-        ) : data.length ? (
-          data.map((el) => <Card key={el.id} data={el} />)
+        ) : data.results.length ? (
+          data.results.map((el) => <Card key={el.id} data={el} />)
         ) : (
           <TextWindow title="Not Found">Try entering another query</TextWindow>
         )}

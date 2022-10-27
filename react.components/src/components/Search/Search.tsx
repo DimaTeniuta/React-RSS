@@ -2,12 +2,18 @@ import { fetchCards } from 'API/httpRequest';
 import Button from 'components/UI/Button/Button';
 import InputSearch from 'components/UI/InputSearch/InputSearch';
 import Select from 'components/UI/Select/Select';
-import { MainContext } from 'context/MainProvider/MainProvider';
+import { FIRST_PAGE, MainContext } from 'context/MainProvider/MainProvider';
 import React, { FC, useContext, useEffect, useRef, useState } from 'react';
 import { MainReducer } from 'types/mainProviderTypes';
 import localStorageModule from 'utils/localStorage';
 import classes from './Search.module.scss';
-import options from '../../data/optionsForSearchSorting.json';
+import optionsSort from '../../data/optionsForSearchSorting.json';
+import optionsAmountCard from '../../data/optionsForAmountCard.json';
+import {
+  DefaultRequestValue,
+  DefaultSelectValue,
+  LocalStorageRequestValue,
+} from 'types/searchTypes';
 
 interface SearchProps {
   toggleLoader: () => void;
@@ -15,18 +21,43 @@ interface SearchProps {
 
 const Search: FC<SearchProps> = ({ toggleLoader }): JSX.Element => {
   const [searchValue, setSearchValue] = useState<string>('');
-  const { isFirstLoad, dispatchData, dispatchFirstLoad } = useContext(MainContext);
+  const { isFirstLoad, dispatchData, dispatchFirstLoad, dispatchPageValue } =
+    useContext(MainContext);
   const sortValueRef = useRef<HTMLSelectElement>(null);
+  const perPageRef = useRef<HTMLSelectElement>(null);
 
-  const getNewCards = async (value?: string, orientationValue?: string): Promise<void> => {
+  const saveValues = (searchValue: string, orientation: string, perPage: string, page: number) => {
+    localStorageModule.setValue(LocalStorageRequestValue.INPUT, searchValue);
+    localStorageModule.setValue(LocalStorageRequestValue.ORIENTATION, orientation);
+    localStorageModule.setValue(LocalStorageRequestValue.PER_PAGE, perPage);
+    localStorageModule.setValue(LocalStorageRequestValue.PAGE, page);
+    dispatchPageValue!({
+      type: MainReducer.PAGE_VALUE,
+      payload: { searchValue, orientation, perPage, page },
+    });
+  };
+
+  const getNewCards = async (
+    value?: string,
+    orientationValue?: string,
+    perPageValue?: string,
+    pageValue?: string
+  ): Promise<void> => {
+    toggleLoader();
     const queryValue = value && typeof value === 'string' ? value : searchValue;
     const orientation =
       orientationValue ||
-      (sortValueRef?.current!.value === 'Orientation' ? 'landscape' : sortValueRef?.current!.value);
-    localStorageModule.setValue('sortValue', orientation);
-    localStorageModule.setValue('inputValue', searchValue);
-    toggleLoader();
-    const data = await fetchCards(queryValue, orientation);
+      (sortValueRef?.current!.value === DefaultSelectValue.ORIENTATION
+        ? DefaultRequestValue.ORIENTATION
+        : sortValueRef?.current!.value);
+    const perPage =
+      perPageValue ||
+      (perPageRef?.current!.value === DefaultSelectValue.PER_PAGE
+        ? DefaultRequestValue.PER_PAGE
+        : perPageRef?.current!.value);
+    const page = pageValue || FIRST_PAGE;
+    saveValues(queryValue, orientation, perPage, +page);
+    const data = await fetchCards(queryValue, orientation, perPage, String(page));
     dispatchData!({ type: MainReducer.DATA, payload: data });
     toggleLoader();
   };
@@ -43,19 +74,35 @@ const Search: FC<SearchProps> = ({ toggleLoader }): JSX.Element => {
   };
 
   const clearInput = (): void => {
-    setSearchValue('');
+    setSearchValue(DefaultRequestValue.INPUT);
   };
 
-  useEffect(() => {
-    const value = localStorageModule.getValue('inputValue') || '';
+  const reloadApp = (): void => {
+    const value =
+      localStorageModule.getValue(LocalStorageRequestValue.INPUT) || DefaultRequestValue.INPUT;
+    const orientation =
+      localStorageModule.getValue(LocalStorageRequestValue.ORIENTATION) ||
+      DefaultRequestValue.ORIENTATION;
+    const perPage =
+      localStorageModule.getValue(LocalStorageRequestValue.PER_PAGE) ||
+      DefaultRequestValue.PER_PAGE;
+    const page =
+      localStorageModule.getValue(LocalStorageRequestValue.PAGE) || DefaultRequestValue.PAGE;
+    sortValueRef.current!.value = orientation;
+    perPageRef.current!.value = perPage;
     if (isFirstLoad) {
       setSearchValue(value);
-      const orientation = localStorageModule.getValue('sortValue') || 'landscape';
-      getNewCards(value, orientation);
+      getNewCards(value, orientation, perPage, page);
       dispatchFirstLoad!({ type: MainReducer.FIRST_LOAD, payload: false });
     } else {
       setSearchValue(value);
+      sortValueRef.current!.value = orientation;
+      perPageRef.current!.value = perPage;
     }
+  };
+
+  useEffect(() => {
+    reloadApp();
   }, []);
 
   return (
@@ -69,18 +116,27 @@ const Search: FC<SearchProps> = ({ toggleLoader }): JSX.Element => {
         onKeyDown={onEnterPress}
         clearInput={clearInput}
       />
-      <div>
+
+      <div className={classes.selectWrap}>
         <Select
-          className={classes.selectSort}
+          className={classes.select}
           label="searchSort"
-          options={options}
-          defaultValue="Orientation"
+          options={optionsSort}
+          defaultValue={DefaultSelectValue.ORIENTATION}
           ref={sortValueRef}
         />
-        <Button onClick={getNewCards} data-testid="test-search-btn">
-          Search
-        </Button>
+        <Select
+          className={classes.select}
+          label="searchPerPage"
+          options={optionsAmountCard}
+          defaultValue={DefaultSelectValue.PER_PAGE}
+          ref={perPageRef}
+        />
       </div>
+
+      <Button onClick={getNewCards} data-testid="test-search-btn">
+        Search
+      </Button>
     </div>
   );
 };

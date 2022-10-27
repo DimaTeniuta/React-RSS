@@ -9,8 +9,8 @@ export interface FormData {
 }
 
 export interface SelectData {
-  value: string;
-  name: string;
+  value: string | number;
+  name: string | number;
 }
 
 export enum ErrorsForm {
