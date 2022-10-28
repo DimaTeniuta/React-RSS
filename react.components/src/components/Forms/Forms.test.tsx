@@ -5,11 +5,9 @@ import userEvent from '@testing-library/user-event';
 import { fakeFile } from 'data/mockData';
 import { act } from 'react-dom/test-utils';
 
-const mockGetData = jest.fn();
-
 describe('Forms', () => {
   it('renders form', () => {
-    render(<Forms addData={mockGetData} />);
+    render(<Forms />);
     expect(screen.getByTestId('inputFile')).toBeInTheDocument();
     expect(screen.getByTestId('inputCheckbox')).toBeInTheDocument();
     expect(screen.getByTestId('select')).toBeInTheDocument();
@@ -19,7 +17,7 @@ describe('Forms', () => {
 
 describe('Forms validation', () => {
   it('validation inputName', async () => {
-    render(<Forms addData={mockGetData} />);
+    render(<Forms />);
     const nameInput = screen.getByTestId('inputName');
     userEvent.type(nameInput, 'Test1');
     const btn = screen.getByText('Post');
@@ -43,7 +41,7 @@ describe('Forms validation', () => {
   });
 
   it('validation inputDate', () => {
-    render(<Forms addData={mockGetData} />);
+    render(<Forms />);
     const dateInput = screen.getByTestId('inputDate');
     userEvent.type(dateInput, '20202-01-01');
     const btn = screen.getByText('Post');
@@ -59,7 +57,7 @@ describe('Forms validation', () => {
   });
 
   it('validation select', () => {
-    render(<Forms addData={mockGetData} />);
+    render(<Forms />);
     const nameInput = screen.getByTestId('inputName');
     userEvent.type(nameInput, 'Test');
     const btn = screen.getByText('Post');
@@ -73,7 +71,7 @@ describe('Forms validation', () => {
   });
 
   it('validation inputFile', () => {
-    render(<Forms addData={mockGetData} />);
+    render(<Forms />);
     const nameInput = screen.getByTestId('inputName');
     userEvent.type(nameInput, 'Test');
     const btn = screen.getByText('Post');
@@ -87,7 +85,7 @@ describe('Forms validation', () => {
   });
 
   it('validation inputCheckbox', () => {
-    render(<Forms addData={mockGetData} />);
+    render(<Forms />);
     const checkbox = screen.getByTestId('inputCheckbox');
     userEvent.click(checkbox);
     expect(screen.getByText('Post')).not.toBeDisabled();
@@ -103,7 +101,7 @@ describe('Forms validation', () => {
 
 describe('test submit', () => {
   it('successful submit', async () => {
-    render(<Forms addData={mockGetData} />);
+    render(<Forms />);
     expect(screen.queryByTestId('readyFile')).not.toBeInTheDocument();
     const nameInput = screen.getByTestId('inputName');
     const surnameInput = screen.getByTestId('inputSurname');
@@ -131,12 +129,11 @@ describe('test submit', () => {
       expect(screen.getByText('Post')).toBeDisabled();
       expect(screen.getByTestId('finalText')).toBeInTheDocument();
       expect(screen.getByTestId('finalImg')).toBeInTheDocument();
-      expect(mockGetData).toBeCalledTimes(1);
     });
   });
 
   it('toggle InputFile image', async () => {
-    render(<Forms addData={mockGetData} />);
+    render(<Forms />);
     const nameInput = screen.getByTestId('inputName');
     const inputFile = screen.getByTestId('inputFile');
     userEvent.type(nameInput, 'Test');
@@ -166,7 +163,7 @@ describe('test submit', () => {
   });
 
   it('disabled button', async () => {
-    render(<Forms addData={mockGetData} />);
+    render(<Forms />);
     expect(screen.queryByTestId('readyFile')).not.toBeInTheDocument();
     const nameInput = screen.getByTestId('inputName');
     const surnameInput = screen.getByTestId('inputSurname');

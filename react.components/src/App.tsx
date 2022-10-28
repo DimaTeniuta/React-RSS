@@ -1,5 +1,5 @@
 import AppRouter from 'components/AppRouter';
-import MainProvider from 'context/MainProvider/MainProvider';
+import Provider from 'context/Provider';
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
@@ -7,9 +7,9 @@ function App(): JSX.Element {
   return (
     <>
       <BrowserRouter>
-        <MainProvider>
+        <Provider>
           <AppRouter />
-        </MainProvider>
+        </Provider>
       </BrowserRouter>
     </>
   );

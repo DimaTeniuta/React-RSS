@@ -3,7 +3,7 @@ import React, { createContext, FC, ReactNode, useReducer } from 'react';
 import { HttpData } from 'types/generalTypes';
 import { ActionData, ActionFirsLoad, ActionPageValue, PageValue } from 'types/mainProviderTypes';
 import { DefaultRequestValue } from 'types/searchTypes';
-import { reducerData, reducerFirstLoad, reducerPageValue } from './reducer';
+import { reducerData, reducerFirstLoad, reducerPageValue } from './mainReducer';
 
 export const FIRST_PAGE = 1;
 

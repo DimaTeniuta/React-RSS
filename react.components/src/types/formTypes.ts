@@ -8,6 +8,16 @@ export interface FormData {
   genderMale: boolean;
 }
 
+export interface FormInputs {
+  name: string;
+  surname: string;
+  birthday: string;
+  country: string;
+  avatar?: FileList;
+  genderMale: boolean;
+  personalData: boolean;
+}
+
 export interface SelectData {
   value: string | number;
   name: string | number;

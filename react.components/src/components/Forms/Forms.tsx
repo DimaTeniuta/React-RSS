@@ -1,5 +1,5 @@
 import Input from 'components/UI/Input/Input';
-import React, { FC, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import classes from './Forms.module.scss';
 import SELECTOR_OPTIONS from '../../data/optionsForSelect.json';
 import Button from 'components/UI/Button/Button';
@@ -8,16 +8,14 @@ import InputFile from 'components/UI/InputFile/InputFile';
 import { InputSwitch } from 'components/UI/InputSwitch/InputSwitch';
 import InputCheckbox from 'components/UI/InputCheckbox/InputCheckbox';
 import { ErrorsForm, FormData, RegisterName, TitleForm } from 'types/formTypes';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { FieldValues, SubmitHandler, useFormContext } from 'react-hook-form';
 import formValidator from 'utils/validator';
+import { defaultFileName, FormContext, initialFormFile } from 'context/FormProvider/FormProvider';
+import { FormReducer } from 'types/formProviderTypes';
 
 const DEFAULT_VALUE_COUNTRY = 'Country';
 
-type PropsForms = {
-  addData: (data: FormData) => void;
-};
-
-interface FormInputs {
+export interface FormInputs {
   name: string;
   surname: string;
   birthday: string;
@@ -27,19 +25,20 @@ interface FormInputs {
   personalData: boolean;
 }
 
-export const Forms: FC<PropsForms> = ({ addData }): JSX.Element => {
+export const Forms = (): JSX.Element => {
   const {
     register,
     formState: { errors, isDirty, isSubmitted, isValid, isSubmitSuccessful },
     handleSubmit,
-    control,
     reset,
     setValue,
-  } = useForm<FormInputs>();
-
+    setError,
+  } = useFormContext();
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
   const [isDone, setIsDone] = useState<boolean>(false);
   const [isUploadedFile, setIsUploadedFile] = useState<boolean>(false);
+  const [isValidateFile, setIsValidateFile] = useState<boolean>(true);
+  const { file, dispatchFormFile, dispatchFormData } = useContext(FormContext);
 
   useEffect(() => {
     if (isDirty && !isSubmitted) {
@@ -52,32 +51,75 @@ export const Forms: FC<PropsForms> = ({ addData }): JSX.Element => {
     }
   }, [isDirty, isSubmitted, isValid]);
 
-  useEffect(() => {
-    if (isSubmitSuccessful) reset();
-  }, [isSubmitSuccessful, reset]);
-
-  const sendDataForCard = (data: FormInputs): void => {
-    const dataCard: FormData = {
+  const sendDataForCard = (data: FieldValues): void => {
+    const dataCard = {
       ...data,
       avatar: data.avatar[0],
     };
-    addData(dataCard);
+    dispatchFormData!({ type: FormReducer.DATA, payload: dataCard as FormData });
   };
 
-  const onSubmit: SubmitHandler<FormInputs> = (data): void => {
-    sendDataForCard(data);
-    setIsDisabled(true);
-    setIsDone(true);
-    setIsUploadedFile(false);
-    setValue('genderMale', false);
-    setValue('personalData', false);
+  const setFileInContext = (file: File): void => {
+    dispatchFormFile!({ type: FormReducer.FILE, payload: file });
+  };
+
+  const checkFile = (): boolean => {
+    if (file.name.split('.')[0] === defaultFileName) return false;
+    return true;
+  };
+
+  const setFileValues = (value: boolean): void => {
+    setIsUploadedFile(value);
+    setIsValidateFile(!value);
+  };
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset();
+      setIsUploadedFile(false);
+    }
+  }, [isSubmitSuccessful, reset]);
+
+  useEffect(() => {
+    checkFile() && isSubmitted ? setFileValues(true) : setFileValues(false);
+    if (!Object.keys(errors).length && isSubmitted) {
+      setIsDisabled(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isSubmitted && checkFile()) setFileValues(true);
+  }, [isDisabled]);
+
+  const onClick = (): void => {
+    checkFile() ? setIsValidateFile(false) : setIsValidateFile(true);
   };
 
   const handleChange = (e: React.FormEvent<HTMLFormElement>) => {
     const target = e.target as HTMLInputElement;
-    if (target.id === RegisterName.AVATAR && isSubmitted) {
-      target.files![0] ? setIsUploadedFile(true) : setIsUploadedFile(false);
+    if (target.id === RegisterName.AVATAR) {
+      setIsValidateFile(true);
+      target?.files![0] ? setFileInContext(target.files[0]) : setFileInContext(initialFormFile);
     }
+
+    if (target.id === RegisterName.AVATAR && isSubmitted) {
+      if (target.files![0]) {
+        setFileValues(true);
+      } else {
+        setFileValues(false);
+        setError(RegisterName.AVATAR, { type: 'required', message: ErrorsForm.FILE });
+      }
+    }
+  };
+
+  const onSubmit: SubmitHandler<FieldValues> = (data): void => {
+    sendDataForCard(data);
+    setIsDisabled(true);
+    setIsDone(true);
+    setValue('genderMale', false);
+    setValue('personalData', false);
+    setFileInContext(initialFormFile);
+    setIsValidateFile(true);
   };
 
   return (
@@ -104,7 +146,7 @@ export const Forms: FC<PropsForms> = ({ addData }): JSX.Element => {
             message: ErrorsForm.LENGTH,
           },
         })}
-        error={errors?.name?.message}
+        error={errors?.name?.message as string}
       />
 
       <Input
@@ -123,7 +165,7 @@ export const Forms: FC<PropsForms> = ({ addData }): JSX.Element => {
             message: ErrorsForm.LENGTH,
           },
         })}
-        error={errors?.surname?.message}
+        error={errors?.surname?.message as string}
       />
 
       <Input
@@ -138,24 +180,21 @@ export const Forms: FC<PropsForms> = ({ addData }): JSX.Element => {
             message: ErrorsForm.BIRTHDAY,
           },
         })}
-        error={errors?.birthday?.message}
+        error={errors?.birthday?.message as string}
       />
 
-      <Controller
-        control={control}
-        name={RegisterName.COUNTRY}
-        rules={{ required: ErrorsForm.COUNTRY }}
-        render={({ field: { onChange, value } }) => (
-          <Select
-            label={RegisterName.COUNTRY}
-            title={TitleForm.COUNTRY}
-            defaultValue={DEFAULT_VALUE_COUNTRY}
-            options={SELECTOR_OPTIONS}
-            value={value}
-            onChange={onChange}
-            error={errors?.country?.message}
-          />
-        )}
+      <Select
+        label={RegisterName.COUNTRY}
+        title={TitleForm.COUNTRY}
+        defaultValue={DEFAULT_VALUE_COUNTRY}
+        options={SELECTOR_OPTIONS}
+        {...register(RegisterName.COUNTRY, {
+          pattern: {
+            value: formValidator.countryField,
+            message: ErrorsForm.COUNTRY,
+          },
+        })}
+        error={errors?.country?.message as string}
       />
 
       <InputFile
@@ -163,10 +202,10 @@ export const Forms: FC<PropsForms> = ({ addData }): JSX.Element => {
         title={TitleForm.AVATAR}
         accept="image/png, image/jpeg"
         {...register(RegisterName.AVATAR, {
-          required: ErrorsForm.FILE,
+          required: isValidateFile && ErrorsForm.FILE,
         })}
         ready={isUploadedFile.toString()}
-        error={errors?.avatar?.message}
+        error={errors?.avatar?.message as string}
       />
 
       <InputSwitch
@@ -181,10 +220,12 @@ export const Forms: FC<PropsForms> = ({ addData }): JSX.Element => {
         {...register(RegisterName.PERSONAL_DATA, {
           required: ErrorsForm.REQUIRED_FIELD,
         })}
-        error={errors?.personalData?.message}
+        error={errors?.personalData?.message as string}
       />
 
-      <Button disabled={isDisabled}>Post</Button>
+      <Button disabled={isDisabled} onClick={onClick}>
+        Post
+      </Button>
 
       {isDone && (
         <div className={classes.done} data-testid="finalText">
