@@ -18,7 +18,7 @@ const Pagination: FC<PaginationProps> = ({ toggleLoader }): JSX.Element => {
   const { page, searchValue, orientation, perPage } = pageValue as PageValue;
 
   const saveValues = (searchValue: string, orientation: string, perPage: string, page: number) => {
-    dispatchPageValue!({
+    dispatchPageValue({
       type: MainReducer.PAGE_VALUE,
       payload: { searchValue, orientation, perPage, page },
     });
@@ -28,7 +28,7 @@ const Pagination: FC<PaginationProps> = ({ toggleLoader }): JSX.Element => {
   const getNewData = async (page: number) => {
     toggleLoader();
     const data = await fetchCards(searchValue, orientation, perPage, String(page));
-    dispatchData!({ type: MainReducer.DATA, payload: data });
+    dispatchData({ type: MainReducer.DATA, payload: data });
     saveValues(searchValue, orientation, perPage, page);
     toggleLoader();
   };

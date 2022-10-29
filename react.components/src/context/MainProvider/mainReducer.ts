@@ -1,5 +1,6 @@
-import { HttpData } from 'types/generalTypes';
+import { HttpData, ResultsData } from 'types/generalTypes';
 import {
+  ActionCardValue,
   ActionData,
   ActionFirsLoad,
   ActionPageValue,
@@ -31,6 +32,15 @@ export const reducerFirstLoad = (state: StateFirstLoad, action: ActionFirsLoad):
 export const reducerPageValue = (state: StatePageValue, action: ActionPageValue): PageValue => {
   switch (action.type) {
     case MainReducer.PAGE_VALUE:
+      return action.payload;
+    default:
+      throw new Error();
+  }
+};
+
+export const reducerCardValue = (state: ResultsData, action: ActionCardValue): ResultsData => {
+  switch (action.type) {
+    case MainReducer.CARD_PAGE:
       return action.payload;
     default:
       throw new Error();

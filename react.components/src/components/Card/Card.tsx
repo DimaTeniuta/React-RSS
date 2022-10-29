@@ -1,7 +1,9 @@
-import { CardModalWindow } from 'components/CardModalWindow/CardModalWindow';
 import Button from 'components/UI/Button/Button';
-import React, { FC, useState } from 'react';
+import { MainContext } from 'context/MainProvider/MainProvider';
+import React, { FC, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ResultsData } from 'types/generalTypes';
+import { MainReducer } from 'types/mainProviderTypes';
 import classes from './Card.module.scss';
 
 type PropsCard = {
@@ -9,9 +11,11 @@ type PropsCard = {
 };
 
 const Card: FC<PropsCard> = ({ data }): JSX.Element => {
-  const [isActiveModalWindow, setIsActiveModalWindow] = useState<boolean>(false);
-  const toggleModalWindow = (): void => {
-    setIsActiveModalWindow((prevValue) => !prevValue);
+  const { dispatchCardValue } = useContext(MainContext);
+  const navigate = useNavigate();
+  const onClick = (): void => {
+    dispatchCardValue({ type: MainReducer.CARD_PAGE, payload: data });
+    navigate('/main/card');
   };
 
   return (
@@ -21,9 +25,8 @@ const Card: FC<PropsCard> = ({ data }): JSX.Element => {
         <p className={classes.title}>{data.description ?? 'Unknown'}</p>
         <span className={classes.likes}>{data.likes}</span>
         <div className={classes.icon}></div>
-        <Button onClick={toggleModalWindow}>More details</Button>
+        <Button onClick={onClick}>More details</Button>
       </div>
-      {isActiveModalWindow && <CardModalWindow onClick={toggleModalWindow} data={data} />}
     </>
   );
 };

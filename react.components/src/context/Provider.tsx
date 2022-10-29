@@ -7,7 +7,7 @@ type ProviderProps = {
   children: ReactNode;
 };
 
-const Provider: FC<ProviderProps> = ({ children }) => {
+const Provider: FC<ProviderProps> = ({ children }): JSX.Element => {
   return (
     <MainProvider>
       <FormProvider>

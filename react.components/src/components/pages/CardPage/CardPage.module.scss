@@ -1,0 +1,47 @@
+@import '../../../styles/variables.scss';
+
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+
+  .wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 20px;
+    width: 480px;
+    padding: 20px 40px 20px 40px;
+    backdrop-filter: $filter;
+    background-color: $color-background-box;
+    border: 2px solid $color-grey;
+    border-radius: 10px;
+    color: $color-white;
+
+    .images {
+      width: 400px;
+      height: 280px;
+      border-radius: 5px;
+    }
+
+    .title {
+      color: $color-white;
+      font-size: 25px;
+    }
+
+    .text {
+      color: $color-white;
+      font-size: 20px;
+      font-weight: 500;
+    
+      .textTitle {
+        color: $color-yellow;
+        font-size: $font-regular18;
+        font-weight: 400;
+      }
+    }
+  }
+}
+
