@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import App from 'App';
 import MainPage from 'components/pages/MainPage/MainPage';
 import React from 'react';
 import Card from './Card';
@@ -24,43 +25,16 @@ describe('Card', () => {
     expect(screen.queryByTestId('modalWindowWrap')).not.toBeInTheDocument();
   });
 
-  it('Card snapshot', () => {
-    const card = render(<Card data={mockData} />);
-    expect(card).toMatchSnapshot();
-  });
-
-  it('renders image in card', () => {
-    render(<Card data={mockData} />);
-    expect(screen.getByAltText('card-image')).toBeInTheDocument();
-  });
-
   it('render 30 cards', async () => {
-    render(<MainPage />);
+    render(<App />);
+    const main = screen.getByTestId('mainLink');
+    userEvent.click(main);
     const cards = await screen.findAllByTestId('test-card');
-    expect(cards.length).toBe(30);
+    expect(cards.length).toBe(10);
   });
 
   it('Cards snapshot', () => {
     const cards = render(<MainPage />);
     expect(cards).toMatchSnapshot();
-  });
-
-  it('show modal window', async () => {
-    render(<MainPage />);
-    const btn = await screen.findAllByText('More details');
-    userEvent.click(btn[1]);
-    expect(screen.getByTestId('modalWindowWrap')).toBeInTheDocument();
-  });
-
-  it('toggle modal window', async () => {
-    render(<MainPage />);
-    const btn = await screen.findAllByText('More details');
-    userEvent.click(btn[1]);
-    const overlay = screen.getByTestId('modalWindowWrap');
-    expect(overlay).toBeInTheDocument();
-    userEvent.click(screen.getByTestId('modalWindow'));
-    expect(overlay).toBeInTheDocument();
-    userEvent.click(overlay);
-    expect(overlay).not.toBeInTheDocument();
   });
 });
