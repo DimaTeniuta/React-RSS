@@ -20,7 +20,6 @@ const CardPage = () => {
         <div className={classes.container} data-testid="cardPage-test">
           <div className={classes.wrap}>
             <img className={classes.images} src={cardValue.urls?.small} alt="card-image" />
-            <p className={classes.title}>{cardValue.description ?? 'Unknown'}</p>
             <div className={classes.text}>
               <p className={classes.textTitle}>Author: </p>
               {cardValue.user?.name}
@@ -43,7 +42,9 @@ const CardPage = () => {
               <p className={classes.textTitle}>Created: </p>
               {cardValue.created_at}
             </div>
-            <Button onClick={onClick}>Back</Button>
+            <Button onClick={onClick} data-testid="BackBtn">
+              Back
+            </Button>
           </div>
         </div>
       ) : (
