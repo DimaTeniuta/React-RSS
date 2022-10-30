@@ -45,11 +45,32 @@ export const Forms = (): JSX.Element => {
       setIsDisabled(false);
       setIsDone(false);
     } else if (isSubmitted && !isValid) {
-      setIsDisabled(true);
+      if (Object.keys(errors).length) {
+        setIsDisabled(true);
+      }
     } else if (isSubmitted && isValid) {
       setIsDisabled(false);
     }
   }, [isDirty, isSubmitted, isValid]);
+
+  useEffect(() => {
+    console.log(3333);
+    if (isSubmitted && checkFile()) setFileValues(true);
+  }, [isDisabled]);
+
+  useEffect(() => {
+    checkFile() && isSubmitted ? setFileValues(true) : setFileValues(false);
+    if (!Object.keys(errors).length && isSubmitted) {
+      setIsDisabled(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset();
+      setIsUploadedFile(false);
+    }
+  }, [isSubmitSuccessful, reset]);
 
   const sendDataForCard = (data: FieldValues): void => {
     const dataCard = {
@@ -72,24 +93,6 @@ export const Forms = (): JSX.Element => {
     setIsUploadedFile(value);
     setIsValidateFile(!value);
   };
-
-  useEffect(() => {
-    if (isSubmitSuccessful) {
-      reset();
-      setIsUploadedFile(false);
-    }
-  }, [isSubmitSuccessful, reset]);
-
-  useEffect(() => {
-    checkFile() && isSubmitted ? setFileValues(true) : setFileValues(false);
-    if (!Object.keys(errors).length && isSubmitted) {
-      setIsDisabled(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (isSubmitted && checkFile()) setFileValues(true);
-  }, [isDisabled]);
 
   const onClick = (): void => {
     checkFile() ? setIsValidateFile(false) : setIsValidateFile(true);
