@@ -4,46 +4,46 @@ import Search from './Search';
 import { localStorageMock } from 'data/mockData';
 import userEvent from '@testing-library/user-event';
 
-Object.defineProperty(window, 'localStorage', { value: localStorageMock });
-const mockLoader = jest.fn();
+// Object.defineProperty(window, 'localStorage', { value: localStorageMock });
+// const mockLoader = jest.fn();
 
-describe('Search', () => {
-  beforeEach(() => {
-    window.localStorage.clear();
-  });
+// describe('Search', () => {
+//   beforeEach(() => {
+//     window.localStorage.clear();
+//   });
 
-  it('renders search', () => {
-    render(<Search toggleLoader={mockLoader} />);
-    expect(screen.getByPlaceholderText(/search/i)).toBeInTheDocument();
-    expect(screen.queryByTestId('clearBtn')).toBeInTheDocument();
-  });
+//   it('renders search', () => {
+//     render(<Search toggleLoader={mockLoader} />);
+//     expect(screen.getByPlaceholderText(/search/i)).toBeInTheDocument();
+//     expect(screen.queryByTestId('clearBtn')).toBeInTheDocument();
+//   });
 
-  it('save input value in localStorage', () => {
-    const { unmount } = render(<Search toggleLoader={mockLoader} />);
-    const input = screen.getByPlaceholderText(/search/i);
-    const testValue = 'test';
-    userEvent.type(input, testValue);
-    userEvent.click(screen.getByTestId('test-search-btn'));
-    unmount();
-    expect(localStorage.getItem('inputValue')).toEqual(JSON.stringify(testValue));
-  });
+//   it('save input value in localStorage', () => {
+//     const { unmount } = render(<Search toggleLoader={mockLoader} />);
+//     const input = screen.getByPlaceholderText(/search/i);
+//     const testValue = 'test';
+//     userEvent.type(input, testValue);
+//     userEvent.click(screen.getByTestId('test-search-btn'));
+//     unmount();
+//     expect(localStorage.getItem('inputValue')).toEqual(JSON.stringify(testValue));
+//   });
 
-  it('get value in input from localStorage', () => {
-    const { unmount } = render(<Search toggleLoader={mockLoader} />);
-    const input = screen.getByPlaceholderText(/search/i);
-    const testValue = 'test';
-    userEvent.type(input, testValue);
-    userEvent.click(screen.getByTestId('test-search-btn'));
-    unmount();
-    render(<Search toggleLoader={mockLoader} />);
-    expect(screen.getByDisplayValue('test')).toBeInTheDocument();
-  });
+//   it('get value in input from localStorage', () => {
+//     const { unmount } = render(<Search toggleLoader={mockLoader} />);
+//     const input = screen.getByPlaceholderText(/search/i);
+//     const testValue = 'test';
+//     userEvent.type(input, testValue);
+//     userEvent.click(screen.getByTestId('test-search-btn'));
+//     unmount();
+//     render(<Search toggleLoader={mockLoader} />);
+//     expect(screen.getByDisplayValue('test')).toBeInTheDocument();
+//   });
 
-  it('clear input', () => {
-    render(<Search toggleLoader={mockLoader} />);
-    const btn = screen.getByTestId('clearBtn');
-    userEvent.click(btn);
-    const input = screen.getByPlaceholderText(/search/i);
-    expect(input).toHaveValue('');
-  });
-});
+//   it('clear input', () => {
+//     render(<Search toggleLoader={mockLoader} />);
+//     const btn = screen.getByTestId('clearBtn');
+//     userEvent.click(btn);
+//     const input = screen.getByPlaceholderText(/search/i);
+//     expect(input).toHaveValue('');
+//   });
+// });

@@ -9,10 +9,13 @@ import AppRouter from 'components/AppRouter';
 describe('App', () => {
   it('router test', () => {
     render(<App />);
-    const aboutLink = screen.getByTestId('about-link');
-    const mainLink = screen.getByTestId('main-link');
+    const aboutLink = screen.getByTestId('aboutLink');
+    const mainLink = screen.getByTestId('mainLink');
+    const formLink = screen.getByTestId('formLink');
     userEvent.click(mainLink);
     expect(screen.getByTestId('mainPage')).toBeInTheDocument();
+    userEvent.click(formLink);
+    expect(screen.getByTestId('formPage')).toBeInTheDocument();
     userEvent.click(aboutLink);
     expect(screen.getByTestId('modal-test')).toBeInTheDocument();
     const titleTest2 = 'Rolling Scopes School';

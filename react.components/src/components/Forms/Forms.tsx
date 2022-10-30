@@ -54,7 +54,6 @@ export const Forms = (): JSX.Element => {
   }, [isDirty, isSubmitted, isValid]);
 
   useEffect(() => {
-    console.log(3333);
     if (isSubmitted && checkFile()) setFileValues(true);
   }, [isDisabled]);
 
