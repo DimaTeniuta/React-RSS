@@ -16,7 +16,7 @@ export const reducerData = (state: StateData, action: ActionData): HttpData => {
     case MainReducer.DATA:
       return action.payload;
     default:
-      throw new Error();
+      throw new Error('wrong type');
   }
 };
 
@@ -24,6 +24,8 @@ export const reducerFirstLoad = (state: StateFirstLoad, action: ActionFirsLoad):
   switch (action.type) {
     case MainReducer.FIRST_LOAD:
       return action.payload;
+    default:
+      throw new Error('wrong type');
   }
 };
 
@@ -32,7 +34,7 @@ export const reducerPageValue = (state: StatePageValue, action: ActionPageValue)
     case MainReducer.PAGE_VALUE:
       return action.payload;
     default:
-      throw new Error();
+      throw new Error('wrong type');
   }
 };
 
@@ -41,6 +43,6 @@ export const reducerCardValue = (state: ResultsData, action: ActionCardValue): R
     case MainReducer.CARD_PAGE:
       return action.payload;
     default:
-      throw new Error();
+      throw new Error('wrong type');
   }
 };
