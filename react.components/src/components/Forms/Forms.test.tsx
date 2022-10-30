@@ -239,14 +239,16 @@ describe('test submit', () => {
         value: [fakeFile],
       });
     });
-    await waitFor(() => {
-      expect(screen.getByText('Post')).not.toBeDisabled();
-    });
+    expect(screen.getByText('Post')).not.toBeDisabled();
     const main = screen.getByTestId('mainLink');
     userEvent.click(main);
-    userEvent.click(form);
     await waitFor(() => {
+      userEvent.click(form);
       expect(screen.getByText('Post')).not.toBeDisabled();
+    });
+    await waitFor(() => {
+      userEvent.type(nameInput, 'Test1');
+      expect(screen.getByText('Post')).toBeDisabled();
     });
   });
 });

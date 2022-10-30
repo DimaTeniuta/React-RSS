@@ -6,7 +6,7 @@ export const reducerFormData = (state: FormData[], action: ActionFormData): Form
     case FormReducer.DATA:
       return [...state, action.payload];
     default:
-      throw new Error();
+      throw new Error('wrong type');
   }
 };
 
@@ -15,6 +15,6 @@ export const reducerFormFile = (state: File, action: ActionFormFile): File => {
     case FormReducer.FILE:
       return action.payload;
     default:
-      throw new Error();
+      throw new Error('wrong type');
   }
 };

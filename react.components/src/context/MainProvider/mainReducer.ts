@@ -24,8 +24,6 @@ export const reducerFirstLoad = (state: StateFirstLoad, action: ActionFirsLoad):
   switch (action.type) {
     case MainReducer.FIRST_LOAD:
       return action.payload;
-    default:
-      throw new Error();
   }
 };
 

@@ -14,6 +14,7 @@ describe('CardPage', () => {
     await waitFor(() => {
       userEvent.click(btns[6]);
       expect(screen.getByTestId('cardPage-test')).toBeInTheDocument();
+      expect(screen.getByAltText('card-image')).toBeInTheDocument();
     });
     await waitFor(() => {
       userEvent.click(screen.getByTestId('BackBtn'));
