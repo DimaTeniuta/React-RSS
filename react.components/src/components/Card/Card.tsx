@@ -25,7 +25,9 @@ const Card: FC<PropsCard> = ({ data }): JSX.Element => {
         <p className={classes.title}>{data.description ?? 'Unknown'}</p>
         <span className={classes.likes}>{data.likes}</span>
         <div className={classes.icon}></div>
-        <Button onClick={onClick}>More details</Button>
+        <Button onClick={onClick} data-testid="cardBtn">
+          More details
+        </Button>
       </div>
     </>
   );

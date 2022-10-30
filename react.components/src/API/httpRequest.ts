@@ -13,7 +13,7 @@ export async function fetchCards(
   queryName: string,
   orientation: string,
   perPage: string,
-  page = '1'
+  page: string
 ): Promise<HttpData> {
   try {
     if (!queryName) {

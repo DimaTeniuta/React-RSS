@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from 'App';
 import MainPage from 'components/pages/MainPage/MainPage';
@@ -26,5 +26,18 @@ describe('Card', () => {
   it('Cards snapshot', () => {
     const cards = render(<MainPage />);
     expect(cards).toMatchSnapshot();
+  });
+
+  it('render separate page', async () => {
+    render(<App />);
+    const main = screen.getByTestId('mainLink');
+    await waitFor(() => {
+      userEvent.click(main);
+    });
+    const btns = await screen.findAllByTestId('cardBtn');
+    await waitFor(() => {
+      userEvent.click(btns[6]);
+      expect(screen.getByTestId('cardPage-test')).toBeInTheDocument();
+    });
   });
 });

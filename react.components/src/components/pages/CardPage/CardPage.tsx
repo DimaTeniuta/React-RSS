@@ -17,7 +17,7 @@ const CardPage = () => {
   return (
     <>
       {cardValue?.urls ? (
-        <div className={classes.container}>
+        <div className={classes.container} data-testid="cardPage-test">
           <div className={classes.wrap}>
             <img className={classes.images} src={cardValue.urls?.small} alt="card-image" />
             <p className={classes.title}>{cardValue.description ?? 'Unknown'}</p>

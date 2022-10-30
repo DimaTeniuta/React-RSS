@@ -63,23 +63,43 @@ const Pagination: FC<PaginationProps> = ({ toggleLoader }): JSX.Element => {
       setIsDisabledPrevBtn(false);
       setIsDisabledNextBtn(false);
     }
-  }, [page]);
+  }, [data.total_pages, page]);
 
   return (
-    <div className={classes.wrap}>
-      <Button className={classes.btn} onClick={switchFirstPage} disabled={isDisabledPrevBtn}>
+    <div className={classes.wrap} data-testid="pagination">
+      <Button
+        className={classes.btn}
+        onClick={switchFirstPage}
+        disabled={isDisabledPrevBtn}
+        data-testid="firstPageBtn"
+      >
         &#5176;&#5176;
       </Button>
-      <Button className={classes.btn} onClick={switchPrevPage} disabled={isDisabledPrevBtn}>
+      <Button
+        className={classes.btn}
+        onClick={switchPrevPage}
+        disabled={isDisabledPrevBtn}
+        data-testid="prevPageBtn"
+      >
         &#5176;
       </Button>
-      <div className={classes.box}>
+      <div className={classes.box} data-testid="paginationPage">
         {page} / {data.total_pages}
       </div>
-      <Button className={classes.btn} onClick={switchNextPage} disabled={isDisabledNextBtn}>
+      <Button
+        className={classes.btn}
+        onClick={switchNextPage}
+        disabled={isDisabledNextBtn}
+        data-testid="nextPageBtn"
+      >
         &#5171;
       </Button>
-      <Button className={classes.btn} onClick={switchLastPage} disabled={isDisabledNextBtn}>
+      <Button
+        className={classes.btn}
+        onClick={switchLastPage}
+        disabled={isDisabledNextBtn}
+        data-testid="lastPageBtn"
+      >
         &#5171;&#5171;
       </Button>
     </div>

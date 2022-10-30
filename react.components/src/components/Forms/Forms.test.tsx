@@ -214,4 +214,39 @@ describe('test submit', () => {
       expect(screen.getByText('Post')).not.toBeDisabled();
     });
   });
+
+  it('not to be disabled button', async () => {
+    render(<App />);
+    const form = screen.getByTestId('formLink');
+    userEvent.click(form);
+    const nameInput = screen.getByTestId('inputName');
+    const surnameInput = screen.getByTestId('inputSurname');
+    const dateInput = screen.getByTestId('inputDate');
+    const select = screen.getByTestId('select');
+    const inputFile = screen.getByTestId('inputFile');
+    const checkbox = screen.getByTestId('inputCheckbox');
+    userEvent.type(nameInput, 'Test');
+    userEvent.type(surnameInput, 'Test');
+    userEvent.type(dateInput, '2020-01-01');
+    userEvent.selectOptions(select, 'Belarus');
+    userEvent.click(checkbox);
+    await waitFor(() => {
+      userEvent.click(screen.getByText('Post'));
+    });
+    await waitFor(() => {
+      userEvent.upload(inputFile, fakeFile);
+      Object.defineProperty(inputFile, 'value', {
+        value: [fakeFile],
+      });
+    });
+    await waitFor(() => {
+      expect(screen.getByText('Post')).not.toBeDisabled();
+    });
+    const main = screen.getByTestId('mainLink');
+    userEvent.click(main);
+    userEvent.click(form);
+    await waitFor(() => {
+      expect(screen.getByText('Post')).not.toBeDisabled();
+    });
+  });
 });
