@@ -39,7 +39,7 @@ export const Forms = (): JSX.Element => {
   const [isUploadedFile, setIsUploadedFile] = useState<boolean>(false);
   const [isValidateFile, setIsValidateFile] = useState<boolean>(true);
   const { file, dispatchFormFile, dispatchFormData } = useContext(FormContext);
-  const [isFirstChangeValue, setIsFirstChangeValue] = useState<boolean>(true);
+  const [isFirstCheckDisabledBtn, setIsFirstCheckDisabledBtn] = useState<boolean>(true);
 
   useEffect(() => {
     checkFile() && isSubmitted ? setFileValues(true) : setFileValues(false);
@@ -55,9 +55,9 @@ export const Forms = (): JSX.Element => {
     } else if (isSubmitted && isValid) {
       setIsDisabled(false);
     }
-    if (!Object.keys(errors).length && isSubmitted && isFirstChangeValue) {
+    if (!Object.keys(errors).length && isSubmitted && isFirstCheckDisabledBtn) {
       setIsDisabled(false);
-      setIsFirstChangeValue(false);
+      setIsFirstCheckDisabledBtn(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDirty, isSubmitted, isValid]);
