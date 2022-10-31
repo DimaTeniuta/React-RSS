@@ -39,19 +39,31 @@ export const Forms = (): JSX.Element => {
   const [isUploadedFile, setIsUploadedFile] = useState<boolean>(false);
   const [isValidateFile, setIsValidateFile] = useState<boolean>(true);
   const { file, dispatchFormFile, dispatchFormData } = useContext(FormContext);
+  const [isFirstChangeValue, setIsFirstChangeValue] = useState<boolean>(true);
+
+  useEffect(() => {
+    checkFile() && isSubmitted ? setFileValues(true) : setFileValues(false);
+    if (!Object.keys(errors).length && isSubmitted) {
+      setIsDisabled(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (isDirty && !isSubmitted) {
       setIsDisabled(false);
       setIsDone(false);
-    } else if (!Object.keys(errors).length && isSubmitted) {
-      setIsDisabled(false);
     } else if (isSubmitted && !isValid) {
       setIsDisabled(true);
     } else if (isSubmitted && isValid) {
       setIsDisabled(false);
     }
-  }, [errors, isDirty, isSubmitted, isValid]);
+    if (!Object.keys(errors).length && isSubmitted && isFirstChangeValue) {
+      setIsDisabled(false);
+      setIsFirstChangeValue(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isDirty, isSubmitted, isValid]);
 
   useEffect(() => {
     if (isSubmitted && checkFile()) setFileValues(true);
@@ -60,10 +72,11 @@ export const Forms = (): JSX.Element => {
 
   useEffect(() => {
     if (isSubmitSuccessful) {
-      reset();
       setIsUploadedFile(false);
+      reset();
     }
-  }, [isSubmitSuccessful, reset]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSubmitSuccessful]);
 
   const sendDataForCard = (data: FieldValues): void => {
     const dataCard = {
@@ -110,12 +123,12 @@ export const Forms = (): JSX.Element => {
 
   const onSubmit: SubmitHandler<FieldValues> = (data): void => {
     sendDataForCard(data);
-    setIsDisabled(true);
     setIsDone(true);
     setValue('genderMale', false);
     setValue('personalData', false);
     setFileInContext(initialFormFile);
     setIsValidateFile(true);
+    setIsDisabled(true);
   };
 
   return (

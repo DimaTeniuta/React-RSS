@@ -73,7 +73,6 @@ describe('FormCard', () => {
     await waitFor(() => {
       userEvent.click(screen.getByText('Post'));
     });
-    screen.debug();
     await waitFor(() => {
       expect(screen.getByTestId('formCard')).toBeInTheDocument();
     });

@@ -19,17 +19,15 @@ const Card: FC<PropsCard> = ({ data }): JSX.Element => {
   };
 
   return (
-    <>
-      <div className={classes.card} data-testid="test-card">
-        <img className={classes.images} src={data.urls?.small} alt="card-image" />
-        <p className={classes.title}>{data.description ?? 'Unknown'}</p>
-        <span className={classes.likes}>{data.likes}</span>
-        <div className={classes.icon}></div>
-        <Button onClick={onClick} data-testid="cardBtn">
-          More details
-        </Button>
-      </div>
-    </>
+    <div className={classes.card} data-testid="test-card">
+      <img className={classes.images} src={data.urls?.small} alt="card-image" />
+      <p className={classes.title}>{data.description ?? 'Unknown'}</p>
+      <span className={classes.likes}>{data.likes}</span>
+      <div className={classes.icon}></div>
+      <Button onClick={onClick} data-testid="cardBtn">
+        More details
+      </Button>
+    </div>
   );
 };
 
