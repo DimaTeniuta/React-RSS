@@ -45,16 +45,8 @@ const Search: FC<SearchProps> = ({ toggleLoader }): JSX.Element => {
   ): Promise<void> => {
     toggleLoader();
     const queryValue = value && typeof value === 'string' ? value : searchValue;
-    const orientation =
-      orientationValue ||
-      (sortValueRef?.current!.value === DefaultSelectValue.ORIENTATION
-        ? DefaultRequestValue.ORIENTATION
-        : sortValueRef?.current!.value);
-    const perPage =
-      perPageValue ||
-      (perPageRef?.current!.value === DefaultSelectValue.PER_PAGE
-        ? DefaultRequestValue.PER_PAGE
-        : perPageRef?.current!.value);
+    const orientation = orientationValue || sortValueRef?.current!.value;
+    const perPage = perPageValue || perPageRef?.current!.value;
     const page = pageValue || FIRST_PAGE;
     saveValues(queryValue, orientation, perPage, +page);
     const data = await fetchCards(queryValue, orientation, perPage, String(page));
@@ -103,6 +95,7 @@ const Search: FC<SearchProps> = ({ toggleLoader }): JSX.Element => {
 
   useEffect(() => {
     reloadApp();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

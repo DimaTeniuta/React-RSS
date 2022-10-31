@@ -2,6 +2,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from 'App';
 import MainPage from 'components/pages/MainPage/MainPage';
+import { fakeFile } from 'data/mockData';
 import React from 'react';
 
 describe('Card', () => {

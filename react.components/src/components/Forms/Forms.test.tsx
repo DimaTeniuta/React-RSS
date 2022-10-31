@@ -249,6 +249,7 @@ describe('test submit', () => {
     await waitFor(() => {
       userEvent.type(nameInput, 'Test1');
       expect(screen.getByText('Post')).toBeDisabled();
+      expect(screen.getByTestId('readyFile')).toBeInTheDocument();
     });
   });
 });

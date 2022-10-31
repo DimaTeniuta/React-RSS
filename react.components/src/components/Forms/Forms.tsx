@@ -44,10 +44,10 @@ export const Forms = (): JSX.Element => {
     if (isDirty && !isSubmitted) {
       setIsDisabled(false);
       setIsDone(false);
+    } else if (!Object.keys(errors).length && isSubmitted) {
+      setIsDisabled(false);
     } else if (isSubmitted && !isValid) {
-      if (Object.keys(errors).length) {
-        setIsDisabled(true);
-      }
+      setIsDisabled(true);
     } else if (isSubmitted && isValid) {
       setIsDisabled(false);
     }
@@ -55,14 +55,8 @@ export const Forms = (): JSX.Element => {
 
   useEffect(() => {
     if (isSubmitted && checkFile()) setFileValues(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDisabled]);
-
-  useEffect(() => {
-    checkFile() && isSubmitted ? setFileValues(true) : setFileValues(false);
-    if (!Object.keys(errors).length && isSubmitted) {
-      setIsDisabled(false);
-    }
-  }, []);
 
   useEffect(() => {
     if (isSubmitSuccessful) {
@@ -76,11 +70,11 @@ export const Forms = (): JSX.Element => {
       ...data,
       avatar: data.avatar[0],
     };
-    dispatchFormData!({ type: FormReducer.DATA, payload: dataCard as FormData });
+    dispatchFormData({ type: FormReducer.DATA, payload: dataCard as FormData });
   };
 
   const setFileInContext = (file: File): void => {
-    dispatchFormFile!({ type: FormReducer.FILE, payload: file });
+    dispatchFormFile({ type: FormReducer.FILE, payload: file });
   };
 
   const checkFile = (): boolean => {
