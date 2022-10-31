@@ -43,9 +43,6 @@ export const Forms = (): JSX.Element => {
 
   useEffect(() => {
     checkFile() && isSubmitted ? setFileValues(true) : setFileValues(false);
-    if (!Object.keys(errors).length && isSubmitted) {
-      setIsDisabled(false);
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
