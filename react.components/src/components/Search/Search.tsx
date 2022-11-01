@@ -16,7 +16,7 @@ const Search: FC<SearchProps> = (props): JSX.Element => {
   const [isSendHttpRequest, setIsSendHttpRequest] = useState<boolean>(false);
 
   const getNewCards = async (value?: string): Promise<void> => {
-    const queryValue = value && typeof value === 'string' ? value : searchValue;
+    const queryValue = value ?? searchValue;
     setIsSendHttpRequest((prev) => !prev);
     props.showLoader();
     const data = await fetchCards(queryValue);
@@ -48,6 +48,10 @@ const Search: FC<SearchProps> = (props): JSX.Element => {
     localStorageModule.setValue('inputValue', searchValue);
   }, [isSendHttpRequest]);
 
+  const onClick = (): void => {
+    getNewCards();
+  };
+
   return (
     <div className={classes.wrap} data-testid="search-test">
       <InputSearch
@@ -59,7 +63,7 @@ const Search: FC<SearchProps> = (props): JSX.Element => {
         onKeyDown={onEnterPress}
         clearInput={clearInput}
       />
-      <Button onClick={getNewCards} data-testid="test-search-btn">
+      <Button onClick={onClick} data-testid="test-search-btn">
         Search
       </Button>
     </div>
