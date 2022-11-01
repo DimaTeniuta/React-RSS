@@ -14,14 +14,7 @@ export const InputSwitch: FC<SwitchProps> = React.forwardRef((props, ref): JSX.E
       <div className={classes.title}>{props.title}</div>
       <Label label={props.label} className={classes.wrap} testid="switch">
         <div className={classes.switch}>
-          <input
-            {...props}
-            id={props.label}
-            type="checkbox"
-            {...props}
-            className={classes.input}
-            ref={ref}
-          />
+          <input id={props.label} type="checkbox" {...props} className={classes.input} ref={ref} />
           <span className={classes.slider}></span>
         </div>
       </Label>

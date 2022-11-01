@@ -51,9 +51,9 @@ export const Forms = (): JSX.Element => {
       setIsDisabled(false);
       setIsDone(false);
     } else if (isSubmitted && !isValid) {
-      setIsDisabled(true);
+      setIsDisabled(!isValid);
     } else if (isSubmitted && isValid) {
-      setIsDisabled(false);
+      setIsDisabled(!isValid);
     }
     if (!Object.keys(errors).length && isSubmitted && isFirstCheckDisabledBtn) {
       setIsDisabled(false);
@@ -210,7 +210,7 @@ export const Forms = (): JSX.Element => {
         {...register(RegisterName.AVATAR, {
           required: isValidateFile && ErrorsForm.FILE,
         })}
-        ready={isUploadedFile.toString()}
+        ready={isUploadedFile}
         error={errors?.avatar?.message as string}
       />
 

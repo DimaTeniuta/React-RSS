@@ -44,7 +44,7 @@ const Search: FC<SearchProps> = ({ toggleLoader }): JSX.Element => {
     pageValue?: string
   ): Promise<void> => {
     toggleLoader();
-    const queryValue = value && typeof value === 'string' ? value : searchValue;
+    const queryValue = value ?? searchValue;
     const orientation = orientationValue || sortValueRef?.current!.value;
     const perPage = perPageValue || perPageRef?.current!.value;
     const page = pageValue || FIRST_PAGE;
@@ -93,6 +93,10 @@ const Search: FC<SearchProps> = ({ toggleLoader }): JSX.Element => {
     }
   };
 
+  const onClick = (): void => {
+    getNewCards();
+  };
+
   useEffect(() => {
     reloadApp();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -127,7 +131,7 @@ const Search: FC<SearchProps> = ({ toggleLoader }): JSX.Element => {
         />
       </div>
 
-      <Button onClick={getNewCards} data-testid="test-search-btn">
+      <Button onClick={onClick} data-testid="test-search-btn">
         Search
       </Button>
     </div>
