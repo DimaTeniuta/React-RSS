@@ -45,8 +45,8 @@ const Search: FC<SearchProps> = (props): JSX.Element => {
   }, []);
 
   useEffect(() => {
-    localStorageModule.setValue('inputValue', searchValue);
-  }, [isSearch]);
+    return () => localStorageModule.setValue('inputValue', searchValue);
+  }, []);
 
   return (
     <div className={classes.wrap} data-testid="search-test">

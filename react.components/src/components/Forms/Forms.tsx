@@ -46,9 +46,9 @@ export const Forms: FC<PropsForms> = ({ addData }): JSX.Element => {
       setIsDisabled(false);
       setIsDone(false);
     } else if (isSubmitted && !isValid) {
-      setIsDisabled(true);
+      setIsDisabled(!isValid);
     } else if (isSubmitted && isValid) {
-      setIsDisabled(false);
+      setIsDisabled(!isValid);
     }
   }, [isDirty, isSubmitted, isValid]);
 
