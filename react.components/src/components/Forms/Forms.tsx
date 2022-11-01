@@ -165,7 +165,7 @@ export const Forms: FC<PropsForms> = ({ addData }): JSX.Element => {
         {...register(RegisterName.AVATAR, {
           required: ErrorsForm.FILE,
         })}
-        ready={isUploadedFile.toString()}
+        ready={isUploadedFile}
         error={errors?.avatar?.message}
       />
 
