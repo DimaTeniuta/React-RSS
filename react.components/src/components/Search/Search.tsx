@@ -13,11 +13,11 @@ interface SearchProps {
 
 const Search: FC<SearchProps> = (props): JSX.Element => {
   const [searchValue, setSearchValue] = useState<string>('');
-  const [isSearch, setIsSearch] = useState<boolean>(false);
+  const [isSendHttpRequest, setIsSendHttpRequest] = useState<boolean>(false);
 
   const getNewCards = async (value?: string): Promise<void> => {
     const queryValue = value && typeof value === 'string' ? value : searchValue;
-    setIsSearch((prev) => !prev);
+    setIsSendHttpRequest((prev) => !prev);
     props.showLoader();
     const data = await fetchCards(queryValue);
     props.setData(data);
@@ -46,7 +46,7 @@ const Search: FC<SearchProps> = (props): JSX.Element => {
 
   useEffect(() => {
     localStorageModule.setValue('inputValue', searchValue);
-  }, [isSearch]);
+  }, [isSendHttpRequest]);
 
   return (
     <div className={classes.wrap} data-testid="search-test">
