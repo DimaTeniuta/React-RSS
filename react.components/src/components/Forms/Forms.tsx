@@ -53,7 +53,7 @@ export const Forms: FC<PropsForms> = ({ addData }): JSX.Element => {
   }, [isDirty, isSubmitted, isValid]);
 
   useEffect(() => {
-    if (isSubmitSuccessful) reset();
+    isSubmitSuccessful && reset();
   }, [isSubmitSuccessful, reset]);
 
   const sendDataForCard = (data: FormInputs): void => {
