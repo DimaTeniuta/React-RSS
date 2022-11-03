@@ -217,7 +217,7 @@ export const Forms = (): JSX.Element => {
         {...register(RegisterName.AVATAR, {
           required: isValidateFile && ErrorsForm.FILE,
         })}
-        ready={isUploadedFile.toString()}
+        ready={isUploadedFile}
         error={errors?.avatar?.message as string}
       />
 
