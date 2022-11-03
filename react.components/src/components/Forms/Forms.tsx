@@ -10,9 +10,8 @@ import InputCheckbox from 'components/UI/InputCheckbox/InputCheckbox';
 import { ErrorsForm, FormData, RegisterName, TitleForm } from 'types/formTypes';
 import { FieldValues, SubmitHandler, useFormContext } from 'react-hook-form';
 import formValidator from 'utils/validator';
-import { defaultFileName } from 'context/FormProvider/FormProvider';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
-import { formSlice } from 'store/reducers/formSlice';
+import { defaultFileName, formSlice } from 'store/reducers/formSlice';
 
 const DEFAULT_VALUE_COUNTRY = 'Country';
 

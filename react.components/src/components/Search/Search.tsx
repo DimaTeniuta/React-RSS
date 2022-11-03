@@ -2,7 +2,6 @@ import { fetchCards } from 'API/httpRequest';
 import Button from 'components/UI/Button/Button';
 import InputSearch from 'components/UI/InputSearch/InputSearch';
 import Select from 'components/UI/Select/Select';
-import { FIRST_PAGE } from 'context/MainProvider/MainProvider';
 import React, { useEffect, useRef, useState } from 'react';
 import localStorageModule from 'utils/localStorage';
 import classes from './Search.module.scss';
@@ -14,7 +13,7 @@ import {
   LocalStorageRequestValue,
 } from 'types/searchTypes';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
-import { mainSlice } from 'store/reducers/mainSlice';
+import { FIRST_PAGE, mainSlice } from 'store/reducers/mainSlice';
 
 const Search = (): JSX.Element => {
   const [searchValue, setSearchValue] = useState<string>('');

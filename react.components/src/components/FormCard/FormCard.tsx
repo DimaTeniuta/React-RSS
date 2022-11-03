@@ -9,11 +9,7 @@ type StateFormCard = {
 const FormCard: FC<StateFormCard> = ({ data }): JSX.Element => {
   return (
     <div className={classes.card} data-testid="formCard">
-      <span
-        className={classes.image}
-        // style={{ backgroundImage: `url(${URL.createObjectURL(data.avatar)})` }}
-        style={{ backgroundImage: `url(${data.avatar})` }}
-      ></span>
+      <span className={classes.image} style={{ backgroundImage: `url(${data.avatar})` }}></span>
       <div className={classes.wrapText}>
         <span className={classes.text}>Name: </span> {data.name}
       </div>

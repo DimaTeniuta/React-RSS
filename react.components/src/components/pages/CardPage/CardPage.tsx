@@ -1,16 +1,18 @@
 import Button from 'components/UI/Button/Button';
-import { MainContext } from 'context/MainProvider/MainProvider';
-import React, { useContext } from 'react';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import React from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
-import { MainReducer } from 'types/mainProviderTypes';
+import { mainSlice } from 'store/reducers/mainSlice';
 import classes from './CardPage.module.scss';
 
 const CardPage = () => {
-  const { cardValue, dispatchCardValue } = useContext(MainContext);
+  const dispatch = useAppDispatch();
+  const { setCardValue } = mainSlice.actions;
+  const { cardValue } = useAppSelector((state) => state.mainReducer);
   const navigate = useNavigate();
 
   const onClick = (): void => {
-    dispatchCardValue({ type: MainReducer.CARD_PAGE, payload: {} });
+    dispatch(setCardValue({}));
     navigate(-1);
   };
 

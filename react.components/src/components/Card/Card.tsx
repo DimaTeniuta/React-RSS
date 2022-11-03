@@ -1,9 +1,9 @@
 import Button from 'components/UI/Button/Button';
-import { MainContext } from 'context/MainProvider/MainProvider';
-import React, { FC, useContext } from 'react';
+import { useAppDispatch } from 'hooks/redux';
+import React, { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { mainSlice } from 'store/reducers/mainSlice';
 import { ResultsData } from 'types/generalTypes';
-import { MainReducer } from 'types/mainProviderTypes';
 import classes from './Card.module.scss';
 
 type PropsCard = {
@@ -11,10 +11,11 @@ type PropsCard = {
 };
 
 const Card: FC<PropsCard> = ({ data }): JSX.Element => {
-  const { dispatchCardValue } = useContext(MainContext);
+  const dispatch = useAppDispatch();
+  const { setCardValue } = mainSlice.actions;
   const navigate = useNavigate();
   const onClick = (): void => {
-    dispatchCardValue({ type: MainReducer.CARD_PAGE, payload: data });
+    dispatch(setCardValue(data));
     navigate('/main/card');
   };
 

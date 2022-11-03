@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { fetchCards, WRONG_HTTP_ANSWER } from 'API/httpRequest';
-import { FIRST_PAGE } from 'context/MainProvider/MainProvider';
 import { HttpData, ResultsData } from 'types/generalTypes';
-import { PageValue } from 'types/mainProviderTypes';
 import { DefaultRequestValue } from 'types/searchTypes';
+
+export type PageValue = { searchValue: string; orientation: string; perPage: string; page: number };
 
 interface MainState {
   data: HttpData;
@@ -12,6 +12,8 @@ interface MainState {
   pageValue: PageValue;
   cardValue: ResultsData;
 }
+
+export const FIRST_PAGE = 1;
 
 const initialState: MainState = {
   data: WRONG_HTTP_ANSWER,

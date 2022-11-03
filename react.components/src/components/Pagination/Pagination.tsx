@@ -1,20 +1,18 @@
 import { fetchCards } from 'API/httpRequest';
 import Button from 'components/UI/Button/Button';
-import { FIRST_PAGE } from 'context/MainProvider/MainProvider';
 import React, { useEffect, useState } from 'react';
 import classes from './Pagination.module.scss';
-import { PageValue } from 'types/mainProviderTypes';
 import { LocalStorageRequestValue } from 'types/searchTypes';
 import localStorageModule from 'utils/localStorage';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
-import { mainSlice } from 'store/reducers/mainSlice';
+import { FIRST_PAGE, mainSlice } from 'store/reducers/mainSlice';
 
 const Pagination = (): JSX.Element => {
   const [isDisabledPrevBtn, setIsDisabledPrevBtn] = useState<boolean>(true);
   const [isDisabledNextBtn, setIsDisabledNextBtn] = useState<boolean>(true);
   const dispatch = useAppDispatch();
   const { data, pageValue } = useAppSelector((state) => state.mainReducer);
-  const { page, searchValue, orientation, perPage } = pageValue as PageValue;
+  const { page, searchValue, orientation, perPage } = pageValue;
   const { setPageValue } = mainSlice.actions;
 
   const saveValues = (searchValue: string, orientation: string, perPage: string, page: number) => {

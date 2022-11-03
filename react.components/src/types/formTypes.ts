@@ -5,7 +5,6 @@ export interface FormData {
   country: string;
   personalData: boolean;
   avatar: string;
-  // avatar: File;
   genderMale: boolean;
 }
 
