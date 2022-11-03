@@ -1,36 +1,30 @@
 import { fetchCards } from 'API/httpRequest';
 import Button from 'components/UI/Button/Button';
-import { FIRST_PAGE, MainContext } from 'context/MainProvider/MainProvider';
-import React, { FC, useContext, useEffect, useState } from 'react';
+import { FIRST_PAGE } from 'context/MainProvider/MainProvider';
+import React, { useEffect, useState } from 'react';
 import classes from './Pagination.module.scss';
-import { MainReducer, PageValue } from 'types/mainProviderTypes';
+import { PageValue } from 'types/mainProviderTypes';
 import { LocalStorageRequestValue } from 'types/searchTypes';
 import localStorageModule from 'utils/localStorage';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import { mainSlice } from 'store/reducers/mainSlice';
 
-interface PaginationProps {
-  toggleLoader: () => void;
-}
-
-const Pagination: FC<PaginationProps> = ({ toggleLoader }): JSX.Element => {
-  const { data, pageValue, dispatchData, dispatchPageValue } = useContext(MainContext);
+const Pagination = (): JSX.Element => {
   const [isDisabledPrevBtn, setIsDisabledPrevBtn] = useState<boolean>(true);
   const [isDisabledNextBtn, setIsDisabledNextBtn] = useState<boolean>(true);
+  const dispatch = useAppDispatch();
+  const { data, pageValue } = useAppSelector((state) => state.mainReducer);
   const { page, searchValue, orientation, perPage } = pageValue as PageValue;
+  const { setPageValue } = mainSlice.actions;
 
   const saveValues = (searchValue: string, orientation: string, perPage: string, page: number) => {
-    dispatchPageValue({
-      type: MainReducer.PAGE_VALUE,
-      payload: { searchValue, orientation, perPage, page },
-    });
+    dispatch(setPageValue({ searchValue, orientation, perPage, page }));
     localStorageModule.setValue(LocalStorageRequestValue.PAGE, page);
   };
 
   const getNewData = async (page: number) => {
-    toggleLoader();
-    const data = await fetchCards(searchValue, orientation, perPage, String(page));
-    dispatchData({ type: MainReducer.DATA, payload: data });
+    dispatch(fetchCards([searchValue, orientation, perPage, String(page)]));
     saveValues(searchValue, orientation, perPage, page);
-    toggleLoader();
   };
 
   const switchNextPage = (): void => {

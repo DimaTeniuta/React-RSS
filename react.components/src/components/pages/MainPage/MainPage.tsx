@@ -1,25 +1,20 @@
 import TextWindow from 'components/TextWindow/TextWindow';
 import Search from 'components/Search/Search';
-import React, { useContext, useState } from 'react';
+import React from 'react';
 import classes from './MainPage.module.scss';
 import Card from 'components/Card/Card';
 import Loader from 'components/Loader/Loader';
-import { MainContext } from 'context/MainProvider/MainProvider';
 import Pagination from 'components/Pagination/Pagination';
+import { useAppSelector } from 'hooks/redux';
 
 const MainPage = (): JSX.Element => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { data } = useContext(MainContext);
-
-  const toggleLoader = (): void => {
-    setIsLoading((value) => !value);
-  };
+  const { data, isLoading } = useAppSelector((state) => state.mainReducer);
 
   return (
     <div className={classes.container} data-testid="mainPage">
-      <Search toggleLoader={toggleLoader} />
+      <Search />
 
-      {data.results.length > 0 && <Pagination toggleLoader={toggleLoader} />}
+      {data.results.length > 0 && <Pagination />}
 
       <div className={classes.wrapCards}>
         {isLoading ? (

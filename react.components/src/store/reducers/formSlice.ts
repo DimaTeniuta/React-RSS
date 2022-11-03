@@ -26,4 +26,6 @@ export const formSlice = createSlice({
   },
 });
 
-export default formSlice.reducer;
+const formReducer = formSlice.reducer;
+
+export default formReducer;

@@ -1,3 +1,4 @@
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { HttpData } from 'types/generalTypes';
 
@@ -9,23 +10,21 @@ export const WRONG_HTTP_ANSWER = {
   results: [],
 };
 
-export async function fetchCards(
-  queryName: string,
-  orientation: string,
-  perPage: string,
-  page: string
-): Promise<HttpData> {
-  try {
-    if (!queryName) {
-      queryName = BASIC_QUERY;
+export const fetchCards = createAsyncThunk(
+  'main/fetchCards',
+  async function ([queryName, orientation, perPage, page]: string[], thunkAPI) {
+    try {
+      if (!queryName) {
+        queryName = BASIC_QUERY;
+      }
+      const response = await axios.get<HttpData>(
+        `${URL}query=${queryName}&orientation=${orientation}&per_page=${perPage}&page=${page}&client_id=4Oi2KyIqnx8TfVkYLWksaLxeQfM3EsDcsBjoumqJ9Pk`
+      );
+      const data: HttpData = response.data;
+      return data;
+    } catch (error) {
+      console.error(error);
+      return thunkAPI.rejectWithValue('Server error');
     }
-    const response = await axios.get<HttpData>(
-      `${URL}query=${queryName}&orientation=${orientation}&per_page=${perPage}&page=${page}&client_id=4Oi2KyIqnx8TfVkYLWksaLxeQfM3EsDcsBjoumqJ9Pk`
-    );
-    const data: HttpData = response.data;
-    return data;
-  } catch (error) {
-    console.error(error);
-    return WRONG_HTTP_ANSWER;
   }
-}
+);

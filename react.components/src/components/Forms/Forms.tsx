@@ -83,12 +83,10 @@ export const Forms = (): JSX.Element => {
       ...data,
       avatar: URL.createObjectURL(data.avatar[0]),
     };
-    // dispatchFormData({ type: FormReducer.DATA, payload: dataCard as FormData });
     dispatch(addData(dataCard as FormData));
   };
 
   const setFileInContext = (fileName: string): void => {
-    // dispatchFormFile({ type: FormReducer.FILE, payload: file });
     dispatch(setFile(fileName));
   };
 

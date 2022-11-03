@@ -2,9 +2,8 @@ import { fetchCards } from 'API/httpRequest';
 import Button from 'components/UI/Button/Button';
 import InputSearch from 'components/UI/InputSearch/InputSearch';
 import Select from 'components/UI/Select/Select';
-import { FIRST_PAGE, MainContext } from 'context/MainProvider/MainProvider';
-import React, { FC, useContext, useEffect, useRef, useState } from 'react';
-import { MainReducer } from 'types/mainProviderTypes';
+import { FIRST_PAGE } from 'context/MainProvider/MainProvider';
+import React, { useEffect, useRef, useState } from 'react';
 import localStorageModule from 'utils/localStorage';
 import classes from './Search.module.scss';
 import optionsSort from '../../data/optionsForSearchSorting.json';
@@ -14,27 +13,23 @@ import {
   DefaultSelectValue,
   LocalStorageRequestValue,
 } from 'types/searchTypes';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import { mainSlice } from 'store/reducers/mainSlice';
 
-interface SearchProps {
-  toggleLoader: () => void;
-}
-
-const Search: FC<SearchProps> = ({ toggleLoader }): JSX.Element => {
+const Search = (): JSX.Element => {
   const [searchValue, setSearchValue] = useState<string>('');
-  const { isFirstLoad, dispatchData, dispatchFirstLoad, dispatchPageValue } =
-    useContext(MainContext);
   const sortValueRef = useRef<HTMLSelectElement>(null);
   const perPageRef = useRef<HTMLSelectElement>(null);
+  const dispatch = useAppDispatch();
+  const { setFirstLoad, setPageValue } = mainSlice.actions;
+  const { isFirstLoad } = useAppSelector((state) => state.mainReducer);
 
   const saveValues = (searchValue: string, orientation: string, perPage: string, page: number) => {
     localStorageModule.setValue(LocalStorageRequestValue.INPUT, searchValue);
     localStorageModule.setValue(LocalStorageRequestValue.ORIENTATION, orientation);
     localStorageModule.setValue(LocalStorageRequestValue.PER_PAGE, perPage);
     localStorageModule.setValue(LocalStorageRequestValue.PAGE, page);
-    dispatchPageValue({
-      type: MainReducer.PAGE_VALUE,
-      payload: { searchValue, orientation, perPage, page },
-    });
+    dispatch(setPageValue({ searchValue, orientation, perPage, page }));
   };
 
   const getNewCards = async (
@@ -43,15 +38,12 @@ const Search: FC<SearchProps> = ({ toggleLoader }): JSX.Element => {
     perPageValue?: string,
     pageValue?: string
   ): Promise<void> => {
-    toggleLoader();
     const queryValue = value ?? searchValue;
     const orientation = orientationValue || sortValueRef?.current!.value;
     const perPage = perPageValue || perPageRef?.current!.value;
     const page = pageValue || FIRST_PAGE;
     saveValues(queryValue, orientation, perPage, +page);
-    const data = await fetchCards(queryValue, orientation, perPage, String(page));
-    dispatchData({ type: MainReducer.DATA, payload: data });
-    toggleLoader();
+    dispatch(fetchCards([queryValue, orientation, perPage, String(page)]));
   };
 
   const onEnterPress = (event: React.KeyboardEvent<HTMLInputElement>): void => {
@@ -85,7 +77,7 @@ const Search: FC<SearchProps> = ({ toggleLoader }): JSX.Element => {
     if (isFirstLoad) {
       setSearchValue(value);
       getNewCards(value, orientation, perPage, page);
-      dispatchFirstLoad({ type: MainReducer.FIRST_LOAD, payload: false });
+      dispatch(setFirstLoad(false));
     } else {
       setSearchValue(value);
       sortValueRef.current!.value = orientation;
