@@ -1,11 +1,11 @@
 import FormCard from 'components/FormCard/FormCard';
 import Forms from 'components/Forms/Forms';
-import { FormContext } from 'context/FormProvider/FormProvider';
-import React, { useContext } from 'react';
+import { useAppSelector } from 'hooks/redux';
+import React from 'react';
 import classes from './FormPage.module.scss';
 
 const FormPage = (): JSX.Element => {
-  const { data } = useContext(FormContext);
+  const { data } = useAppSelector((state) => state.formReducer);
 
   return (
     <div className={classes.container} data-testid="formPage">

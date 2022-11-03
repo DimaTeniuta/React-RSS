@@ -1,5 +1,5 @@
 import Input from 'components/UI/Input/Input';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classes from './Forms.module.scss';
 import SELECTOR_OPTIONS from '../../data/optionsForSelect.json';
 import Button from 'components/UI/Button/Button';
@@ -10,8 +10,9 @@ import InputCheckbox from 'components/UI/InputCheckbox/InputCheckbox';
 import { ErrorsForm, FormData, RegisterName, TitleForm } from 'types/formTypes';
 import { FieldValues, SubmitHandler, useFormContext } from 'react-hook-form';
 import formValidator from 'utils/validator';
-import { defaultFileName, FormContext, initialFormFile } from 'context/FormProvider/FormProvider';
-import { FormReducer } from 'types/formProviderTypes';
+import { defaultFileName } from 'context/FormProvider/FormProvider';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import { formSlice } from 'store/reducers/formSlice';
 
 const DEFAULT_VALUE_COUNTRY = 'Country';
 
@@ -38,8 +39,10 @@ export const Forms = (): JSX.Element => {
   const [isDone, setIsDone] = useState<boolean>(false);
   const [isUploadedFile, setIsUploadedFile] = useState<boolean>(false);
   const [isValidateFile, setIsValidateFile] = useState<boolean>(true);
-  const { file, dispatchFormFile, dispatchFormData } = useContext(FormContext);
   const [isFirstCheckDisabledBtn, setIsFirstCheckDisabledBtn] = useState<boolean>(true);
+  const { file } = useAppSelector((state) => state.formReducer);
+  const { addData, setFile } = formSlice.actions;
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     checkFile() && isSubmitted ? setFileValues(true) : setFileValues(false);
@@ -78,17 +81,19 @@ export const Forms = (): JSX.Element => {
   const sendDataForCard = (data: FieldValues): void => {
     const dataCard = {
       ...data,
-      avatar: data.avatar[0],
+      avatar: URL.createObjectURL(data.avatar[0]),
     };
-    dispatchFormData({ type: FormReducer.DATA, payload: dataCard as FormData });
+    // dispatchFormData({ type: FormReducer.DATA, payload: dataCard as FormData });
+    dispatch(addData(dataCard as FormData));
   };
 
-  const setFileInContext = (file: File): void => {
-    dispatchFormFile({ type: FormReducer.FILE, payload: file });
+  const setFileInContext = (fileName: string): void => {
+    // dispatchFormFile({ type: FormReducer.FILE, payload: file });
+    dispatch(setFile(fileName));
   };
 
   const checkFile = (): boolean => {
-    if (file.name.split('.')[0] === defaultFileName) return false;
+    if (file === defaultFileName) return false;
     return true;
   };
 
@@ -105,7 +110,9 @@ export const Forms = (): JSX.Element => {
     const target = e.target as HTMLInputElement;
     if (target.id === RegisterName.AVATAR) {
       setIsValidateFile(true);
-      target?.files![0] ? setFileInContext(target.files[0]) : setFileInContext(initialFormFile);
+      target?.files![0]
+        ? setFileInContext(target.files[0].name)
+        : setFileInContext(defaultFileName);
     }
 
     if (target.id === RegisterName.AVATAR && isSubmitted) {
@@ -123,7 +130,7 @@ export const Forms = (): JSX.Element => {
     setIsDone(true);
     setValue('genderMale', false);
     setValue('personalData', false);
-    setFileInContext(initialFormFile);
+    setFileInContext(defaultFileName);
     setIsValidateFile(true);
     setIsDisabled(true);
   };
@@ -210,7 +217,7 @@ export const Forms = (): JSX.Element => {
         {...register(RegisterName.AVATAR, {
           required: isValidateFile && ErrorsForm.FILE,
         })}
-        ready={isUploadedFile}
+        ready={isUploadedFile.toString()}
         error={errors?.avatar?.message as string}
       />
 

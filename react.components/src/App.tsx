@@ -1,14 +1,20 @@
 import AppRouter from 'components/AppRouter';
-import Provider from 'context/Provider';
+import { FormsProvider } from 'context/FormsProvider/FormsProvider';
 import React from 'react';
+import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import { setupStore } from 'store/store';
 
 function App(): JSX.Element {
+  const store = setupStore();
+
   return (
     <>
       <BrowserRouter>
-        <Provider>
-          <AppRouter />
+        <Provider store={store}>
+          <FormsProvider>
+            <AppRouter />
+          </FormsProvider>
         </Provider>
       </BrowserRouter>
     </>

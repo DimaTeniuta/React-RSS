@@ -3,8 +3,9 @@ export interface FormData {
   surname: string;
   birthday: string;
   country: string;
-  avatar: File;
   personalData: boolean;
+  avatar: string;
+  // avatar: File;
   genderMale: boolean;
 }
 
