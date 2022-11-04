@@ -81,6 +81,7 @@ describe('Forms validation', () => {
   });
 
   it('validation inputFile', () => {
+    global.URL.createObjectURL = jest.fn();
     render(<App />);
     const form = screen.getByTestId('formLink');
     userEvent.click(form);

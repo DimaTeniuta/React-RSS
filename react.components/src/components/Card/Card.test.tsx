@@ -1,13 +1,18 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from 'App';
-import MainPage from 'components/pages/MainPage/MainPage';
-import { fakeFile } from 'data/mockData';
 import React from 'react';
+import { Provider } from 'react-redux';
+import { setupStore } from 'store/store';
 
 describe('Card', () => {
   it('Card renders', async () => {
-    render(<App />);
+    const store = setupStore();
+    render(
+      <Provider store={store}>
+        <App />
+      </Provider>
+    );
     const main = screen.getByTestId('mainLink');
     userEvent.click(main);
 
@@ -22,11 +27,6 @@ describe('Card', () => {
     userEvent.click(main);
     const cards = await screen.findAllByTestId('test-card');
     expect(cards.length).toBe(10);
-  });
-
-  it('Cards snapshot', () => {
-    const cards = render(<MainPage />);
-    expect(cards).toMatchSnapshot();
   });
 
   it('render separate page', async () => {

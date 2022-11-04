@@ -22,9 +22,8 @@ export const fetchCards = createAsyncThunk(
       );
       const data: HttpData = response.data;
       return data;
-    } catch (error) {
-      console.error(error);
-      return thunkAPI.rejectWithValue('Server error');
+    } catch (err) {
+      return thunkAPI.rejectWithValue((err as Error).message);
     }
   }
 );

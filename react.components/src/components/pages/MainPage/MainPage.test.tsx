@@ -2,7 +2,6 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { localStorageMock } from 'data/mockData';
-import MainPage from './MainPage';
 import App from 'App';
 
 Object.defineProperty(window, 'localStorage', { value: localStorageMock });
