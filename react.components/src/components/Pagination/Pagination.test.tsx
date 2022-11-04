@@ -62,7 +62,9 @@ describe('Pagination', () => {
     const input = screen.getByPlaceholderText(/search/i);
     const testValue = 'ws';
     userEvent.type(input, testValue);
-    userEvent.click(screen.getByTestId('test-search-btn'));
+    await waitFor(() => {
+      userEvent.click(screen.getByTestId('test-search-btn'));
+    });
     await waitFor(() => {
       expect(screen.getByTestId('firstPageBtn')).toBeDisabled();
       expect(screen.getByTestId('prevPageBtn')).toBeDisabled();

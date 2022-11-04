@@ -46,24 +46,6 @@ describe('Forms validation', () => {
     });
   });
 
-  it('validation inputDate', () => {
-    render(<App />);
-    const form = screen.getByTestId('formLink');
-    userEvent.click(form);
-    const dateInput = screen.getByTestId('inputDate');
-    userEvent.type(dateInput, '20202-01-01');
-    const btn = screen.getByText('Post');
-    userEvent.click(btn);
-    waitFor(() => {
-      expect(screen.getByText('The date must be in the format: DD-MM-YYYY')).toBeInTheDocument();
-    });
-    userEvent.clear(dateInput);
-    userEvent.type(dateInput, '2020-01-01');
-    expect(
-      screen.queryByText('The date must be in the format: DD-MM-YYYY')
-    ).not.toBeInTheDocument();
-  });
-
   it('validation select', () => {
     render(<App />);
     const form = screen.getByTestId('formLink');
