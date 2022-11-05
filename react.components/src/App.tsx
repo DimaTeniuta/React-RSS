@@ -1,5 +1,5 @@
-import AppRouter from 'components/AppRouter';
-import { FormsProvider } from 'context/FormsProvider';
+import AppRouter from 'route/AppRouter';
+import { FormsProvider } from 'store/context/FormsProvider';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';

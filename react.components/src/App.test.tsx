@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import App from './App';
 import { MemoryRouter } from 'react-router-dom';
 import Header from 'components/Header/Header';
-import AppRouter from 'components/AppRouter';
+import AppRouter from 'route/AppRouter';
 
 describe('App', () => {
   it('router test', () => {

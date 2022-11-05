@@ -1,11 +1,11 @@
 import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import Layout from './Layout/Layout';
-import AboutPage from './pages/AboutPage/AboutPage';
-import CardPage from './pages/CardPage/CardPage';
-import ErrorPage from './pages/ErrorPage';
-import FormPage from './pages/FormPage/FormPage';
-import MainPage from './pages/MainPage/MainPage';
+import Layout from '../components/Layout/Layout';
+import ErrorPage from '../pages/ErrorPage';
+import MainPage from 'pages/MainPage/MainPage';
+import AboutPage from 'pages/AboutPage/AboutPage';
+import CardPage from 'pages/CardPage/CardPage';
+import FormPage from 'pages/FormPage/FormPage';
 
 const AppRouter = (): JSX.Element => {
   return (
