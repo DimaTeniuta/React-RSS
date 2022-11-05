@@ -90,7 +90,9 @@ export const Forms = (): JSX.Element => {
   };
 
   const checkFile = (): boolean => {
-    if (file === defaultFileName) return false;
+    if (file === defaultFileName) {
+      return false;
+    }
     return true;
   };
 

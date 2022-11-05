@@ -14,6 +14,7 @@ const Card: FC<PropsCard> = ({ data }): JSX.Element => {
   const dispatch = useAppDispatch();
   const { setCardValue } = mainSlice.actions;
   const navigate = useNavigate();
+
   const onClick = (): void => {
     dispatch(setCardValue(data));
     navigate('/main/card');
