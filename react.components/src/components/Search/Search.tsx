@@ -21,8 +21,7 @@ interface SearchProps {
 
 const Search: FC<SearchProps> = ({ toggleLoader }): JSX.Element => {
   const [searchValue, setSearchValue] = useState<string>('');
-  const { isFirstLoad, dispatchData, dispatchFirstLoad, dispatchPageValue } =
-    useContext(MainContext);
+  const { state, dispatchState } = useContext(MainContext);
   const sortValueRef = useRef<HTMLSelectElement>(null);
   const perPageRef = useRef<HTMLSelectElement>(null);
 
@@ -31,7 +30,7 @@ const Search: FC<SearchProps> = ({ toggleLoader }): JSX.Element => {
     localStorageModule.setValue(LocalStorageRequestValue.ORIENTATION, orientation);
     localStorageModule.setValue(LocalStorageRequestValue.PER_PAGE, perPage);
     localStorageModule.setValue(LocalStorageRequestValue.PAGE, page);
-    dispatchPageValue({
+    dispatchState({
       type: MainReducer.PAGE_VALUE,
       payload: { searchValue, orientation, perPage, page },
     });
@@ -50,7 +49,7 @@ const Search: FC<SearchProps> = ({ toggleLoader }): JSX.Element => {
     const page = pageValue || FIRST_PAGE;
     saveValues(queryValue, orientation, perPage, +page);
     const data = await fetchCards(queryValue, orientation, perPage, String(page));
-    dispatchData({ type: MainReducer.DATA, payload: data });
+    dispatchState({ type: MainReducer.DATA, payload: data });
     toggleLoader();
   };
 
@@ -82,10 +81,10 @@ const Search: FC<SearchProps> = ({ toggleLoader }): JSX.Element => {
       localStorageModule.getValue(LocalStorageRequestValue.PAGE) || DefaultRequestValue.PAGE;
     sortValueRef.current!.value = orientation;
     perPageRef.current!.value = perPage;
-    if (isFirstLoad) {
+    if (state.firstLoad) {
       setSearchValue(value);
       getNewCards(value, orientation, perPage, page);
-      dispatchFirstLoad({ type: MainReducer.FIRST_LOAD, payload: false });
+      dispatchState({ type: MainReducer.FIRST_LOAD, payload: false });
     } else {
       setSearchValue(value);
       sortValueRef.current!.value = orientation;

@@ -1,47 +1,23 @@
 import { HttpData, ResultsData } from 'types/generalTypes';
-import {
-  ActionCardValue,
-  ActionData,
-  ActionFirsLoad,
-  ActionPageValue,
-  MainReducer,
-  PageValue,
-  StateData,
-  StateFirstLoad,
-  StatePageValue,
-} from 'types/mainProviderTypes';
+import { ActionMain, MainReducer, PageValue } from 'types/mainProviderTypes';
 
-export const reducerData = (state: StateData, action: ActionData): HttpData => {
+export interface State {
+  data: HttpData;
+  firstLoad: boolean;
+  pageValue: PageValue;
+  cardValue: ResultsData;
+}
+
+export const reducer = (state: State, action: ActionMain): State => {
   switch (action.type) {
     case MainReducer.DATA:
-      return action.payload;
-    default:
-      throw new Error('wrong type');
-  }
-};
-
-export const reducerFirstLoad = (state: StateFirstLoad, action: ActionFirsLoad): boolean => {
-  switch (action.type) {
+      return { ...state, data: action.payload as HttpData };
     case MainReducer.FIRST_LOAD:
-      return action.payload;
-    default:
-      throw new Error('wrong type');
-  }
-};
-
-export const reducerPageValue = (state: StatePageValue, action: ActionPageValue): PageValue => {
-  switch (action.type) {
+      return { ...state, firstLoad: action.payload as boolean };
     case MainReducer.PAGE_VALUE:
-      return action.payload;
-    default:
-      throw new Error('wrong type');
-  }
-};
-
-export const reducerCardValue = (state: ResultsData, action: ActionCardValue): ResultsData => {
-  switch (action.type) {
+      return { ...state, pageValue: action.payload as PageValue };
     case MainReducer.CARD_PAGE:
-      return action.payload;
+      return { ...state, cardValue: action.payload as ResultsData };
     default:
       throw new Error('wrong type');
   }

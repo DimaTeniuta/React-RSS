@@ -11,10 +11,10 @@ type PropsCard = {
 };
 
 const Card: FC<PropsCard> = ({ data }): JSX.Element => {
-  const { dispatchCardValue } = useContext(MainContext);
+  const { dispatchState } = useContext(MainContext);
   const navigate = useNavigate();
   const onClick = (): void => {
-    dispatchCardValue({ type: MainReducer.CARD_PAGE, payload: data });
+    dispatchState({ type: MainReducer.CARD_PAGE, payload: data });
     navigate('/main/card');
   };
 

@@ -9,7 +9,8 @@ import Pagination from 'components/Pagination/Pagination';
 
 const MainPage = (): JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { data } = useContext(MainContext);
+  const { state } = useContext(MainContext);
+  const { data } = state;
 
   const toggleLoader = (): void => {
     setIsLoading((value) => !value);

@@ -3,7 +3,7 @@ import { HttpData } from 'types/generalTypes';
 
 const BASIC_QUERY = 'purple';
 const URL = 'https://api.unsplash.com/search/photos?';
-export const WRONG_HTTP_ANSWER = {
+export const WRONG_HTTP_ANSWER: HttpData = {
   total: 0,
   total_pages: 0,
   results: [],

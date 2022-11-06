@@ -7,14 +7,17 @@ export enum MainReducer {
   CARD_PAGE = 'cardPage',
 }
 
-export type ActionData = { type: MainReducer.DATA; payload: HttpData };
-export type StateData = HttpData;
-
-export type ActionFirsLoad = { type: MainReducer.FIRST_LOAD; payload: boolean };
-export type StateFirstLoad = boolean;
-
 export type PageValue = { searchValue: string; orientation: string; perPage: string; page: number };
-export type ActionPageValue = { type: MainReducer.PAGE_VALUE; payload: PageValue };
-export type StatePageValue = PageValue;
+export type Payload = HttpData | boolean | PageValue | ResultsData;
+export type ActionMain = { type: Partial<MainReducer>; payload: Partial<Payload> };
 
-export type ActionCardValue = { type: MainReducer.CARD_PAGE; payload: ResultsData };
+// export type ActionData = { type: MainReducer.DATA; payload: HttpData };
+// export type StateData = HttpData;
+
+// export type ActionFirsLoad = { type: MainReducer.FIRST_LOAD; payload: boolean };
+// export type StateFirstLoad = boolean;
+
+//export type ActionPageValue = { type: MainReducer.PAGE_VALUE; payload: PageValue };
+// export type StatePageValue = PageValue;
+
+// export type ActionCardValue = { type: MainReducer.CARD_PAGE; payload: ResultsData };

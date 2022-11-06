@@ -1,5 +1,5 @@
 import { MainReducer } from 'types/mainProviderTypes';
-import { reducerData, reducerFirstLoad, reducerPageValue, reducerCardValue } from './mainReducer';
+import { reducer } from './mainReducer';
 
 const mockHttpData = {
   total: 1,
@@ -45,39 +45,19 @@ const mockPageValue = {
   page: 1,
 };
 
+const mockObj = {
+  data: mockHttpData,
+  firstLoad: true,
+  pageValue: mockPageValue,
+  cardValue: mockHttpData.results[0],
+};
+
 describe('mainReducer', () => {
-  it('reducerData', async () => {
+  it('reducer', async () => {
     expect(() =>
-      reducerData(mockHttpData, {
-        type: MainReducer.CARD_PAGE as MainReducer.DATA,
+      reducer(mockObj, {
+        type: 'test' as MainReducer.DATA,
         payload: mockHttpData,
-      })
-    ).toThrow('wrong type');
-  });
-
-  it('reducerFirstLoad', async () => {
-    expect(() =>
-      reducerFirstLoad(true, {
-        type: MainReducer.CARD_PAGE as MainReducer.FIRST_LOAD,
-        payload: true,
-      })
-    ).toThrow('wrong type');
-  });
-
-  it('reducerPageValue', async () => {
-    expect(() =>
-      reducerPageValue(mockPageValue, {
-        type: MainReducer.CARD_PAGE as MainReducer.PAGE_VALUE,
-        payload: mockPageValue,
-      })
-    ).toThrow('wrong type');
-  });
-
-  it('reducerCardValue', async () => {
-    expect(() =>
-      reducerCardValue(mockHttpData.results[0], {
-        type: MainReducer.PAGE_VALUE as MainReducer.CARD_PAGE,
-        payload: mockHttpData.results[1],
       })
     ).toThrow('wrong type');
   });
