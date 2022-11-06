@@ -38,7 +38,7 @@ export const Forms = (): JSX.Element => {
   const [isDone, setIsDone] = useState<boolean>(false);
   const [isUploadedFile, setIsUploadedFile] = useState<boolean>(false);
   const [isValidateFile, setIsValidateFile] = useState<boolean>(true);
-  const { file, dispatchFormFile, dispatchFormData } = useContext(FormContext);
+  const { formState, dispatchForm } = useContext(FormContext);
   const [isFirstCheckDisabledBtn, setIsFirstCheckDisabledBtn] = useState<boolean>(true);
 
   useEffect(() => {
@@ -80,15 +80,15 @@ export const Forms = (): JSX.Element => {
       ...data,
       avatar: data.avatar[0],
     };
-    dispatchFormData({ type: FormReducer.DATA, payload: dataCard as FormData });
+    dispatchForm({ type: FormReducer.DATA, payload: dataCard as FormData });
   };
 
   const setFileInContext = (file: File): void => {
-    dispatchFormFile({ type: FormReducer.FILE, payload: file });
+    dispatchForm({ type: FormReducer.FILE, payload: file });
   };
 
   const checkFile = (): boolean => {
-    if (file.name.split('.')[0] === defaultFileName) return false;
+    if (formState.file.name.split('.')[0] === defaultFileName) return false;
     return true;
   };
 

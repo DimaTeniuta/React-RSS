@@ -5,14 +5,14 @@ import React, { useContext } from 'react';
 import classes from './FormPage.module.scss';
 
 const FormPage = (): JSX.Element => {
-  const { data } = useContext(FormContext);
+  const { formState } = useContext(FormContext);
 
   return (
     <div className={classes.container} data-testid="formPage">
       <Forms />
 
       <div className={classes.wrapCards}>
-        {data && data.map((el, i) => <FormCard key={i} data={el} />)}
+        {formState.data && formState.data.map((el, i) => <FormCard key={i} data={el} />)}
       </div>
     </div>
   );

@@ -5,5 +5,5 @@ export enum FormReducer {
   FILE = 'file',
 }
 
-export type ActionFormData = { type: FormReducer.DATA; payload: FormData };
-export type ActionFormFile = { type: FormReducer.FILE; payload: File };
+export type FormPayload = FormData | File;
+export type ActionForm = { type: Partial<FormReducer>; payload: Partial<FormPayload> };

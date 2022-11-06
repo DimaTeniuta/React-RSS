@@ -1,6 +1,6 @@
 import { fakeFile } from 'data/mockData';
 import { FormReducer } from 'types/formProviderTypes';
-import { reducerFormData, reducerFormFile } from './formReducer';
+import { reducerForm } from './formReducer';
 
 const mockFormData = {
   name: 'Test',
@@ -12,21 +12,17 @@ const mockFormData = {
   genderMale: true,
 };
 
+const mockObj = {
+  data: [mockFormData],
+  file: fakeFile,
+};
+
 describe('mainReducer', () => {
   it('reducerFormData', async () => {
     expect(() =>
-      reducerFormData([], {
-        type: FormReducer.FILE as FormReducer.DATA,
+      reducerForm(mockObj, {
+        type: 'test' as FormReducer.DATA,
         payload: mockFormData,
-      })
-    ).toThrow('wrong type');
-  });
-
-  it('reducerFormFile', async () => {
-    expect(() =>
-      reducerFormFile(fakeFile, {
-        type: FormReducer.DATA as FormReducer.FILE,
-        payload: fakeFile,
       })
     ).toThrow('wrong type');
   });
