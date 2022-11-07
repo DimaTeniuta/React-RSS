@@ -33,15 +33,12 @@ const Search: FC<SearchProps> = ({ toggleLoader }): JSX.Element => {
   const lastPerPageRef = useRef<string>(
     localStorageModule.getValue(LocalStorageRequestValue.PER_PAGE) || ''
   );
-  const lastPageRef = useRef<number>(
-    Number(localStorageModule.getValue(LocalStorageRequestValue.PAGE)) || 1
-  );
 
   const saveValues = (searchValue: string, orientation: string, perPage: string, page: number) => {
     lastRequestRef.current = searchValue;
     lastOrientationRef.current = orientation;
     lastPerPageRef.current = perPage;
-    lastPageRef.current = page;
+    localStorageModule.setValue(LocalStorageRequestValue.PAGE, page);
     dispatchState({
       type: MainReducer.PAGE_VALUE,
       payload: { searchValue, orientation, perPage, page },
@@ -114,7 +111,6 @@ const Search: FC<SearchProps> = ({ toggleLoader }): JSX.Element => {
       localStorageModule.setValue(LocalStorageRequestValue.INPUT, lastRequestRef.current);
       localStorageModule.setValue(LocalStorageRequestValue.ORIENTATION, lastOrientationRef.current);
       localStorageModule.setValue(LocalStorageRequestValue.PER_PAGE, lastPerPageRef.current);
-      localStorageModule.setValue(LocalStorageRequestValue.PAGE, lastPageRef.current);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
