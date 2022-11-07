@@ -22,11 +22,20 @@ const Search = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const { setFirstLoad, setPageValue } = mainSlice.actions;
   const { isFirstLoad } = useAppSelector((state) => state.mainReducer);
+  const lastRequestRef = useRef<string>(
+    localStorageModule.getValue(LocalStorageRequestValue.INPUT) || ''
+  );
+  const lastOrientationRef = useRef<string>(
+    localStorageModule.getValue(LocalStorageRequestValue.ORIENTATION) || ''
+  );
+  const lastPerPageRef = useRef<string>(
+    localStorageModule.getValue(LocalStorageRequestValue.PER_PAGE) || ''
+  );
 
   const saveValues = (searchValue: string, orientation: string, perPage: string, page: number) => {
-    localStorageModule.setValue(LocalStorageRequestValue.INPUT, searchValue);
-    localStorageModule.setValue(LocalStorageRequestValue.ORIENTATION, orientation);
-    localStorageModule.setValue(LocalStorageRequestValue.PER_PAGE, perPage);
+    lastRequestRef.current = searchValue;
+    lastOrientationRef.current = orientation;
+    lastPerPageRef.current = perPage;
     localStorageModule.setValue(LocalStorageRequestValue.PAGE, page);
     dispatch(setPageValue({ searchValue, orientation, perPage, page }));
   };
@@ -90,6 +99,11 @@ const Search = (): JSX.Element => {
 
   useEffect(() => {
     reloadApp();
+    return () => {
+      localStorageModule.setValue(LocalStorageRequestValue.INPUT, lastRequestRef.current);
+      localStorageModule.setValue(LocalStorageRequestValue.ORIENTATION, lastOrientationRef.current);
+      localStorageModule.setValue(LocalStorageRequestValue.PER_PAGE, lastPerPageRef.current);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
