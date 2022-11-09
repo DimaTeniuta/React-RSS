@@ -13,9 +13,9 @@ interface PaginationProps {
 
 const Pagination: FC<PaginationProps> = ({ toggleLoader }): JSX.Element => {
   const { state, dispatchState } = useContext(MainContext);
-  const { data, pageValue } = state;
   const [isDisabledPrevBtn, setIsDisabledPrevBtn] = useState<boolean>(true);
   const [isDisabledNextBtn, setIsDisabledNextBtn] = useState<boolean>(true);
+  const { data, pageValue } = state;
   const { page, searchValue, orientation, perPage } = pageValue as PageValue;
 
   const getNewData = async (page: number) => {
