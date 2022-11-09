@@ -34,6 +34,17 @@ const Search: FC<SearchProps> = ({ toggleLoader }): JSX.Element => {
     localStorageModule.getValue(LocalStorageRequestValue.PER_PAGE) || ''
   );
 
+  const saveValues = (searchValue: string, orientation: string, perPage: string, page: number) => {
+    lastRequestRef.current = searchValue;
+    lastOrientationRef.current = orientation;
+    lastPerPageRef.current = perPage;
+    localStorageModule.setValue(LocalStorageRequestValue.PAGE, page);
+    dispatchState({
+      type: MainReducer.PAGE_VALUE,
+      payload: { searchValue, orientation, perPage, page },
+    });
+  };
+
   const getNewCards = async (
     value?: string,
     orientationValue?: string,
@@ -45,20 +56,7 @@ const Search: FC<SearchProps> = ({ toggleLoader }): JSX.Element => {
     const orientation = orientationValue || sortValueRef?.current!.value;
     const perPage = perPageValue || perPageRef?.current!.value;
     const page = pageValue || FIRST_PAGE;
-    const pageValues = {
-      queryValue,
-      orientation,
-      perPage,
-      page: +page,
-    };
-    lastRequestRef.current = searchValue;
-    lastOrientationRef.current = orientation;
-    lastPerPageRef.current = perPage;
-    localStorageModule.setValue(LocalStorageRequestValue.PAGE, page);
-    dispatchState({
-      type: MainReducer.PAGE_VALUE,
-      payload: pageValues,
-    });
+    saveValues(queryValue, orientation, perPage, +page);
     const data = await fetchCards(queryValue, orientation, perPage, String(page));
     dispatchState({ type: MainReducer.DATA, payload: data });
     toggleLoader();
