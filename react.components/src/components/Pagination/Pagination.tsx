@@ -18,19 +18,15 @@ const Pagination: FC<PaginationProps> = ({ toggleLoader }): JSX.Element => {
   const [isDisabledNextBtn, setIsDisabledNextBtn] = useState<boolean>(true);
   const { page, searchValue, orientation, perPage } = pageValue as PageValue;
 
-  const saveValues = (searchValue: string, orientation: string, perPage: string, page: number) => {
+  const getNewData = async (page: number) => {
+    toggleLoader();
+    const data = await fetchCards(searchValue, orientation, perPage, String(page));
+    dispatchState({ type: MainReducer.DATA, payload: data });
     dispatchState({
       type: MainReducer.PAGE_VALUE,
       payload: { searchValue, orientation, perPage, page },
     });
     localStorageModule.setValue(LocalStorageRequestValue.PAGE, page);
-  };
-
-  const getNewData = async (page: number) => {
-    toggleLoader();
-    const data = await fetchCards(searchValue, orientation, perPage, String(page));
-    dispatchState({ type: MainReducer.DATA, payload: data });
-    saveValues(searchValue, orientation, perPage, page);
     toggleLoader();
   };
 
