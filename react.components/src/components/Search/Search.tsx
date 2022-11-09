@@ -77,7 +77,7 @@ const Search: FC<SearchProps> = ({ toggleLoader }): JSX.Element => {
     setSearchValue(DefaultRequestValue.INPUT);
   };
 
-  const reloadApp = (): void => {
+  const reloadMainPage = (): void => {
     const value =
       localStorageModule.getValue(LocalStorageRequestValue.INPUT) || DefaultRequestValue.INPUT;
     const orientation =
@@ -106,7 +106,7 @@ const Search: FC<SearchProps> = ({ toggleLoader }): JSX.Element => {
   };
 
   useEffect(() => {
-    reloadApp();
+    reloadMainPage();
     return () => {
       localStorageModule.setValue(LocalStorageRequestValue.INPUT, lastRequestRef.current);
       localStorageModule.setValue(LocalStorageRequestValue.ORIENTATION, lastOrientationRef.current);
