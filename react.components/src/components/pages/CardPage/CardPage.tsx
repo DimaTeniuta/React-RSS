@@ -6,9 +6,11 @@ import { MainReducer } from 'types/mainProviderTypes';
 import classes from './CardPage.module.scss';
 
 const CardPage = () => {
-  const { state, dispatchState } = useContext(MainContext);
+  const {
+    state: { cardValue },
+    dispatchState,
+  } = useContext(MainContext);
   const navigate = useNavigate();
-  const { cardValue } = state;
 
   const onClick = (): void => {
     dispatchState({ type: MainReducer.CARD_PAGE, payload: {} });

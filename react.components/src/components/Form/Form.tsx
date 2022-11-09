@@ -38,7 +38,10 @@ export const Forms = (): JSX.Element => {
   const [isDone, setIsDone] = useState<boolean>(false);
   const [isUploadedFile, setIsUploadedFile] = useState<boolean>(false);
   const [isValidateFile, setIsValidateFile] = useState<boolean>(true);
-  const { state, dispatchState } = useContext(MainContext);
+  const {
+    state: { file },
+    dispatchState,
+  } = useContext(MainContext);
   const [isFirstCheckDisabledBtn, setIsFirstCheckDisabledBtn] = useState<boolean>(true);
 
   useEffect(() => {
@@ -89,7 +92,7 @@ export const Forms = (): JSX.Element => {
   };
 
   const checkFile = (): boolean => {
-    if (state.file.name.split('.')[0] === defaultFileName) {
+    if (file.name.split('.')[0] === defaultFileName) {
       return false;
     }
     return true;

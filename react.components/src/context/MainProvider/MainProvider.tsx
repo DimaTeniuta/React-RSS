@@ -11,7 +11,7 @@ type MainProviderProps = {
   children: ReactNode;
 };
 
-interface ContextType {
+export interface ContextType {
   state: State;
   dispatchState: React.Dispatch<ActionMain>;
 }

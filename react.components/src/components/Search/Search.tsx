@@ -21,7 +21,10 @@ interface SearchProps {
 
 const Search: FC<SearchProps> = ({ toggleLoader }): JSX.Element => {
   const [searchValue, setSearchValue] = useState<string>('');
-  const { state, dispatchState } = useContext(MainContext);
+  const {
+    state: { firstLoad },
+    dispatchState,
+  } = useContext(MainContext);
   const sortValueRef = useRef<HTMLSelectElement>(null);
   const perPageRef = useRef<HTMLSelectElement>(null);
   const lastRequestRef = useRef<string>(
@@ -90,7 +93,7 @@ const Search: FC<SearchProps> = ({ toggleLoader }): JSX.Element => {
       localStorageModule.getValue(LocalStorageRequestValue.PAGE) || DefaultRequestValue.PAGE;
     sortValueRef.current!.value = orientation;
     perPageRef.current!.value = perPage;
-    if (state.firstLoad) {
+    if (firstLoad) {
       setSearchValue(value);
       getNewCards(value, orientation, perPage, page);
       dispatchState({ type: MainReducer.FIRST_LOAD, payload: false });
