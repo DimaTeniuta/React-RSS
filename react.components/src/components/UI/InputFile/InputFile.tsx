@@ -12,26 +12,28 @@ interface InputFileProps {
   accept?: string;
 }
 
-const InputFile: FC<InputFileProps> = React.forwardRef((props, ref): JSX.Element => {
-  return (
-    <>
-      <div className={classes.title}>{props.title}</div>
-      <Label label={props.label} className={classes.wrap}>
-        <input
-          {...props}
-          accept={props.accept}
-          id={props.label}
-          type="file"
-          className={classes.input}
-          ref={ref}
-          data-testid="inputFile"
-        />
-        <p className={classes.error}>{props.error}</p>
-        <div className={classes.btn}>Upload File</div>
-        {props.ready ? <span className={classes.img} data-testid="readyFile"></span> : <></>}
-      </Label>
-    </>
-  );
-});
+const InputFile: FC<InputFileProps> = React.forwardRef(
+  ({ ready, label, title, accept, error, ...restProps }, ref): JSX.Element => {
+    return (
+      <>
+        <div className={classes.title}>{title}</div>
+        <Label label={label} className={classes.wrap}>
+          <input
+            {...restProps}
+            accept={accept}
+            id={label}
+            type="file"
+            className={classes.input}
+            ref={ref}
+            data-testid="inputFile"
+          />
+          <p className={classes.error}>{error}</p>
+          <div className={classes.btn}>Upload File</div>
+          {ready && <span className={classes.img} data-testid="readyFile"></span>}
+        </Label>
+      </>
+    );
+  }
+);
 
 export default InputFile;

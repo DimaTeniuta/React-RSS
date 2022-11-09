@@ -1,3 +1,4 @@
+import { fakeFile } from 'data/mockData';
 import { MainReducer } from 'types/mainProviderTypes';
 import { reducer } from './mainReducer';
 
@@ -38,6 +39,18 @@ const mockHttpData = {
   ],
 };
 
+const mockFormData = [
+  {
+    name: 'Test',
+    surname: 'Test',
+    birthday: '2022-01-01',
+    country: 'Russia',
+    avatar: fakeFile,
+    personalData: true,
+    genderMale: true,
+  },
+];
+
 const mockPageValue = {
   searchValue: 'test',
   orientation: 'test',
@@ -46,6 +59,8 @@ const mockPageValue = {
 };
 
 const mockObj = {
+  formData: mockFormData,
+  file: fakeFile,
   data: mockHttpData,
   firstLoad: true,
   pageValue: mockPageValue,

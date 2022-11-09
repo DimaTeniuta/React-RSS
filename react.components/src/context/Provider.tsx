@@ -1,6 +1,5 @@
 import React, { FC, ReactNode } from 'react';
-import { FormProvider } from './FormProvider/FormProvider';
-import { FormsProvider } from './FormsProvider/FormsProvider';
+import { FormCardProvider } from './FormCardProvider/FormCardProvider';
 import MainProvider from './MainProvider/MainProvider';
 
 type ProviderProps = {
@@ -10,9 +9,7 @@ type ProviderProps = {
 const Provider: FC<ProviderProps> = ({ children }): JSX.Element => {
   return (
     <MainProvider>
-      <FormProvider>
-        <FormsProvider>{children}</FormsProvider>
-      </FormProvider>
+      <FormCardProvider>{children}</FormCardProvider>
     </MainProvider>
   );
 };

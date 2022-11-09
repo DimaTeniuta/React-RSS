@@ -1,18 +1,18 @@
 import FormCard from 'components/FormCard/FormCard';
-import Forms from 'components/Forms/Forms';
-import { FormContext } from 'context/FormProvider/FormProvider';
+import Forms from 'components/Form/Form';
+import { MainContext } from 'context/MainProvider/MainProvider';
 import React, { useContext } from 'react';
 import classes from './FormPage.module.scss';
 
 const FormPage = (): JSX.Element => {
-  const { formState } = useContext(FormContext);
+  const { state } = useContext(MainContext);
 
   return (
     <div className={classes.container} data-testid="formPage">
       <Forms />
 
       <div className={classes.wrapCards}>
-        {formState.data && formState.data.map((el, i) => <FormCard key={i} data={el} />)}
+        {state.formData && state.formData.map((el, i) => <FormCard key={i} data={el} />)}
       </div>
     </div>
   );

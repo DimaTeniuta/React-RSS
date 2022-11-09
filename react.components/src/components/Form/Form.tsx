@@ -1,17 +1,17 @@
 import Input from 'components/UI/Input/Input';
 import React, { useContext, useEffect, useState } from 'react';
-import classes from './Forms.module.scss';
+import classes from './Form.module.scss';
 import SELECTOR_OPTIONS from '../../data/optionsForSelect.json';
 import Button from 'components/UI/Button/Button';
 import Select from 'components/UI/Select/Select';
 import InputFile from 'components/UI/InputFile/InputFile';
 import { InputSwitch } from 'components/UI/InputSwitch/InputSwitch';
 import InputCheckbox from 'components/UI/InputCheckbox/InputCheckbox';
-import { ErrorsForm, FormData, RegisterName, TitleForm } from 'types/formTypes';
+import { ErrorsForm, RegisterName, TitleForm } from 'types/formTypes';
 import { FieldValues, SubmitHandler, useFormContext } from 'react-hook-form';
 import formValidator from 'utils/validator';
-import { defaultFileName, FormContext, initialFormFile } from 'context/FormProvider/FormProvider';
-import { FormReducer } from 'types/formProviderTypes';
+import { defaultFileName, initialFormFile, MainContext } from 'context/MainProvider/MainProvider';
+import { MainReducer } from 'types/mainProviderTypes';
 
 const DEFAULT_VALUE_COUNTRY = 'Country';
 
@@ -38,7 +38,7 @@ export const Forms = (): JSX.Element => {
   const [isDone, setIsDone] = useState<boolean>(false);
   const [isUploadedFile, setIsUploadedFile] = useState<boolean>(false);
   const [isValidateFile, setIsValidateFile] = useState<boolean>(true);
-  const { formState, dispatchForm } = useContext(FormContext);
+  const { state, dispatchState } = useContext(MainContext);
   const [isFirstCheckDisabledBtn, setIsFirstCheckDisabledBtn] = useState<boolean>(true);
 
   useEffect(() => {
@@ -80,15 +80,18 @@ export const Forms = (): JSX.Element => {
       ...data,
       avatar: data.avatar[0],
     };
-    dispatchForm({ type: FormReducer.DATA, payload: dataCard as FormData });
+
+    dispatchState({ type: MainReducer.FORM_DATA, payload: dataCard });
   };
 
   const setFileInContext = (file: File): void => {
-    dispatchForm({ type: FormReducer.FILE, payload: file });
+    dispatchState({ type: MainReducer.FILE, payload: file });
   };
 
   const checkFile = (): boolean => {
-    if (formState.file.name.split('.')[0] === defaultFileName) return false;
+    if (state.file.name.split('.')[0] === defaultFileName) {
+      return false;
+    }
     return true;
   };
 

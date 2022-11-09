@@ -1,5 +1,6 @@
 import { WRONG_HTTP_ANSWER } from 'API/httpRequest';
 import React, { createContext, FC, ReactNode, useReducer } from 'react';
+import { FormData } from 'types/formTypes';
 import { ActionMain } from 'types/mainProviderTypes';
 import { DefaultRequestValue } from 'types/searchTypes';
 import { reducer, State } from './mainReducer';
@@ -15,8 +16,15 @@ interface ContextType {
   dispatchState: React.Dispatch<ActionMain>;
 }
 
+export const defaultFileName = 'defaultName';
+
+export const initialFormFile = new File(['start'], `${defaultFileName}.png`, { type: 'image/png' });
+const initialFormData: FormData[] = [];
+
 const initialState: State = {
+  formData: initialFormData,
   data: WRONG_HTTP_ANSWER,
+  file: initialFormFile,
   firstLoad: true,
   pageValue: {
     searchValue: DefaultRequestValue.INPUT,
