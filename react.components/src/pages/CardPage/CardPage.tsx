@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import React from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { mainSlice } from 'store/reducers/mainSlice';
+import { RoutePath } from 'types/routeTypes';
 import classes from './CardPage.module.scss';
 
 const CardPage = () => {
@@ -50,7 +51,7 @@ const CardPage = () => {
           </div>
         </div>
       ) : (
-        <Navigate to="/main" replace={true} />
+        <Navigate to={RoutePath.MAIN} replace={true} />
       )}
     </>
   );

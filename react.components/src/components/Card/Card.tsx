@@ -4,6 +4,7 @@ import React, { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { mainSlice } from 'store/reducers/mainSlice';
 import { ResultsData } from 'types/generalTypes';
+import { RoutePath } from 'types/routeTypes';
 import classes from './Card.module.scss';
 
 type PropsCard = {
@@ -17,7 +18,7 @@ const Card: FC<PropsCard> = ({ data }): JSX.Element => {
 
   const onClick = (): void => {
     dispatch(setCardValue(data));
-    navigate('/main/card');
+    navigate(RoutePath.CARD_PAGE);
   };
 
   return (
