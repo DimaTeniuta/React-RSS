@@ -1,6 +1,6 @@
 import { fetchCards } from 'API/httpRequest';
 import Button from 'components/UI/Button/Button';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import classes from './Pagination.module.scss';
 import { LocalStorageRequestValue } from 'types/searchTypes';
 import localStorageModule from 'utils/localStorage';
@@ -16,11 +16,12 @@ const Pagination = (): JSX.Element => {
     pageValue: { page, searchValue, orientation, perPage },
   } = useAppSelector((state) => state.mainReducer);
   const { setPageValue } = mainSlice.actions;
+  const lastPageValueRef = useRef<number>(1);
 
   const getNewData = async (page: number) => {
     dispatch(fetchCards([searchValue, orientation, perPage, String(page)]));
     dispatch(setPageValue({ searchValue, orientation, perPage, page }));
-    localStorageModule.setValue(LocalStorageRequestValue.PAGE, page);
+    lastPageValueRef.current = page;
   };
 
   const switchNextPage = (): void => {
@@ -54,6 +55,12 @@ const Pagination = (): JSX.Element => {
       setIsDisabledNextBtn(false);
     }
   }, [data.total_pages, page]);
+
+  useEffect(() => {
+    return () => {
+      localStorageModule.setValue(LocalStorageRequestValue.PAGE, lastPageValueRef.current);
+    };
+  }, []);
 
   return (
     <div className={classes.wrap} data-testid="pagination">
