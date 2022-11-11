@@ -1,5 +1,5 @@
 import AppRouter from 'route/AppRouter';
-import { FormsProvider } from 'store/context/FormsProvider';
+import { FormCardProvider } from 'store/context/FormCardProvider';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
@@ -12,9 +12,9 @@ function App(): JSX.Element {
     <>
       <BrowserRouter>
         <Provider store={store}>
-          <FormsProvider>
+          <FormCardProvider>
             <AppRouter />
-          </FormsProvider>
+          </FormCardProvider>
         </Provider>
       </BrowserRouter>
     </>

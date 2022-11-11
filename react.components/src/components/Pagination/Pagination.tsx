@@ -11,18 +11,16 @@ const Pagination = (): JSX.Element => {
   const [isDisabledPrevBtn, setIsDisabledPrevBtn] = useState<boolean>(true);
   const [isDisabledNextBtn, setIsDisabledNextBtn] = useState<boolean>(true);
   const dispatch = useAppDispatch();
-  const { data, pageValue } = useAppSelector((state) => state.mainReducer);
-  const { page, searchValue, orientation, perPage } = pageValue;
+  const {
+    data,
+    pageValue: { page, searchValue, orientation, perPage },
+  } = useAppSelector((state) => state.mainReducer);
   const { setPageValue } = mainSlice.actions;
-
-  const saveValues = (searchValue: string, orientation: string, perPage: string, page: number) => {
-    dispatch(setPageValue({ searchValue, orientation, perPage, page }));
-    localStorageModule.setValue(LocalStorageRequestValue.PAGE, page);
-  };
 
   const getNewData = async (page: number) => {
     dispatch(fetchCards([searchValue, orientation, perPage, String(page)]));
-    saveValues(searchValue, orientation, perPage, page);
+    dispatch(setPageValue({ searchValue, orientation, perPage, page }));
+    localStorageModule.setValue(LocalStorageRequestValue.PAGE, page);
   };
 
   const switchNextPage = (): void => {

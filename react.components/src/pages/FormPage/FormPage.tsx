@@ -1,5 +1,5 @@
 import FormCard from 'components/FormCard/FormCard';
-import Forms from 'components/Forms/Forms';
+import Form from 'components/Form/Form';
 import { useAppSelector } from 'hooks/redux';
 import React from 'react';
 import classes from './FormPage.module.scss';
@@ -9,7 +9,7 @@ const FormPage = (): JSX.Element => {
 
   return (
     <div className={classes.container} data-testid="formPage">
-      <Forms />
+      <Form />
 
       <div className={classes.wrapCards}>
         {data && data.map((el, i) => <FormCard key={i} data={el} />)}

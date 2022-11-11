@@ -1,6 +1,6 @@
 import Input from 'components/UI/Input/Input';
 import React, { useEffect, useState } from 'react';
-import classes from './Forms.module.scss';
+import classes from './Form.module.scss';
 import SELECTOR_OPTIONS from '../../data/optionsForSelect.json';
 import Button from 'components/UI/Button/Button';
 import Select from 'components/UI/Select/Select';
@@ -25,7 +25,7 @@ export interface FormInputs {
   personalData: boolean;
 }
 
-export const Forms = (): JSX.Element => {
+export const Form = (): JSX.Element => {
   const {
     register,
     formState: { errors, isDirty, isSubmitted, isValid, isSubmitSuccessful },
@@ -65,7 +65,9 @@ export const Forms = (): JSX.Element => {
   }, [isDirty, isSubmitted, isValid]);
 
   useEffect(() => {
-    if (isSubmitted && checkFile()) setFileValues(true);
+    if (isSubmitted && checkFile()) {
+      setFileValues(true);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDisabled]);
 
@@ -249,4 +251,4 @@ export const Forms = (): JSX.Element => {
   );
 };
 
-export default Forms;
+export default Form;
