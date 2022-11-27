@@ -20,8 +20,7 @@ export const fetchCards = createAsyncThunk(
       const response = await axios.get<HttpData>(
         `${URL}query=${queryName}&orientation=${orientation}&per_page=${perPage}&page=${page}&client_id=4Oi2KyIqnx8TfVkYLWksaLxeQfM3EsDcsBjoumqJ9Pk`
       );
-      const data: HttpData = response.data;
-      return data;
+      return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue((err as Error).message);
     }

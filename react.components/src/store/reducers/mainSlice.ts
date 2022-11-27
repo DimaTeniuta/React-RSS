@@ -10,10 +10,10 @@ interface MainState {
   isLoading: boolean;
   isFirstLoad: boolean;
   pageValue: PageValue;
-  cardValue: ResultsData;
+  cardValue?: ResultsData;
 }
 
-export const FIRST_PAGE = 1;
+export const DEFAULT_VALUE_PAGE = 1;
 
 const initialState: MainState = {
   data: WRONG_HTTP_ANSWER,
@@ -23,9 +23,8 @@ const initialState: MainState = {
     searchValue: DefaultRequestValue.INPUT,
     orientation: DefaultRequestValue.ORIENTATION,
     perPage: DefaultRequestValue.PER_PAGE,
-    page: FIRST_PAGE,
+    page: DEFAULT_VALUE_PAGE,
   },
-  cardValue: {},
 };
 
 export const mainSlice = createSlice({

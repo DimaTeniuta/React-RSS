@@ -13,7 +13,7 @@ import {
   LocalStorageRequestValue,
 } from 'types/searchTypes';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
-import { FIRST_PAGE, mainSlice } from 'store/reducers/mainSlice';
+import { DEFAULT_VALUE_PAGE, mainSlice } from 'store/reducers/mainSlice';
 
 const Search = (): JSX.Element => {
   const [searchValue, setSearchValue] = useState<string>('');
@@ -49,7 +49,7 @@ const Search = (): JSX.Element => {
     const queryValue = value ?? searchValue;
     const orientation = orientationValue || sortValueRef?.current!.value;
     const perPage = perPageValue || perPageRef?.current!.value;
-    const page = pageValue || FIRST_PAGE;
+    const page = pageValue || DEFAULT_VALUE_PAGE;
     saveValues(queryValue, orientation, perPage, +page);
     dispatch(fetchCards([queryValue, orientation, perPage, String(page)]));
   };

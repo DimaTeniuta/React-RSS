@@ -87,7 +87,7 @@ export const Form = (): JSX.Element => {
     dispatch(addData(dataCard as FormData));
   };
 
-  const setFileInContext = (fileName: string): void => {
+  const setFileInState = (fileName: string): void => {
     dispatch(setFile(fileName));
   };
 
@@ -111,9 +111,7 @@ export const Form = (): JSX.Element => {
     const target = e.target as HTMLInputElement;
     if (target.id === RegisterName.AVATAR) {
       setIsValidateFile(true);
-      target?.files![0]
-        ? setFileInContext(target.files[0].name)
-        : setFileInContext(defaultFileName);
+      target?.files![0] ? setFileInState(target.files[0].name) : setFileInState(defaultFileName);
     }
 
     if (target.id === RegisterName.AVATAR && isSubmitted) {
@@ -131,7 +129,7 @@ export const Form = (): JSX.Element => {
     setIsDone(true);
     setValue('genderMale', false);
     setValue('personalData', false);
-    setFileInContext(defaultFileName);
+    setFileInState(defaultFileName);
     setIsValidateFile(true);
     setIsDisabled(true);
   };

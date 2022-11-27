@@ -5,7 +5,7 @@ import classes from './Pagination.module.scss';
 import { LocalStorageRequestValue } from 'types/searchTypes';
 import localStorageModule from 'utils/localStorage';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
-import { FIRST_PAGE, mainSlice } from 'store/reducers/mainSlice';
+import { DEFAULT_VALUE_PAGE, mainSlice } from 'store/reducers/mainSlice';
 
 const Pagination = (): JSX.Element => {
   const [isDisabledPrevBtn, setIsDisabledPrevBtn] = useState<boolean>(true);
@@ -33,7 +33,7 @@ const Pagination = (): JSX.Element => {
   };
 
   const switchFirstPage = (): void => {
-    getNewData(FIRST_PAGE);
+    getNewData(DEFAULT_VALUE_PAGE);
   };
 
   const switchLastPage = (): void => {
@@ -41,10 +41,10 @@ const Pagination = (): JSX.Element => {
   };
 
   useEffect(() => {
-    if (page === FIRST_PAGE && page === data.total_pages) {
+    if (page === DEFAULT_VALUE_PAGE && page === data.total_pages) {
       setIsDisabledPrevBtn(true);
       setIsDisabledNextBtn(true);
-    } else if (page === FIRST_PAGE) {
+    } else if (page === DEFAULT_VALUE_PAGE) {
       setIsDisabledPrevBtn(true);
       setIsDisabledNextBtn(false);
     } else if (page === data.total_pages) {
