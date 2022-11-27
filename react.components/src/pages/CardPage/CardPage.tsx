@@ -4,12 +4,13 @@ import React from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { mainSlice } from 'store/reducers/mainSlice';
 import { RoutePath } from 'types/routeTypes';
+import { getMainReducer } from 'utils/getReducer';
 import classes from './CardPage.module.scss';
 
 const CardPage = () => {
   const dispatch = useAppDispatch();
   const { setCardValue } = mainSlice.actions;
-  const { cardValue } = useAppSelector((state) => state.mainReducer);
+  const { cardValue } = useAppSelector(getMainReducer);
   const navigate = useNavigate();
 
   const onClick = (): void => {

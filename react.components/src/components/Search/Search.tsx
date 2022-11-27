@@ -14,6 +14,7 @@ import {
 } from 'types/searchTypes';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { DEFAULT_VALUE_PAGE, mainSlice } from 'store/reducers/mainSlice';
+import { getMainReducer } from 'utils/getReducer';
 
 const Search = (): JSX.Element => {
   const [searchValue, setSearchValue] = useState<string>('');
@@ -21,7 +22,7 @@ const Search = (): JSX.Element => {
   const perPageRef = useRef<HTMLSelectElement>(null);
   const dispatch = useAppDispatch();
   const { setFirstLoad, setPageValue } = mainSlice.actions;
-  const { isFirstLoad } = useAppSelector((state) => state.mainReducer);
+  const { isFirstLoad } = useAppSelector(getMainReducer);
   const lastRequestRef = useRef<string>(
     localStorageModule.getValue(LocalStorageRequestValue.INPUT) || ''
   );

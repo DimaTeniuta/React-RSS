@@ -3,9 +3,10 @@ import Form from 'components/Form/Form';
 import { useAppSelector } from 'hooks/redux';
 import React from 'react';
 import classes from './FormPage.module.scss';
+import { getFormReducer } from 'utils/getReducer';
 
 const FormPage = (): JSX.Element => {
-  const { data } = useAppSelector((state) => state.formReducer);
+  const { data } = useAppSelector(getFormReducer);
 
   return (
     <div className={classes.container} data-testid="formPage">

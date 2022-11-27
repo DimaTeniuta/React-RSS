@@ -12,6 +12,7 @@ import { FieldValues, SubmitHandler, useFormContext } from 'react-hook-form';
 import formValidator from 'utils/validator';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { defaultFileName, formSlice } from 'store/reducers/formSlice';
+import { getFormReducer } from 'utils/getReducer';
 
 const DEFAULT_VALUE_COUNTRY = 'Country';
 
@@ -39,7 +40,7 @@ export const Form = (): JSX.Element => {
   const [isUploadedFile, setIsUploadedFile] = useState<boolean>(false);
   const [isValidateFile, setIsValidateFile] = useState<boolean>(true);
   const [isFirstCheckDisabledBtn, setIsFirstCheckDisabledBtn] = useState<boolean>(true);
-  const { file } = useAppSelector((state) => state.formReducer);
+  const { file } = useAppSelector(getFormReducer);
   const { addData, setFile } = formSlice.actions;
   const dispatch = useAppDispatch();
 

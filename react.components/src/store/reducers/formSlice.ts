@@ -1,7 +1,7 @@
 import { FormData } from 'types/formTypes';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface FormState {
+export interface FormState {
   data: FormData[];
   file: string;
 }

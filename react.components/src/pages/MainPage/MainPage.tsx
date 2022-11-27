@@ -6,9 +6,10 @@ import Card from 'components/Card/Card';
 import Loader from 'components/Loader/Loader';
 import Pagination from 'components/Pagination/Pagination';
 import { useAppSelector } from 'hooks/redux';
+import { getMainReducer } from 'utils/getReducer';
 
 const MainPage = (): JSX.Element => {
-  const { data, isLoading } = useAppSelector((state) => state.mainReducer);
+  const { data, isLoading } = useAppSelector(getMainReducer);
 
   return (
     <div className={classes.container} data-testid="mainPage">

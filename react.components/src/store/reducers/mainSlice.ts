@@ -5,7 +5,7 @@ import { DefaultRequestValue } from 'types/searchTypes';
 
 export type PageValue = { searchValue: string; orientation: string; perPage: string; page: number };
 
-interface MainState {
+export interface MainState {
   data: HttpData;
   isLoading: boolean;
   isFirstLoad: boolean;

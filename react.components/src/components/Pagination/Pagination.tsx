@@ -6,6 +6,7 @@ import { LocalStorageRequestValue } from 'types/searchTypes';
 import localStorageModule from 'utils/localStorage';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { DEFAULT_VALUE_PAGE, mainSlice } from 'store/reducers/mainSlice';
+import { getMainReducer } from 'utils/getReducer';
 
 const Pagination = (): JSX.Element => {
   const [isDisabledPrevBtn, setIsDisabledPrevBtn] = useState<boolean>(true);
@@ -14,7 +15,7 @@ const Pagination = (): JSX.Element => {
   const {
     data,
     pageValue: { page, searchValue, orientation, perPage },
-  } = useAppSelector((state) => state.mainReducer);
+  } = useAppSelector(getMainReducer);
   const { setPageValue } = mainSlice.actions;
   const lastPageValueRef = useRef<number>(1);
 
